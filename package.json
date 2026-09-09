@@ -1,0 +1,39 @@
+{
+  "name": "umiya-buildcon",
+  "version": "1.0.0",
+  "description": "Official Website and Serverless Backend for Umiya Buildcon",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test:email": "node test-email.js",
+    "test:sheets": "node test-google-sheets.js"
+  },
+  "keywords": [
+    "umiya-buildcon",
+    "express",
+    "vercel",
+    "serverless",
+    "google-sheets",
+    "nodemailer"
+  ],
+  "author": "Umiya Buildcon",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "nodemailer": "^6.10.0",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
