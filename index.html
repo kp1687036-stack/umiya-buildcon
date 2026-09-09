@@ -53,15 +53,6 @@
       50% { transform: scale(1.03); box-shadow: 0 0 25px 8px rgba(234, 138, 38, 0.5); border-color: #ea8a26; }
       100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 138, 38, 0); }
     }
-
-    /* Custom scrollbar for chatbot */
-    #chatMessages::-webkit-scrollbar {
-      width: 4px;
-    }
-    #chatMessages::-webkit-scrollbar-thumb {
-      background-color: #cbd5e1;
-      border-radius: 4px;
-    }
   </style>
 </head>
 <body class="bg-brand-orangemist text-slate-800 relative" oncontextmenu="return false;">
@@ -113,7 +104,7 @@
         <a href="#contact" class="hover:text-brand-orange transition">Contact</a>
       </div>
 
-      <button onclick="openProjectsModal()" class="bg-brand-orange hover:bg-brand-orangehover text-white px-4 py-2 rounded-lg font-medium text-sm shadow transition flex items-center gap-2">
+      <button onclick="openProjectsModal()" class="bg-brand-orange hover:bg-brand-orangehover text-white px-4 py-2 rounded-lg font-medium text-sm shadow transition flex items-center gap-2 cursor-pointer active:scale-95">
         <i class="fa-solid fa-folder-open text-xs"></i>
         <span>Explore Projects</span>
       </button>
@@ -140,7 +131,7 @@
         Premier government contractor executing mission-critical works for Military Engineer Services (MES), Air Force, Navy, and State Civil Infrastructure.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <button onclick="openProjectsModal()" class="bg-brand-orange hover:bg-brand-orangehover text-white font-semibold px-7 py-3 rounded-lg shadow-lg hover:shadow-orange-500/20 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+        <button onclick="openProjectsModal()" class="bg-brand-orange hover:bg-brand-orangehover text-white font-semibold px-7 py-3 rounded-lg shadow-lg hover:shadow-orange-500/20 transition transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
           <i class="fa-solid fa-helmet-safety"></i>
           <span>Our Projects</span>
         </button>
@@ -422,121 +413,6 @@
     </div>
   </footer>
 
-  <!-- ========================================================================= -->
-  <!-- ============ UMIYA BUILDCON UPGRADED AI CHATBOT WIDGET ================== -->
-  <!-- ========================================================================= -->
-  
-  <!-- Floating Sticky Chat Button (Bottom-Right) -->
-  <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-    <button 
-      id="chatbotToggleBtn" 
-      onclick="toggleChatbot()" 
-      class="relative bg-brand-orange hover:bg-brand-orangehover text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 group cursor-pointer border-2 border-white"
-      title="Chat with Umiya AI Assistant"
-    >
-      <span class="absolute -top-1 -right-1 flex h-4 w-4">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white"></span>
-      </span>
-      
-      <!-- Icons Toggle (Chat vs Close) -->
-      <i id="chatOpenIcon" class="fa-solid fa-robot text-2xl transition-transform duration-300 group-hover:rotate-12"></i>
-      <i id="chatCloseIcon" class="fa-solid fa-xmark text-2xl hidden transition-transform duration-300"></i>
-    </button>
-  </div>
-
-  <!-- Chatbot Window Container -->
-  <div 
-    id="chatWindow" 
-    class="fixed bottom-24 right-4 sm:right-6 z-50 w-[92vw] sm:w-[380px] h-[520px] max-h-[82vh] bg-white rounded-2xl shadow-2xl border-2 border-brand-orange/40 flex flex-col overflow-hidden hidden transition-all duration-300 transform origin-bottom-right"
-  >
-    <!-- Chat Header -->
-    <div class="bg-gradient-to-r from-brand-deepnavy via-brand-darkblue to-brand-blue text-white px-4 py-3 flex items-center justify-between border-b-2 border-brand-orange shadow">
-      <div class="flex items-center gap-2.5">
-        <div class="relative">
-          <div class="w-9 h-9 rounded-full bg-brand-orange text-white flex items-center justify-center text-sm shadow">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-brand-deepnavy"></span>
-        </div>
-        <div>
-          <h4 class="font-bold text-sm tracking-wide leading-tight">Umiya AI Assistant</h4>
-          <span class="text-[10px] text-emerald-400 flex items-center gap-1 font-medium">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online • Gujarati & English
-          </span>
-        </div>
-      </div>
-      <div class="flex items-center gap-1">
-        <button onclick="openWhatsAppChat()" title="WhatsApp Jaymin Patel" class="text-emerald-400 hover:text-emerald-300 text-base p-1 mr-1 transition cursor-pointer">
-          <i class="fa-brands fa-whatsapp text-lg"></i>
-        </button>
-        <button onclick="toggleChatbot()" class="text-slate-300 hover:text-white text-lg font-bold p-1 cursor-pointer">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Quick Prompt Chips -->
-    <div class="bg-slate-100 px-3 py-2 border-b border-slate-200 flex gap-1.5 overflow-x-auto text-[11px] whitespace-nowrap scrollbar-none">
-      <button onclick="sendQuickPrompt('Who is Jaymin Patel?')" class="bg-white hover:bg-brand-orangemist text-brand-blue border border-brand-orange/30 px-2.5 py-1 rounded-full font-medium transition cursor-pointer">
-        👤 Jaymin Patel
-      </button>
-      <button onclick="sendQuickPrompt('What Defense projects do you handle?')" class="bg-white hover:bg-brand-orangemist text-brand-blue border border-brand-orange/30 px-2.5 py-1 rounded-full font-medium transition cursor-pointer">
-        🛡️ MES & Defense
-      </button>
-      <button onclick="sendQuickPrompt('Contact details and phone number?')" class="bg-white hover:bg-brand-orangemist text-brand-blue border border-brand-orange/30 px-2.5 py-1 rounded-full font-medium transition cursor-pointer">
-        📞 Contact Office
-      </button>
-      <button onclick="openWhatsAppChat()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 px-2.5 py-1 rounded-full font-semibold transition cursor-pointer flex items-center gap-1">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp
-      </button>
-    </div>
-
-    <!-- Chat Messages Scroll Area -->
-    <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs sm:text-sm">
-      <!-- Welcome Message from Bot -->
-      <div class="flex items-start gap-2">
-        <div class="w-7 h-7 rounded-full bg-brand-orange text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
-          <i class="fa-solid fa-robot"></i>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm p-3 shadow-sm text-slate-700 leading-relaxed max-w-[85%]">
-          નમસ્તે! 👋 I am the official <strong>Umiya Buildcon AI Assistant</strong>. You can chat with me in English or ગુજરાતી. Ask me about our <strong>Defense & MES projects</strong>, our <strong>Managing Director Jaymin Patel</strong>, or connect directly on WhatsApp.
-        </div>
-      </div>
-    </div>
-
-    <!-- Typing Indicator (Hidden by default) -->
-    <div id="typingIndicator" class="hidden px-4 py-1.5 bg-slate-50 flex items-center gap-2 text-xs text-slate-500">
-      <div class="w-6 h-6 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center text-[10px]">
-        <i class="fa-solid fa-robot"></i>
-      </div>
-      <div class="flex gap-1">
-        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
-        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-      </div>
-      <span class="text-[11px]">Umiya AI is thinking...</span>
-    </div>
-
-    <!-- Chat Input Area -->
-    <form id="chatForm" onsubmit="handleChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2">
-      <input 
-        type="text" 
-        id="chatInput" 
-        placeholder="Type in English or ગુજરાતી..." 
-        autocomplete="off"
-        class="flex-1 bg-slate-100 border border-slate-200 rounded-xl px-3 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-brand-orange focus:bg-white text-slate-800"
-      />
-      <button 
-        type="submit" 
-        class="bg-brand-orange hover:bg-brand-orangehover text-white w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shadow transition flex-shrink-0 cursor-pointer"
-        title="Send"
-      >
-        <i class="fa-solid fa-arrow-up text-sm"></i>
-      </button>
-    </form>
-  </div>
-
   <!-- MD Profile Modal -->
   <div id="mdProfileModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 transition-all duration-300">
     <div class="bg-white w-full max-w-2xl max-h-[92vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-brand-orange">
@@ -800,12 +676,10 @@
       </div>
 
       <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex justify-between items-center">
-        <span class="text-xs text-slate-500">Direct Office Contact: +91 87359 93873</span>
         <button onclick="closeProjectsModal()" class="bg-brand-blue hover:bg-brand-darkblue text-white text-xs sm:text-sm font-semibold px-5 py-2 rounded-lg transition cursor-pointer">
           Close Window
         </button>
       </div>
-
     </div>
   </div>
 
@@ -857,8 +731,6 @@
     }
 
     // Backend API Endpoint Configuration
-    // Automatically uses http://localhost:5000/api/inquiry when testing locally (via Live Server or file://),
-    // or your deployed cloud backend URL when hosted on the web.
     const isLocal = !window.location.hostname || 
                     window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1' || 
@@ -866,8 +738,7 @@
 
     const BACKEND_API_URL = isLocal
       ? 'http://localhost:5000/api/inquiry'
-      : '/api/inquiry'; // Automatically routes to Vercel Serverless Function under same domain
-
+      : '/api/inquiry';
 
     // 3. Form Submission with Node.js Backend API & Animation
     async function triggerMessageFlight(e) {
@@ -1065,201 +936,22 @@
       });
     }
 
-    // =========================================================================
-    // ================= UMIYA AI CHATBOT LOGIC (PURE FRONTEND) =================
-    // =========================================================================
-    const chatWindow = document.getElementById('chatWindow');
-    const chatOpenIcon = document.getElementById('chatOpenIcon');
-    const chatCloseIcon = document.getElementById('chatCloseIcon');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const typingIndicator = document.getElementById('typingIndicator');
-
-    function toggleChatbot() {
-      const isHidden = chatWindow.classList.contains('hidden');
-      if (isHidden) {
-        chatWindow.classList.remove('hidden');
-        chatOpenIcon.classList.add('hidden');
-        chatCloseIcon.classList.remove('hidden');
-        setTimeout(() => chatInput.focus(), 150);
-      } else {
-        chatWindow.classList.add('hidden');
-        chatOpenIcon.classList.remove('hidden');
-        chatCloseIcon.classList.add('hidden');
-      }
-    }
-
-    function sendQuickPrompt(text) {
-      chatInput.value = text;
-      handleChatSubmit(new Event('submit'));
-    }
-
-    function openWhatsAppChat(customMsg = '') {
-      const phone = "918735993873";
-      const text = encodeURIComponent(customMsg || "Hello Jaymin Patel, I have an official inquiry regarding Umiya Buildcon civil/defense projects.");
-      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
-    }
-
-    function handleChatSubmit(e) {
-      e.preventDefault();
-      const userText = chatInput.value.trim();
-      if (!userText) return;
-
-      appendMessage('user', userText);
-      chatInput.value = '';
-
-      typingIndicator.classList.remove('hidden');
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      setTimeout(() => {
-        typingIndicator.classList.add('hidden');
-        const botReply = generateAiResponse(userText);
-        appendMessage('bot', botReply);
-      }, 650);
-    }
-
-    function appendMessage(sender, text) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2';
-
-      if (sender === 'user') {
-        msgDiv.innerHTML = `
-          <div class="bg-brand-blue text-white rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[85%] leading-relaxed shadow-sm">
-            ${escapeHtml(text)}
-          </div>
-        `;
-      } else {
-        msgDiv.innerHTML = `
-          <div class="w-7 h-7 rounded-full bg-brand-orange text-white flex items-center justify-center text-xs flex-shrink-0 mt-0.5 shadow-sm">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm p-3 shadow-sm text-slate-700 leading-relaxed max-w-[85%]">
-            ${text}
-          </div>
-        `;
-      }
-
-      chatMessages.appendChild(msgDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function escapeHtml(string) {
-      return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    function generateAiResponse(query) {
-      const q = query.toLowerCase();
-
-      if (q.includes('jaymin') || q.includes('director') || q.includes('owner') || q.includes('founder') || q.includes('માલિક') || q.includes('ડિરેક્ટર') || q.includes('કોણ')) {
-        return `<strong>Jaymin Patel</strong> is the Managing Director and founder of <strong>Umiya Buildcon</strong>.
-        <br>• <strong>Qualification:</strong> B.E. Civil Engineering
-        <br>• <strong>Expertise:</strong> 10+ Years in Defense (MES) & State Public Works.
-        <br><button onclick="openMdProfileModal()" class="text-brand-orange font-bold underline mt-1.5 block">View Managing Director Profile</button>`;
-      }
-
-      if (q.includes('whatsapp') || q.includes('વોટ્સએપ') || q.includes('chat') || q.includes('વાતચીત')) {
-        return `You can chat directly with <strong>Jaymin Patel</strong> on WhatsApp:
-        <br><button onclick="openWhatsAppChat()" class="mt-2 inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-3 py-1.5 rounded-lg text-xs shadow transition">
-          <i class="fa-brands fa-whatsapp text-sm"></i> Connect on WhatsApp (+91 87359 93873)
-        </button>`;
-      }
-
-      if (q.includes('defense') || q.includes('mes') || q.includes('military') || q.includes('navy') || q.includes('air force') || q.includes('આર્મી') || q.includes('સૈન્ય')) {
-        return `<strong>Umiya Buildcon</strong> is a premier government contractor for <strong>Military Engineer Services (MES)</strong>:
-        <br>✈️ <strong>Air Force:</strong> Operational technical blocks, hangars, specialized concrete tracks.
-        <br>⚓ <strong>Navy:</strong> Marine-grade RCC infrastructure & defense utility installations across Gujarat.`;
-      }
-
-      if (q.includes('road') || q.includes('highway') || q.includes('rcc') || q.includes('asphalt') || q.includes('ડાંબર') || q.includes('રોડ')) {
-        return `Our road construction capabilities include:
-        <br>• Heavy Bituminous State Highways (R&B Division)
-        <br>• Rigid Concrete Pavements (RCC) & Village Approach Roads
-        <br>• Road widening, culverts, and roadside storm drainage.`;
-      }
-
-      if (q.includes('drainage') || q.includes('pipeline') || q.includes('water') || q.includes('sewerage') || q.includes('ગટર') || q.includes('ડ્રેનેજ')) {
-        return `We execute specialized drainage utilities:
-        <br>• Underground stormwater drainage networks
-        <br>• Heavy-duty concrete Hume pipelines & manholes
-        <br>• Bulk earthmoving and canal excavation works.`;
-      }
-
-      if (q.includes('project') || q.includes('work') || q.includes('પ્રોજેક્ટ') || q.includes('કામ')) {
-        return `We have successfully delivered <strong>50+ government & defense projects</strong> across Gujarat.
-        <br><button onclick="openProjectsModal()" class="text-brand-blue font-bold underline mt-1.5 inline-block">Click here to open our Project Portfolio</button>`;
-      }
-
-      if (q.includes('experience') || q.includes('year') || q.includes('old') || q.includes('અનુભવ') || q.includes('વર્ષ')) {
-        return `<strong>Umiya Buildcon</strong> possesses over <strong>10+ years</strong> of proven excellence as an approved Government Contractor handling critical MES defense bases and municipal public works.`;
-      }
-
-      if (q.includes('address') || q.includes('office') || q.includes('location') || q.includes('where') || q.includes('ક્યાં') || q.includes('સરનામું')) {
-        return `📍 <strong>Head Office Address:</strong>
-        <br>7, Umiya Complex, Kalol Road, Mansa - 382845, Dist: Gandhinagar, Gujarat.`;
-      }
-
-      if (q.includes('contact') || q.includes('phone') || q.includes('mobile') || q.includes('number') || q.includes('email') || q.includes('કોન્ટેક્ટ') || q.includes('નંબર')) {
-        return `Direct Office Communication:
-        <br>📞 <strong>Phone:</strong> <a href="tel:8735993873" class="text-brand-blue font-bold">+91 87359 93873</a>
-        <br>✉️ <strong>Email:</strong> <a href="mailto:webmanager1728@gmail.com" class="text-brand-blue font-bold">webmanager1728@gmail.com</a>
-        <br><button onclick="openWhatsAppChat()" class="mt-2 inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1 rounded text-xs shadow-sm">
-          <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-        </button>`;
-      }
-
-      if (q.includes('tender') || q.includes('estimate') || q.includes('quote') || q.includes('rate') || q.includes('ટેન્ડર') || q.includes('ભાવ')) {
-        return `For tender sub-contracting, engineering estimates, or official bids:
-        <br>1. Fill out the <strong>Send Official Inquiry</strong> form on this website.
-        <br>2. Reach out directly to Managing Director Jaymin Patel at <strong>+91 87359 93873</strong>.`;
-      }
-
-      if (q.includes('hello') || q.includes('hi') || q.includes('hey') || q.includes('namaste') || q.includes('કેમ છો') || q.includes('નમસ્તે')) {
-        return `નમસ્તે! Welcome to <strong>Umiya Buildcon</strong>. How can I assist you with your civil infrastructure, road, or defense contract needs today?`;
-      }
-
-      return `Thank you for reaching out to <strong>Umiya Buildcon</strong>. We are a Government Approved Defense (MES/Air Force/Navy) & Civil Contractor.
-      <br><br>Would you like to connect directly with <strong>Jaymin Patel</strong>?
-      <br><button onclick="openWhatsAppChat('${escapeHtml(query)}')" class="mt-2 inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-3 py-1.5 rounded-lg text-xs shadow">
-        <i class="fa-brands fa-whatsapp"></i> Message on WhatsApp Now
-      </button>`;
-    }
-
-    window.addEventListener('click', (e) => {
-      if (e.target === mdProfileModal) closeMdProfileModal();
-      if (e.target === projectsModal) closeProjectsModal();
-      if (e.target === successModal) closeSuccessModal();
-    });
-
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeMdProfileModal();
-        closeSuccessModal();
         closeProjectsModal();
-        if (!chatWindow.classList.contains('hidden')) toggleChatbot();
+        closeSuccessModal();
       }
     });
 
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      return false;
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || 
-        (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    document.addEventListener('dragstart', function(e) {
-      e.preventDefault();
-      return false;
-    });
+    // AOS Animation Initialization
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 80
+      });
+    }
   </script>
-
 </body>
 </html>

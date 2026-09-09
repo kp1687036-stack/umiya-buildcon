@@ -419,6 +419,427 @@ app.post('/api/sync-google-sheet', async (req, res) => {
   }
 });
 
+// ============================================================================
+// 4c. COMPREHENSIVELY TRAINED AI KNOWLEDGE BASE & NLP ENGINE
+// ============================================================================
+
+/**
+ * Trained AI knowledge engine for Umiya Buildcon
+ * Handles natural language queries in English, Gujarati, and Hindi.
+ */
+function processTrainedAiQuery(message, language = 'en-IN') {
+  const cleanMsg = (message || '').trim().toLowerCase();
+  const isGujarati = language === 'gu-IN' || /[\u0A80-\u0AFF]/.test(cleanMsg) || cleanMsg.includes('kem cho') || cleanMsg.includes('kemcho') || cleanMsg.includes('aabhar');
+  const isHindi = language === 'hi-IN' || /[\u0900-\u097F]/.test(cleanMsg) || cleanMsg.includes('dhanyavad') || cleanMsg.includes('shukriya') || cleanMsg.includes('kaise ho');
+
+  // Intent 1: Managing Director Jaymin Patel & Leadership
+  if (
+    !cleanMsg.includes('head office') && !cleanMsg.includes('headquarters') && !cleanMsg.includes('office') &&
+    (cleanMsg.includes('jaymin') || cleanMsg.includes('patel') || cleanMsg.includes('director') || 
+    cleanMsg.includes('owner') || cleanMsg.includes('founder') || cleanMsg.includes('md') || 
+    cleanMsg.includes('boss') || cleanMsg.includes('leadership') || cleanMsg.includes('management') || 
+    cleanMsg.includes('માલિક') || cleanMsg.includes('ડિરેક્ટર') || cleanMsg.includes('જયમિન') || 
+    cleanMsg.includes('કોણ') || cleanMsg.includes('मालिक') || cleanMsg.includes('डायरेक्टर') || 
+    cleanMsg.includes('जयमिन') || cleanMsg.includes('एमडी'))
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "જયમિન પટેલ (Jaymin Patel) ઉમિયા બિલ્ડકોનના મેનેજિંગ ડિરેક્ટર અને સ્થાપક છે.\n• શિક્ષણ: B.E. સિવિલ એન્જિનિયરિંગ\n• અનુભવ: મિલિટરી એન્જિનિયર સર્વિસીસ (MES), એરફોર્સ, નેવી અને ગુજરાત રાજ્ય સિવિલ ઇન્ફ્રાસ્ટ્રક્ચરમાં 10+ વર્ષથી વધુનો બહોળો અનુભવ.\n• વિઝન: ઉચ્ચ ગુણવત્તાવાળા સરકારી અને સંરક્ષણ પ્રોજેક્ટ્સ સમયસર પૂર્ણ કરવા.",
+        category: 'leadership',
+        action: 'open_md_profile'
+      };
+    }
+    if (isHindi) {
+      return {
+        reply: "जयमिन पटेल (Jaymin Patel) उमिया बिल्डकॉन के प्रबंध निदेशक (MD) और संस्थापक हैं।\n• योग्यता: बी.ई. सिविल इंजीनियरिंग\n• अनुभव: रक्षा (MES), वायु सेना, नौसेना और सरकारी बुनियादी ढांचे में 10+ वर्षों का नेतृत्व अनुभव।\n• फोन: +91 87359 93873 | ईमेल: webmanager1728@gmail.com",
+        category: 'leadership',
+        action: 'open_md_profile'
+      };
+    }
+    return {
+      reply: "Jaymin Patel is the Managing Director & Founder of Umiya Buildcon.\n• Qualification: B.E. Civil Engineering\n• Experience: 10+ Years leading high-security Defense (MES), Air Force, Navy, and State public civil contracts.\n• Direct Contact: +91 87359 93873 | webmanager1728@gmail.com",
+      category: 'leadership',
+      action: 'open_md_profile'
+    };
+  }
+
+  // Intent 2: Defense, MES, Air Force, Navy Infrastructure
+  if (
+    cleanMsg.includes('defense') || cleanMsg.includes('mes') || cleanMsg.includes('military') || 
+    cleanMsg.includes('navy') || cleanMsg.includes('air force') || cleanMsg.includes('airforce') || 
+    cleanMsg.includes('hangar') || cleanMsg.includes('runway') || cleanMsg.includes('marine') || 
+    cleanMsg.includes('સૈન્ય') || cleanMsg.includes('આર્મી') || cleanMsg.includes('ડિફેન્સ') || 
+    cleanMsg.includes('હવાઈ') || cleanMsg.includes('નેવી') || cleanMsg.includes('एयरफोर्स') || 
+    cleanMsg.includes('रक्षा') || cleanMsg.includes('नौसेना') || cleanMsg.includes('एमईएस')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "ઉમિયા બિલ્ડકોન સંરક્ષણ મંત્રાલયના મિલિટરી એન્જિનિયર સર્વિસીસ (MES) ના માન્યતા પ્રાપ્ત કોન્ટ્રાક્ટર છે:\n✈️ એરફોર્સ બેઝ: સ્પેશિયલાઇઝ્ડ એરક્રાફ્ટ હેંગર્સ, ટેકનિકલ બ્લોક્સ અને ગ્રાઉન્ડ પેવમેન્ટ્સ.\n⚓ નેવલ ડિફેન્સ: મરીન-ગ્રેડ હાઇ-ડ્યુરેબિલિટી RCC સ્ટ્રક્ચર્સ, કોસ્ટલ ડિફેન્સ અને અન્ડરગ્રાઉન્ડ યુટિલિટીઝ.\n🛡️ 100% મિલિટરી સુરક્ષા નિયમો અને ક્વોલિટી સ્ટાન્ડર્ડ્સ સાથે નિર્માણ.",
+        category: 'defense',
+        action: 'open_projects'
+      };
+    }
+    if (isHindi) {
+      return {
+        reply: "उमिया बिल्डकॉन रक्षा मंत्रालय की मिलिट्री इंजीनियर सर्विसेज (MES) का अनुमोदित ठेकेदार है:\n✈️ वायु सेना: विमान हैंगर, तकनीकी ब्लॉक और ऑपरेशनल ग्राउंड्स।\n⚓ नौसेना: मरीन-ग्रेड आरसीसी संरचनाएं, तटीय रक्षा कार्य और उपयोगिता पाइपलाइन।\n🛡️ उच्च-सुरक्षा रक्षा मानकों का 100% अनुपालन।",
+        category: 'defense',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "Umiya Buildcon is a specialized, approved contractor for Military Engineer Services (MES):\n✈️ Air Force Bases: Aircraft hangars, technical blocks, operational grounds, and specialized pavements.\n⚓ Navy Infrastructure: Marine-grade high-durability RCC developments, underground utilities, and coastal defense works across Gujarat.\n🛡️ 100% adherence to strict military quality and defense safety protocols.",
+      category: 'defense',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 3: Roads, Highways, Asphalt & RCC
+  if (
+    cleanMsg.includes('road') || cleanMsg.includes('highway') || cleanMsg.includes('asphalt') || 
+    cleanMsg.includes('bituminous') || cleanMsg.includes('tar') || cleanMsg.includes('rcc road') || 
+    cleanMsg.includes('pavement') || cleanMsg.includes('culvert') || cleanMsg.includes('panchayat road') || 
+    cleanMsg.includes('pmgsy') || cleanMsg.includes('રોડ') || cleanMsg.includes('ડાંબર') || 
+    cleanMsg.includes('હાઇવે') || cleanMsg.includes('કામ') || cleanMsg.includes('सड़क') || 
+    cleanMsg.includes('हाइवे') || cleanMsg.includes('डामर') || cleanMsg.includes('आरसीसी')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "અમારી રોડ અને હાઇવે કન્સ્ટ્રક્શન સેવાઓ:\n🛣️ ડાંબર રોડ: સ્ટેટ હાઇવે અને ભારે ટ્રાફિક વાળા માર્ગો (Gujarat R&B Division).\n🏗️ RCC રોડ: ગ્રામ્ય એપ્રોચ રોડ અને હેવી ડ્યુટી કોંક્રિટ પેવમેન્ટ્સ.\n💧 રોડ સાઇડ ગટર, કલ્વર્ટ્સ અને પેવિંગ સોલ્યુશન્સ.",
+        category: 'roads',
+        action: 'open_projects'
+      };
+    }
+    if (isHindi) {
+      return {
+        reply: "सड़क एवं राजमार्ग निर्माण में हमारी क्षमताएं:\n🛣️ डामर बिटुमिनस सड़कें: भारी यातायात वाले राज्य राजमार्ग (Gujarat R&B).\n🏗️ आरसीसी सड़कें: ग्रामीण एप्रोच सड़कें और टिकाऊ कंक्रीट पेवमेंट्स।\n💧 सड़क किनारे नाले, पुलिया (Culverts) और निर्माण कार्य।",
+        category: 'roads',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "Our Road & Highway Construction capabilities include:\n🛣️ Bituminous Asphalt Highways: Heavy-duty state roads for the Gujarat R&B Division.\n🏗️ Rigid Concrete Pavements (RCC): Long-lasting village approach roads and industrial tracks.\n💧 Drainage culverts, shoulder paving, and durable surface strengthening.",
+      category: 'roads',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 4: Drainage, Pipeline, Sewerage & Earthworks
+  if (
+    cleanMsg.includes('drainage') || cleanMsg.includes('pipeline') || cleanMsg.includes('pipe') || 
+    cleanMsg.includes('hume') || cleanMsg.includes('sewer') || cleanMsg.includes('water') || 
+    cleanMsg.includes('storm') || cleanMsg.includes('earthwork') || cleanMsg.includes('excavation') || 
+    cleanMsg.includes('canal') || cleanMsg.includes('ડ્રેનેજ') || cleanMsg.includes('ગટર') || 
+    cleanMsg.includes('પાઇપલાઇન') || cleanMsg.includes('નાળા') || cleanMsg.includes('ખોદકામ') || 
+    cleanMsg.includes('ड्रेनेज') || cleanMsg.includes('सीवर') || cleanMsg.includes('पाइपलाइन') || 
+    cleanMsg.includes('खुदाई')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "અમારી ડ્રેનેજ અને પાઇપલાઇન ક્ષમતાઓ:\n• અન્ડરગ્રાઉન્ડ સ્ટોર્મવોટર અને ગટર નેટવર્ક.\n• હેવી-ડ્યુટી RCC હ્યુમ પાઇપલાઇન્સ (NP2/NP3/NP4) અને પ્રીકાસ્ટ મેનહોલ્સ.\n• બલ્ક અર્થવર્ક, કેનાલ એક્સકેવેશન અને જેસીબી/પોકલેન લેવલિંગ વર્ક્સ.",
+        category: 'drainage',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "We execute comprehensive Drainage, Pipeline & Bulk Earthworks:\n• Underground stormwater drainage and municipal sewerage networks.\n• Heavy-duty RCC Hume pipe laying (NP2/NP3/NP4) and precast manholes.\n• Bulk earthmoving, precision trenching, and canal excavation projects across Gujarat.",
+      category: 'drainage',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 5: Civil Buildings & Government Infrastructure
+  if (
+    !cleanMsg.includes('job') && !cleanMsg.includes('career') && !cleanMsg.includes('engineer') && !cleanMsg.includes('hire') && !cleanMsg.includes('vacancy') && !cleanMsg.includes('resume') &&
+    (cleanMsg.includes('building') || cleanMsg.includes('civil work') || cleanMsg.includes('civil infra') || cleanMsg.includes('complex') || 
+    cleanMsg.includes('structure') || cleanMsg.includes('construction') || cleanMsg.includes('ઇમારત') || 
+    cleanMsg.includes('બિલ્ડીંગ') || cleanMsg.includes('મકાન') || cleanMsg.includes('ભવન') || 
+    cleanMsg.includes('इमारत') || cleanMsg.includes('भवन') || cleanMsg.includes('निर्माण'))
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "અમે સરકારી અને વહીવટી ઇમારતોનું ગુણવત્તાયુક્ત બાંધકામ કરીએ છીએ:\n🏛️ સરકારી ઓફિસો, પંચાયત ભવન અને સંસ્થાકીય પરિસરો.\n🏢 સંરક્ષણ વહીવટી બ્લોક્સ અને રેસિડેન્શિયલ ક્વાર્ટર્સ.\n🔨 ફાઉન્ડેશનથી લઇને ફિનિશિંગ સુધીનું ટર્નકી કન્સ્ટ્રક્શન.",
+        category: 'civil_buildings',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "We construct durable Government & Public Civil Buildings:\n🏛️ Government administrative offices, Panchayat Bhavans, and institutional campuses.\n🏢 Defense staff quarters, training centers, and specialized RCC blocks.\n🔨 Full turnkey execution from foundation to structural finishing.",
+      category: 'civil_buildings',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 6: Office Address, Location & Working Hours
+  if (
+    cleanMsg.includes('address') || cleanMsg.includes('location') || cleanMsg.includes('office') || 
+    cleanMsg.includes('where') || cleanMsg.includes('place') || cleanMsg.includes('mansa') || 
+    cleanMsg.includes('gandhinagar') || cleanMsg.includes('city') || cleanMsg.includes('timing') || 
+    cleanMsg.includes('hours') || cleanMsg.includes('ક્યાં') || cleanMsg.includes('સરનામું') || 
+    cleanMsg.includes('ઓફિસ') || cleanMsg.includes('સમય') || cleanMsg.includes('માણસા') || 
+    cleanMsg.includes('पता') || cleanMsg.includes('ऑफिस') || cleanMsg.includes('समय') || 
+    cleanMsg.includes('कहाँ') || cleanMsg.includes('स्थान')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "📍 હેડ ઓફિસનું સરનામું:\n૭, ઉમિયા કોમ્પ્લેક્સ, કલોલ રોડ, માણસા - ૩૮૨૮૪૫, જિલ્લો: ગાંધીનગર, ગુજરાત.\n⏰ કામકાજનો સમય: સોમવાર થી શનિવાર (સવારે ૯:૦૦ થી સાંજે ૭:૩૦)\n📞 ફોન: +91 87359 93873 | ✉️ ઈમેલ: webmanager1728@gmail.com",
+        category: 'location',
+        action: 'call_or_whatsapp'
+      };
+    }
+    if (isHindi) {
+      return {
+        reply: "📍 मुख्य कार्यालय का पता:\n७, उमिया कॉम्प्लेक्स, कलोल रोड, माणसा - ३८२८४५, जिला: गांधीनगर, गुजरात।\n⏰ कार्य समय: सोमवार से शनिवार (सुबह 9:00 से शाम 7:30)\n📞 फोन: +91 87359 93873 | ✉️ ईमेल: webmanager1728@gmail.com",
+        category: 'location',
+        action: 'call_or_whatsapp'
+      };
+    }
+    return {
+      reply: "📍 Head Office Address:\n7, Umiya Complex, Kalol Road, Mansa - 382845, Dist: Gandhinagar, Gujarat.\n⏰ Working Hours: Monday to Saturday (9:00 AM – 7:30 PM)\n📞 Direct Phone: +91 87359 93873 | ✉️ Email: webmanager1728@gmail.com",
+      category: 'location',
+      action: 'call_or_whatsapp'
+    };
+  }
+
+  // Intent 7: Contact Numbers, Email, WhatsApp, Direct Call
+  if (
+    cleanMsg.includes('contact') || cleanMsg.includes('phone') || cleanMsg.includes('call') || 
+    cleanMsg.includes('mobile') || cleanMsg.includes('number') || cleanMsg.includes('email') || 
+    cleanMsg.includes('whatsapp') || cleanMsg.includes('mail') || cleanMsg.includes('સંપર્ક') || 
+    cleanMsg.includes('કોન્ટેક્ટ') || cleanMsg.includes('ફોન') || cleanMsg.includes('નંબર') || 
+    cleanMsg.includes('ઇમેઇલ') || cleanMsg.includes('વ્હોટ્સએપ') || cleanMsg.includes('फोन') || 
+    cleanMsg.includes('कॉल') || cleanMsg.includes('नंबर') || cleanMsg.includes('संपर्क') || 
+    cleanMsg.includes('व्हाट्सएप')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "ઉમિયા બિલ્ડકોન સાથે સીધો સંપર્ક કરો:\n📞 કોલ કરો: +91 87359 93873\n💬 WhatsApp: +91 87359 93873 (મેનેજિંગ ડિરેક્ટર જયમિન પટેલ)\n✉️ ઓફિશિયલ ઈમેલ: webmanager1728@gmail.com\n📍 સ્થળ: માણસા, ગાંધીનગર, ગુજરાત.",
+        category: 'contact',
+        action: 'whatsapp'
+      };
+    }
+    if (isHindi) {
+      return {
+        reply: "उमिया बिल्डकॉन से सीधा संपर्क करें:\n📞 सीधा फोन: +91 87359 93873\n💬 WhatsApp: +91 87359 93873 (एमडी जयमिन पटेल)\n✉️ ईमेल: webmanager1728@gmail.com\n📍 पता: माणसा, गांधीनगर, गुजरात।",
+        category: 'contact',
+        action: 'whatsapp'
+      };
+    }
+    return {
+      reply: "Connect directly with Umiya Buildcon:\n📞 Direct Phone: +91 87359 93873\n💬 WhatsApp: +91 87359 93873 (MD Jaymin Patel)\n✉️ Official Email: webmanager1728@gmail.com\n📍 Office: Mansa, Gandhinagar, Gujarat.",
+      category: 'contact',
+      action: 'whatsapp'
+    };
+  }
+
+  // Intent 8: Tenders, Pricing, Rates, Quotation, BOQ & Estimation
+  if (
+    cleanMsg.includes('tender') || cleanMsg.includes('quote') || cleanMsg.includes('quotation') || 
+    cleanMsg.includes('price') || cleanMsg.includes('cost') || cleanMsg.includes('rate') || 
+    cleanMsg.includes('estimate') || cleanMsg.includes('boq') || cleanMsg.includes('bidding') || 
+    cleanMsg.includes('subcontract') || cleanMsg.includes('ભાવ') || cleanMsg.includes('ટેન્ડર') || 
+    cleanMsg.includes('ખર્ચ') || cleanMsg.includes('કોટેશન') || cleanMsg.includes('અંદાજ') || 
+    cleanMsg.includes('टेंडर') || cleanMsg.includes('कीमत') || cleanMsg.includes('कोटेशन') || 
+    cleanMsg.includes('रेट') || cleanMsg.includes('खर्च')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "ટેન્ડર સબ-કોન્ટ્રાક્ટિંગ, BOQ અંદાજ અથવા કોટેશન માટે:\n1. અમારા ઓનલાઇન 'Send Official Inquiry' ફોર્મ દ્વારા તમારી વિગતો મોકલો.\n2. અથવા મેનેજિંગ ડિરેક્ટર જયમિન પટેલ સાથે સીધો સંપર્ક કરો: +91 87359 93873.\nઅમે પ્રોજેક્ટ સ્કોપ, મટીરીયલ અને સાઇટ સ્પેસિફિકેશન મુજબ સચોટ ભાવ અંદાજ પ્રદાન કરીએ છીએ.",
+        category: 'tender_pricing',
+        action: 'scroll_contact'
+      };
+    }
+    return {
+      reply: "For tender sub-contracting, BOQ estimations, or project quotations:\n1. Fill out our official website inquiry form with your drawings and requirements.\n2. Or speak directly with Managing Director Jaymin Patel at +91 87359 93873.\nWe provide highly competitive, transparent rates as per government and MES schedule standards.",
+      category: 'tender_pricing',
+      action: 'scroll_contact'
+    };
+  }
+
+  // Intent 9: Machinery, Fleet & Equipment
+  if (
+    cleanMsg.includes('machinery') || cleanMsg.includes('equipment') || cleanMsg.includes('jcb') || 
+    cleanMsg.includes('poclain') || cleanMsg.includes('mixer') || cleanMsg.includes('roller') || 
+    cleanMsg.includes('paver') || cleanMsg.includes('batching') || cleanMsg.includes('પ્લાન્ટ') || 
+    cleanMsg.includes('મશીનરી') || cleanMsg.includes('સાધનો') || cleanMsg.includes('मशीनरी') || 
+    cleanMsg.includes('उपकरण')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "અમારી પાસે આધુનિક ઇન્ફ્રાસ્ટ્રક્ચર મશીનરી છે:\n🚜 જેસીબી અને પોકલેન એક્સકેવેટર્સ (Excavators & Backhoes)\n🚛 કોંક્રિટ ટ્રાન્ઝિટ મિક્સર્સ અને બેચિંગ પ્લાન્ટ\n🛣️ વાઇબ્રેટરી રોલર્સ અને એસ્ફાલ્ટ પેવર ફિનિશર્સ\n📐 ડિજિટલ ટોટલ સ્ટેશન સર્વે સાધનો.",
+        category: 'machinery',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "Our modern heavy machinery & construction fleet includes:\n🚜 JCB & Poclain Heavy Excavators\n🚛 Concrete Transit Mixers & Automated Batching Plants\n🛣️ Vibratory Soil & Asphalt Road Rollers, Bitumen Paver Finishers\n📐 Precision Digital Total Station surveying instruments.",
+      category: 'machinery',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 10: Quality Control, Testing & Materials
+  if (
+    cleanMsg.includes('quality') || cleanMsg.includes('testing') || cleanMsg.includes('lab test') || 
+    cleanMsg.includes('cube test') || cleanMsg.includes('soil test') || cleanMsg.includes('concrete test') || 
+    cleanMsg.includes('strength test') || cleanMsg.includes('proctor') || cleanMsg.includes('penetration') || 
+    cleanMsg.includes('iso') || cleanMsg.includes('ગુણવત્તા') || cleanMsg.includes('ટેસ્ટિંગ') || 
+    cleanMsg.includes('લેબ') || cleanMsg.includes('गुणवत्ता') || cleanMsg.includes('टेस्टિંગ')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "ઉમિયા બિલ્ડકોનમાં ક્વોલિટી એશ્યોરન્સ:\n🔬 કોંક્રિટ ક્યુબ કોમ્પ્રેસિવ સ્ટ્રેન્થ ટેસ્ટિંગ (7 અને 28 દિવસ).\n🌱 સોઇલ કોમ્પેક્શન અને પ્રોક્ટર ડેન્સિટી ટેસ્ટિંગ.\n🛢️ ડાંબર પેનિટ્રેશન અને માર્શલ સ્ટેબિલિટી ટેસ્ટ.\n🛡️ સંરક્ષણ (MES) અને સરકારી માપદંડોનું 100% પાલન.",
+        category: 'quality',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "Quality Assurance & Material Testing Standards:\n🔬 Concrete Cube Compressive Strength Testing (7 & 28 Days)\n🌱 Soil Compaction & Standard/Modified Proctor Density Tests\n🛢️ Bitumen Penetration & Marshall Stability Tests\n🛡️ 100% certified adherence to Defense MES and IRC/MORTH specifications.",
+      category: 'quality',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 11: Careers, Jobs, Hiring & Vendors
+  if (
+    cleanMsg.includes('career') || cleanMsg.includes('job') || cleanMsg.includes('hire') || 
+    cleanMsg.includes('hiring') || cleanMsg.includes('vacancy') || cleanMsg.includes('engineer') || 
+    cleanMsg.includes('supplier') || cleanMsg.includes('vendor') || cleanMsg.includes('નોકરી') || 
+    cleanMsg.includes('જોબ') || cleanMsg.includes('સપ્લાયર') || cleanMsg.includes('नौकरी') || 
+    cleanMsg.includes('जॉब') || cleanMsg.includes('भर्ती')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "કારકિર્દી અને વેન્ડર જોડાણ:\n👷 સિવિલ એન્જિનિયર્સ, સાઇટ સુપરવાઇઝર્સ અને મશીન ઓપરેટર્સ માટે નોકરીની તકો.\n🏢 સિમેન્ટ, સ્ટીલ (TMT), હ્યુમ પાઇપ અને ડાંબર સપ્લાયર્સ માટે વેન્ડર રજીસ્ટ્રેશન.\nતમારું CV અથવા પ્રપોઝલ webmanager1728@gmail.com પર મોકલો અથવા +91 87359 93873 પર સંપર્ક કરો.",
+        category: 'careers_vendors',
+        action: 'scroll_contact'
+      };
+    }
+    return {
+      reply: "Careers & Vendor Partnerships at Umiya Buildcon:\n👷 We regularly welcome talented Civil Engineers, Site Supervisors, and Heavy Machinery Operators.\n🏢 Suppliers for Cement, TMT 550D Steel, Aggregates, Hume Pipes, and Bitumen are invited to register.\nPlease email your profile or company catalogue to webmanager1728@gmail.com or call +91 87359 93873.",
+      category: 'careers_vendors',
+      action: 'scroll_contact'
+    };
+  }
+
+  // Intent 12: Greetings, Hello, How are you
+  if (
+    cleanMsg.includes('hello') || cleanMsg.includes('hi') || cleanMsg.includes('hey') || 
+    cleanMsg.includes('namaste') || cleanMsg.includes('kem cho') || cleanMsg.includes('ram ram') || 
+    cleanMsg.includes('good morning') || cleanMsg.includes('good evening') || cleanMsg.includes('kemcho') || 
+    cleanMsg.includes('નમસ્તે') || cleanMsg.includes('કેમ છો') || cleanMsg.includes('રામ રામ') || 
+    cleanMsg.includes('नमस्ते') || cleanMsg.includes('नमस्कार') || cleanMsg.includes('राम राम')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "નમસ્તે! ઉમિયા બિલ્ડકોનમાં આપનું હાર્દિક સ્વાગત છે. હું તમારો AI સહાયક છું. તમે સંરક્ષણ પ્રોજેક્ટ્સ (MES/Air Force/Navy), રોડ કન્સ્ટ્રક્શન, ડ્રેનેજ અથવા મેનેજિંગ ડિરેક્ટર જયમિન પટેલ વિશે કોઈ પણ પ્રશ્ન પૂછી શકો છો.",
+        category: 'greeting',
+        action: 'suggest_topics'
+      };
+    }
+    if (isHindi) {
+      return {
+        reply: "नमस्ते! उमिया बिल्डकॉन में आपका हार्दिक स्वागत है। मैं आपका AI सहायक हूँ। आप रक्षा परियोजनाओं (MES/Air Force/Navy), सड़क निर्माण, ड्रेनेज या प्रबंध निदेशक जयमिन पटेल के बारे में कोई भी सवाल पूछ सकते हैं।",
+        category: 'greeting',
+        action: 'suggest_topics'
+      };
+    }
+    return {
+      reply: "Hello and welcome to Umiya Buildcon! I am your trained Voice AI Assistant. How can I help you today with Defense (MES), Road Highways, Drainage infrastructure, or connecting with Managing Director Jaymin Patel?",
+      category: 'greeting',
+      action: 'suggest_topics'
+    };
+  }
+
+  // Intent 13: Past Projects & Portfolio Showcase
+  if (
+    cleanMsg.includes('project') || cleanMsg.includes('portfolio') || cleanMsg.includes('work') || 
+    cleanMsg.includes('done') || cleanMsg.includes('history') || cleanMsg.includes('પ્રોજેક્ટ') || 
+    cleanMsg.includes('કામો') || cleanMsg.includes('પ્રગતિ') || cleanMsg.includes('प्रोजेक्ट') || 
+    cleanMsg.includes('काम')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "અમે સમગ્ર ગુજરાતમાં 50+ થી વધુ સરકારી અને સંરક્ષણ પ્રોજેક્ટ્સ સફળતાપૂર્વક પૂર્ણ કર્યા છે:\n• એરફોર્સ બેઝ ટેકનિકલ બ્લોક્સ અને હેંગર્સ\n• નેવલ ડિફેન્સ મરીન RCC ઇન્ફ્રાસ્ટ્રક્ચર\n• સ્ટેટ હાઇવે ડાંબર રોડ અને પંચાયત RCC એપ્રોચ રોડ\n• અન્ડરગ્રાઉન્ડ સ્ટોર્મવોટર ડ્રેનેજ સિસ્ટમ્સ.",
+        category: 'projects',
+        action: 'open_projects'
+      };
+    }
+    return {
+      reply: "We have delivered 50+ prestigious government and defense infrastructure projects across Gujarat:\n• Air Force Technical complexes & Hangars\n• Naval Defense Marine RCC developments\n• State Highway Bituminous Asphalt & Rural RCC Pavements\n• Municipal Stormwater Drainage Networks.",
+      category: 'projects',
+      action: 'open_projects'
+    };
+  }
+
+  // Intent 14: Voice usage guide & language switching
+  if (
+    cleanMsg.includes('voice') || cleanMsg.includes('speak') || cleanMsg.includes('mic') || 
+    cleanMsg.includes('audio') || cleanMsg.includes('sound') || cleanMsg.includes('વાત') || 
+    cleanMsg.includes('બોલો') || cleanMsg.includes('અવાજ') || cleanMsg.includes('माइक') || 
+    cleanMsg.includes('आवाज') || cleanMsg.includes('बोलें')
+  ) {
+    if (isGujarati) {
+      return {
+        reply: "🎙️ વોઇસ ફીચરનો ઉપયોગ કેવી રીતે કરવો:\n1. નીચે આપેલા માઇક્રોફોન (Mic) બટન પર ક્લિક કરો.\n2. તમારો પ્રશ્ન ગુજરાતી, અંગ્રેજી અથવા હિન્દીમાં બોલો.\n3. AI તમારો અવાજ સાંભળીને તરત જવાબ આપશે અને બોલીને સંભળાવશે!",
+        category: 'voice_guide',
+        action: 'none'
+      };
+    }
+    return {
+      reply: "🎙️ How to use the Voice AI Feature:\n1. Click the orange Microphone button at the bottom of the chat.\n2. Speak your question naturally in English, Gujarati, or Hindi.\n3. The AI will transcribe your voice in real time and speak the answer back aloud!",
+      category: 'voice_guide',
+      action: 'none'
+    };
+  }
+
+  // Fallback Response for unknown query
+  if (isGujarati) {
+    return {
+      reply: "ઉમિયા બિલ્ડકોન માં સંપર્ક કરવા બદલ આભાર. અમે સરકાર માન્ય સંરક્ષણ (MES) અને સિવિલ ઇન્ફ્રાસ્ટ્રક્ચર કોન્ટ્રાક્ટર છીએ.\nશું તમે મેનેજિંગ ડિરેક્ટર જયમિન પટેલ સાથે સીધી વાત કરવા માંગો છો કે સત્તાવાર ઇન્ક્વાયરી મોકલવા માંગો છો?",
+      category: 'fallback',
+      action: 'call_or_whatsapp'
+    };
+  }
+  if (isHindi) {
+    return {
+      reply: "उमिया बिल्डकॉन से संपर्क करने के लिए धन्यवाद। हम सरकार द्वारा अनुमोदित रक्षा (MES/Air Force/Navy) एवं सिविल इन्फ्रास्ट्रक्चर ठेकेदार हैं।\nक्या आप प्रबंध निदेशक जयमिन पटेल से बात करना चाहते हैं या आधिकारिक पूछताछ भेजना चाहते हैं?",
+      category: 'fallback',
+      action: 'call_or_whatsapp'
+    };
+  }
+
+  return {
+    reply: "Thank you for reaching out to Umiya Buildcon. We are a Government Approved Defense (MES/Air Force/Navy) & Civil Infrastructure Contractor.\nWould you like to connect directly with Managing Director Jaymin Patel or submit an official inquiry?",
+    category: 'fallback',
+    action: 'call_or_whatsapp'
+  };
+}
+
+// POST /api/ai-chat - AI Chatbot Engine endpoint
+app.post('/api/ai-chat', async (req, res) => {
+  try {
+    const { message, language = 'en-IN' } = req.body;
+    if (!message || message.trim() === '') {
+      return res.status(400).json({ success: false, message: 'Message is required.' });
+    }
+
+    // Process using comprehensive trained AI knowledge base
+    const result = processTrainedAiQuery(message, language);
+
+    res.json({
+      success: true,
+      reply: result.reply,
+      category: result.category,
+      action: result.action,
+      language
+    });
+  } catch (err) {
+    console.error('AI chat endpoint error:', err);
+    res.status(500).json({ success: false, message: err.message || 'Internal AI chat error' });
+  }
+});
+
+
 // POST /api/inquiry - Handle Form Submissions & Save to Database + Google Sheet
 app.post(
   '/api/inquiry',
