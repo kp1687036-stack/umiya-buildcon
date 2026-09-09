@@ -133,13 +133,36 @@ const inquiryLimiter = rateLimit({
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (MONGODB_URI && !MONGODB_URI.includes('yourpassword') && !MONGODB_URI.includes('cluster0.abcde.mongodb.net')) {
-  mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
-    .then(() => console.log('✅ Connected successfully to MongoDB Atlas Database.'))
-    .catch((err) => console.error('❌ MongoDB Atlas connection error:', err.message));
-} else {
-  console.log('ℹ️  MongoDB Atlas: Local database active in "backend/data/inquiries.json". Add your MongoDB URI in .env to sync to cloud.');
+let cachedDbPromise = null;
+async function connectToDatabase() {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  const uri = process.env.MONGODB_URI;
+  if (!uri || uri.includes('yourpassword') || uri.includes('cluster0.abcde.mongodb.net') || uri.trim() === '') {
+    return null;
+  }
+
+  if (!cachedDbPromise) {
+    cachedDbPromise = mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+      bufferCommands: false
+    }).then((m) => {
+      console.log('✅ Connected successfully to MongoDB Atlas Database.');
+      return m;
+    }).catch((err) => {
+      cachedDbPromise = null;
+      console.error('❌ MongoDB Atlas connection error:', err.message);
+      return null;
+    });
+  }
+
+  return cachedDbPromise;
 }
+
+// Initial connection attempt on cold start
+connectToDatabase();
 
 const InquirySchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
@@ -153,7 +176,8 @@ const InquirySchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now, index: true }
 });
 
-const Inquiry = mongoose.model('Inquiry', InquirySchema);
+const Inquiry = mongoose.models.Inquiry || mongoose.model('Inquiry', InquirySchema);
+
 
 // ============================================================================
 // 4. NODEMAILER EMAIL NOTIFICATION CONFIGURATION
@@ -341,6 +365,7 @@ app.get('/api/health', (req, res) => {
 // GET /api/inquiries - Fetch all inquiries as JSON
 app.get('/api/inquiries', async (req, res) => {
   try {
+    await connectToDatabase();
     if (mongoose.connection.readyState === 1) {
       const dbInquiries = await Inquiry.find().sort({ createdAt: -1 });
       return res.json({ success: true, count: dbInquiries.length, data: dbInquiries });
@@ -356,6 +381,7 @@ app.get('/api/inquiries', async (req, res) => {
 app.delete('/api/inquiries/:id', async (req, res) => {
   const { id } = req.params;
   try {
+    await connectToDatabase();
     if (mongoose.connection.readyState === 1 && mongoose.isValidObjectId(id)) {
       await Inquiry.findByIdAndDelete(id);
     }
@@ -369,6 +395,7 @@ app.delete('/api/inquiries/:id', async (req, res) => {
 // POST /api/sync-google-sheet - Push all inquiries to Google Sheet
 app.post('/api/sync-google-sheet', async (req, res) => {
   try {
+    await connectToDatabase();
     let inquiries = [];
     if (mongoose.connection.readyState === 1) {
       inquiries = await Inquiry.find().sort({ createdAt: 1 }); // Oldest first when populating
@@ -439,6 +466,7 @@ app.post(
     console.log(`💾 [DATABASE] Inquiry from "${name}" saved to local database (Total: ${readLocalInquiries().length})`);
 
     // 2. Also Save to MongoDB Atlas if connected
+    await connectToDatabase();
     if (mongoose.connection.readyState === 1) {
       try {
         const newDoc = new Inquiry({
@@ -508,9 +536,37 @@ app.post(
 // ============================================================================
 // 6. BUILT-IN VISUAL ADMIN DASHBOARD (http://localhost:5000/admin)
 // ============================================================================
-app.get('/admin', (req, res) => {
-  const inquiries = readLocalInquiries();
+app.get('/admin', async (req, res) => {
+  await connectToDatabase();
+  let inquiries = [];
+
+  if (mongoose.connection.readyState === 1) {
+    try {
+      const dbInquiries = await Inquiry.find().sort({ createdAt: -1 }).lean();
+      if (dbInquiries && dbInquiries.length > 0) {
+        inquiries = dbInquiries.map(inq => ({
+          id: String(inq._id),
+          name: inq.name,
+          email: inq.email,
+          phone: inq.phone,
+          department: inq.department,
+          message: inq.message,
+          status: inq.status,
+          formattedTime: inq.formattedTime || (inq.createdAt ? new Date(inq.createdAt).toLocaleString('en-IN') : '')
+        }));
+      }
+    } catch (e) {
+      console.warn('MongoDB admin read error:', e.message);
+    }
+  }
+
+  if (inquiries.length === 0) {
+    inquiries = readLocalInquiries();
+  }
+
   const hasSheetUrl = Boolean(process.env.GOOGLE_SHEET_WEBHOOK_URL && !process.env.GOOGLE_SHEET_WEBHOOK_URL.includes('your_deployment_id') && process.env.GOOGLE_SHEET_WEBHOOK_URL.trim() !== '');
+  const dbLabel = mongoose.connection.readyState === 1 ? 'MongoDB Atlas (Cloud Active)' : 'Local JSON Active';
+
 
   const rowsHtml = inquiries.length === 0 
     ? `<tr><td colspan="8" style="text-align:center; padding:30px; color:#64748b;">No inquiries received yet. Submit the form on your website to see data here!</td></tr>`
@@ -616,9 +672,10 @@ app.get('/admin', (req, res) => {
           <div class="label">Notification Email</div>
         </div>
         <div class="stat-card">
-          <div class="num" style="color:#16a34a;">Active</div>
+          <div class="num" style="font-size:16px; color:#16a34a;">${dbLabel}</div>
           <div class="label">Database Storage Status</div>
         </div>
+
         <div class="stat-card">
           <div class="num" style="font-size:16px;">
             ${hasSheetUrl 
