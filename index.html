@@ -97,71 +97,6 @@
       border-color: rgba(234, 138, 38, 0.5);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 138, 38, 0.15);
     }
-
-    /* Mobile Limelight / Spotlight Dock Navigation */
-    .mobile-nav-dock {
-      background: rgba(12, 16, 23, 0.94);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 255, 255, 0.02);
-    }
-
-    .mobile-nav-tab {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      height: 100%;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      color: rgba(255, 255, 255, 0.45);
-      cursor: pointer;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .mobile-nav-tab:hover {
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .mobile-nav-tab.active-tab {
-      color: #ffffff;
-    }
-
-    .mobile-nav-tab .spotlight-beam {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(-4px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .mobile-nav-tab.active-tab .spotlight-beam {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .mobile-nav-tab .spotlight-lamp {
-      width: 28px;
-      height: 3.5px;
-      background: #ffffff;
-      border-radius: 9999px;
-      box-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.9);
-      margin-top: 1px;
-    }
-
-    .mobile-nav-tab .spotlight-cone {
-      width: 100%;
-      flex: 1;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0) 100%);
-      clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
-    }
   </style>
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
@@ -271,65 +206,16 @@
     </div>
   </aside>
 
-  <!-- Mobile Floating Limelight / Spotlight Dock Navigation (Visible on Mobile < md screens) -->
-  <nav id="mobileLimelightNav" class="mobile-nav-dock fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex md:hidden items-center justify-around w-[92%] max-w-[380px] h-[62px] rounded-2xl px-1 select-none" aria-label="Mobile Spotlight Navigation">
-    
-    <!-- 1. Home Tab (House) -->
-    <a href="#home" data-mobile-section="home" class="mobile-nav-tab active-tab" title="Home">
-      <div class="spotlight-beam">
-        <div class="spotlight-lamp"></div>
-        <div class="spotlight-cone"></div>
-      </div>
-      <i class="fa-solid fa-house text-lg relative z-10 transition-transform"></i>
-    </a>
-
-    <!-- 2. Projects Tab (Bookmark) -->
-    <button type="button" onclick="openProjectsModal()" data-mobile-section="projects" class="mobile-nav-tab" title="Our Projects">
-      <div class="spotlight-beam">
-        <div class="spotlight-lamp"></div>
-        <div class="spotlight-cone"></div>
-      </div>
-      <i class="fa-solid fa-bookmark text-lg relative z-10 transition-transform"></i>
-    </button>
-
-    <!-- 3. Add / Inquiry Form Tab (Plus Circle) -->
-    <a href="#contact" data-mobile-section="contact" class="mobile-nav-tab" title="Send Inquiry">
-      <div class="spotlight-beam">
-        <div class="spotlight-lamp"></div>
-        <div class="spotlight-cone"></div>
-      </div>
-      <i class="fa-solid fa-circle-plus text-2xl relative z-10 text-brand-orange transition-transform"></i>
-    </a>
-
-    <!-- 4. Managing Director Profile Tab (User) -->
-    <button type="button" onclick="openMdProfileModal()" data-mobile-section="about" class="mobile-nav-tab" title="Managing Director Profile">
-      <div class="spotlight-beam">
-        <div class="spotlight-lamp"></div>
-        <div class="spotlight-cone"></div>
-      </div>
-      <i class="fa-regular fa-user text-lg relative z-10 transition-transform"></i>
-    </button>
-
-    <!-- 5. Services Tab (Settings / Cog) -->
-    <a href="#services" data-mobile-section="services" class="mobile-nav-tab" title="Services">
-      <div class="spotlight-beam">
-        <div class="spotlight-lamp"></div>
-        <div class="spotlight-cone"></div>
-      </div>
-      <i class="fa-solid fa-gear text-lg relative z-10 transition-transform"></i>
-    </a>
-  </nav>
-
-  <!-- Top Header Bar with Brand & Contact Info -->
-  <header class="bg-[#080c14]/95 text-slate-200 text-xs sm:text-sm py-2.5 px-4 md:pl-24 border-b border-white/10 sticky top-0 z-40 backdrop-blur-md transition-all">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+  <!-- Top Header Bar with Brand, Contact Info & Mobile Menu Toggle -->
+  <header class="bg-[#080c14]/95 text-slate-200 text-xs sm:text-sm py-2.5 px-4 md:pl-24 border-b border-white/10 sticky top-0 z-50 backdrop-blur-md transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
       <!-- Brand & Govt Approval Badge -->
       <div class="flex items-center gap-3">
         <a href="#home" class="flex items-center gap-2.5 shrink-0">
-          <img src="logo.jpeg" alt="Umiya Buildcon Logo" loading="eager" decoding="async" fetchpriority="high" class="h-9 w-auto object-contain pointer-events-none select-none rounded-lg" />
+          <img src="logo.jpeg" alt="Umiya Buildcon Logo" loading="eager" decoding="async" fetchpriority="high" class="h-9 sm:h-10 w-auto object-contain pointer-events-none select-none rounded-lg" />
           <div class="flex flex-col">
-            <span class="text-base font-bold text-white leading-none tracking-tight font-heading">
+            <span class="text-base sm:text-lg font-bold text-white leading-none tracking-tight font-heading">
               <span>Umiya</span>&nbsp;<span class="text-brand-orange">Buildcon</span>
             </span>
             <span class="text-[9px] text-slate-400 font-medium">We Built a Better World</span>
@@ -340,17 +226,21 @@
         </span>
       </div>
 
-      <!-- Contact Line & Google Sign-In -->
-      <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
-        <a href="tel:962XXXXX82" class="hover:text-brand-orange transition flex items-center gap-1.5 font-medium text-slate-300">
-          <i class="fa-solid fa-phone text-brand-orange text-xs"></i> +91 962XXXXX82
-        </a>
-        <a href="mailto:webmanager1728@gmail.com" class="hover:text-brand-orange transition hidden lg:flex items-center gap-1.5 font-medium text-slate-300">
-          <i class="fa-solid fa-envelope text-brand-orange text-xs"></i> webmanager1728@gmail.com
-        </a>
+      <!-- Right Side Actions: Contact, Sign-In, Projects + Mobile Hamburger -->
+      <div class="flex items-center gap-2 sm:gap-3 text-xs">
+        
+        <!-- Contact Line (Desktop) -->
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="tel:962XXXXX82" class="hover:text-brand-orange transition flex items-center gap-1.5 font-medium text-slate-300">
+            <i class="fa-solid fa-phone text-brand-orange text-xs"></i> +91 962XXXXX82
+          </a>
+          <a href="mailto:webmanager1728@gmail.com" class="hover:text-brand-orange transition hidden lg:flex items-center gap-1.5 font-medium text-slate-300">
+            <i class="fa-solid fa-envelope text-brand-orange text-xs"></i> webmanager1728@gmail.com
+          </a>
+        </div>
 
         <!-- Optional Google / Gmail Authentication Widget in Top Bar -->
-        <div class="flex items-center pl-2 sm:border-l sm:border-white/10 gap-2">
+        <div class="hidden sm:flex items-center pl-2 sm:border-l sm:border-white/10 gap-2">
           <button id="googleSignInBtnTop" onclick="openGoogleAuthModal()" class="bg-white/[0.08] hover:bg-white/[0.15] text-white px-2.5 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1.5 transition border border-white/15 active:scale-95 cursor-pointer shadow-sm">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -393,17 +283,69 @@
           </div>
         </div>
 
-        <button onclick="openProjectsModal()" class="hidden sm:inline-flex bg-gradient-to-r from-brand-orange to-brand-orangehover text-white px-3 py-1 rounded-lg font-medium text-xs shadow-md transition items-center gap-1.5 cursor-pointer active:scale-95 ml-1">
+        <!-- Desktop Explore Projects Button -->
+        <button onclick="openProjectsModal()" class="hidden sm:inline-flex bg-gradient-to-r from-brand-orange to-brand-orangehover text-white px-3 py-1.5 rounded-lg font-medium text-xs shadow-md transition items-center gap-1.5 cursor-pointer active:scale-95">
           <i class="fa-solid fa-layer-group text-[10px]"></i>
           <span>Projects</span>
         </button>
 
+        <!-- Mobile Quick Call Button -->
+        <a href="tel:962XXXXX82" class="sm:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-brand-orange/15 text-brand-orange border border-brand-orange/30 active:scale-95 transition" title="Call Us Directly">
+          <i class="fa-solid fa-phone text-xs"></i>
+        </a>
+
+        <!-- Mobile Hamburger Menu Button -->
+        <button id="mobileNavToggleBtn" onclick="toggleMobileNavMenu()" class="md:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/15 active:scale-95 transition cursor-pointer" aria-label="Toggle Menu">
+          <i id="mobileNavToggleIcon" class="fa-solid fa-bars text-sm"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Top Slide-Down Navigation Menu -->
+    <div id="mobileNavDropdown" class="hidden md:hidden overflow-hidden transition-all duration-300 border-t border-white/10 mt-2.5 pt-3 pb-2 space-y-1 bg-[#090d16]/95 backdrop-blur-2xl rounded-2xl p-2 shadow-2xl">
+      <a href="#home" onclick="closeMobileNavMenu()" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 text-xs font-semibold transition">
+        <i class="fa-solid fa-house text-brand-orange w-5 text-center"></i>
+        <span>Home</span>
+      </a>
+      <a href="#about" onclick="closeMobileNavMenu()" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 text-xs font-semibold transition">
+        <i class="fa-solid fa-user-group text-brand-orange w-5 text-center"></i>
+        <span>About & Leadership</span>
+      </a>
+      <button onclick="closeMobileNavMenu(); openMdProfileModal();" class="w-full text-left flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 text-xs font-semibold transition cursor-pointer">
+        <i class="fa-solid fa-user-tie text-brand-orange w-5 text-center"></i>
+        <span>Managing Director Profile</span>
+      </button>
+      <a href="#services" onclick="closeMobileNavMenu()" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 text-xs font-semibold transition">
+        <i class="fa-solid fa-gear text-brand-orange w-5 text-center"></i>
+        <span>Core Services</span>
+      </a>
+      <button onclick="closeMobileNavMenu(); openProjectsModal();" class="w-full text-left flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 text-xs font-semibold transition cursor-pointer">
+        <i class="fa-solid fa-layer-group text-brand-orange w-5 text-center"></i>
+        <span>Explore Projects Portfolio</span>
+        <span class="ml-auto text-[9px] bg-brand-orange/20 text-brand-orange px-2 py-0.5 rounded-full font-bold">12+ Projects</span>
+      </button>
+      <a href="#contact" onclick="closeMobileNavMenu()" class="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-200 hover:text-white hover:bg-white/10 text-xs font-semibold transition">
+        <i class="fa-solid fa-envelope text-brand-orange w-5 text-center"></i>
+        <span>Contact Office & Inquiries</span>
+      </a>
+
+      <!-- Mobile Dropdown Quick Action Footer -->
+      <div class="pt-2 border-t border-white/10 flex gap-2">
+        <a href="tel:962XXXXX82" class="flex-1 bg-white/10 hover:bg-white/20 text-white text-[11px] py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition border border-white/10 font-medium">
+          <i class="fa-solid fa-phone text-brand-orange text-xs"></i>
+          <span>+91 962XXXXX82</span>
+        </a>
+        <button onclick="closeMobileNavMenu(); openProjectsModal();" class="flex-1 bg-gradient-to-r from-brand-orange to-brand-orangehover text-white text-[11px] py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition font-semibold shadow-md">
+          <i class="fa-solid fa-folder-open text-xs"></i>
+          <span>Projects</span>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- Main Website Content Area (Responsive padding: pl-0 on mobile, pl-20 on desktop) -->
-  <div class="pl-0 md:pl-20 pb-20 md:pb-0 transition-all duration-300">
+  <div class="pl-0 md:pl-20 transition-all duration-300">
 
   <!-- Hero Section (Black & Gold Cyber-Defense Luxury Theme) -->
   <header id="home" class="relative bg-gradient-to-b from-[#090d16] via-[#0d1424] to-[#07090e] text-white py-28 px-4 overflow-hidden border-b-2 border-brand-orange/40">
@@ -1653,7 +1595,7 @@
     });
 
     // =========================================================================
-    // RESPONSIVE NAVIGATION ENGINE (Desktop Sidebar + Mobile Spotlight Dock)
+    // RESPONSIVE NAVIGATION ENGINE (Desktop Sidebar + Mobile Top Menu)
     // =========================================================================
     let isSidebarManuallyExpanded = false;
     function toggleSidebarManual() {
@@ -1673,12 +1615,40 @@
       }
     }
 
+    // Mobile Top Navigation Menu Toggle
+    function toggleMobileNavMenu() {
+      const dropdown = document.getElementById('mobileNavDropdown');
+      const icon = document.getElementById('mobileNavToggleIcon');
+      if (!dropdown) return;
+      const isHidden = dropdown.classList.contains('hidden');
+      if (isHidden) {
+        dropdown.classList.remove('hidden');
+        if (icon) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-xmark');
+        }
+      } else {
+        dropdown.classList.add('hidden');
+        if (icon) {
+          icon.classList.remove('fa-xmark');
+          icon.classList.add('fa-bars');
+        }
+      }
+    }
+
+    function closeMobileNavMenu() {
+      const dropdown = document.getElementById('mobileNavDropdown');
+      const icon = document.getElementById('mobileNavToggleIcon');
+      if (dropdown) dropdown.classList.add('hidden');
+      if (icon) {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      }
+    }
+
     function initNavigationSystems() {
       const sidebar = document.getElementById('verticalSidebar');
       const desktopItems = sidebar ? Array.from(sidebar.querySelectorAll('.sidebar-nav-item')) : [];
-      
-      const mobileNav = document.getElementById('mobileLimelightNav');
-      const mobileTabs = mobileNav ? Array.from(mobileNav.querySelectorAll('.mobile-nav-tab')) : [];
 
       let isManualClickScrolling = false;
       let scrollTimeout = null;
@@ -1688,7 +1658,7 @@
         if (!sectionId) return;
         currentActiveSection = sectionId;
 
-        // 1. Update Desktop Sidebar Items
+        // Update Desktop Sidebar Items
         desktopItems.forEach((item) => {
           const itemSec = item.getAttribute('data-section');
           const indicator = item.querySelector('.sidebar-indicator');
@@ -1712,37 +1682,12 @@
             }
           }
         });
-
-        // 2. Update Mobile Limelight Spotlight Tabs
-        mobileTabs.forEach((tab) => {
-          const tabSec = tab.getAttribute('data-mobile-section');
-          if (tabSec === sectionId) {
-            tab.classList.add('active-tab');
-          } else {
-            tab.classList.remove('active-tab');
-          }
-        });
       }
 
       // Desktop item clicks
       desktopItems.forEach((item) => {
         item.addEventListener('click', () => {
           const section = item.getAttribute('data-section');
-          if (section) {
-            setActiveSection(section);
-            isManualClickScrolling = true;
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-              isManualClickScrolling = false;
-            }, 900);
-          }
-        });
-      });
-
-      // Mobile dock tab clicks
-      mobileTabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-          const section = tab.getAttribute('data-mobile-section');
           if (section) {
             setActiveSection(section);
             isManualClickScrolling = true;
