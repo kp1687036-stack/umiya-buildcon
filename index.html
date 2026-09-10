@@ -101,172 +101,6 @@
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
 
-  <!-- ========================================================================= -->
-  <!-- COMPULSORY SECURITY LOGIN GATEWAY (FULLSCREEN ACCESS LOCK SCREEN)        -->
-  <!-- ========================================================================= -->
-  <div id="securityGate" class="fixed inset-0 z-[99999] bg-[#05070a] flex items-center justify-center p-3 sm:p-6 overflow-y-auto min-h-screen transition-all duration-500">
-    
-    <!-- Ambient Radial Cyber Glows -->
-    <div class="fixed -top-40 -left-40 w-96 h-96 bg-brand-orange/20 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="fixed -bottom-40 -right-40 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
-    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-96 bg-amber-500/10 rounded-full blur-[140px] pointer-events-none"></div>
-
-    <div class="relative z-10 w-full max-w-lg bg-[#0b0f17]/95 backdrop-blur-3xl border border-brand-orange/40 rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden text-slate-100 my-auto animate-in fade-in zoom-in-95 duration-300">
-      
-      <!-- Top Cyber Security Status Bar -->
-      <div class="bg-gradient-to-r from-[#0c121d] via-[#141e30] to-[#0c121d] px-6 py-3 border-b border-brand-orange/30 flex justify-between items-center text-xs">
-        <div class="flex items-center gap-2 font-mono text-[11px] text-amber-400">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span class="font-bold tracking-wider uppercase">Portal Security Active</span>
-        </div>
-        <div class="text-[11px] text-slate-400 flex items-center gap-1.5 font-mono">
-          <i class="fa-solid fa-shield-halved text-brand-orange"></i>
-          <span>256-Bit SSL Protected</span>
-        </div>
-      </div>
-
-      <!-- Main Portal Body -->
-      <div class="p-6 sm:p-8 space-y-5 text-center">
-        
-        <!-- Company Logo & Brand Header -->
-        <div class="flex flex-col items-center">
-          <div class="relative mb-3">
-            <div class="w-16 h-16 rounded-2xl bg-[#121927] border-2 border-brand-orange/60 p-2 shadow-xl flex items-center justify-center">
-              <img src="logo.jpeg" alt="Umiya Buildcon Logo" class="w-full h-full object-contain rounded-lg pointer-events-none select-none" />
-            </div>
-            <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-brand-orange border-2 border-[#0b0f17] flex items-center justify-center text-[10px] text-white shadow">
-              <i class="fa-solid fa-lock"></i>
-            </div>
-          </div>
-          
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading">
-            <span>Umiya</span>&nbsp;<span class="text-brand-orange">Buildcon</span>
-          </h2>
-          <span class="text-[11px] text-brand-orange font-bold tracking-widest uppercase mt-0.5">
-            Government Approved Defense & Civil Infrastructure
-          </span>
-          <p class="text-xs text-slate-400 mt-2 max-w-sm leading-relaxed font-normal">
-            Restricted Access Gateway. Please login or verify your credentials below to view tenders, projects, and contractor information.
-          </p>
-        </div>
-
-        <!-- Google 1-Click Fast Sign-In Section -->
-        <div class="bg-[#101622] border border-white/10 rounded-2xl p-4 space-y-3 shadow-inner">
-          <div class="flex items-center justify-between text-xs text-slate-300 font-semibold border-b border-white/10 pb-2">
-            <span class="flex items-center gap-1.5 text-white">
-              <i class="fa-brands fa-google text-brand-orange"></i>
-              <span>Google 1-Click Fast Access</span>
-            </span>
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">
-              Recommended
-            </span>
-          </div>
-
-          <!-- Official Google GIS Button Container -->
-          <div id="gateGoogleButtonDiv" class="flex justify-center min-h-[44px]"></div>
-
-          <!-- Quick 1-Click Connect Options (Director / Contractor) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-            <button onclick="handleQuickAuth('director@umiyabuildcon.com', 'Jaymin Patel', 'Managing Director', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces')" type="button" class="flex items-center justify-center gap-2 bg-brand-orange/15 hover:bg-brand-orange/25 border border-brand-orange/40 text-brand-orange font-semibold py-2.5 px-3 rounded-xl text-xs transition cursor-pointer active:scale-95 shadow-sm">
-              <i class="fa-solid fa-user-tie text-xs"></i>
-              <span class="truncate">Director Jaymin Patel</span>
-            </button>
-
-            <button onclick="handleQuickAuth('contractor@umiyabuildcon.com', 'Govt. Project Partner', 'Contractor')" type="button" class="flex items-center justify-center gap-2 bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-slate-200 font-semibold py-2.5 px-3 rounded-xl text-xs transition cursor-pointer active:scale-95 shadow-sm">
-              <i class="fa-solid fa-shield-halved text-xs text-sky-400"></i>
-              <span class="truncate">Contractor Access</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="relative flex items-center justify-center my-2">
-          <div class="border-t border-white/10 w-full"></div>
-          <span class="bg-[#0b0f17] px-3 text-[10px] text-slate-500 uppercase font-mono tracking-wider absolute">Or Enter Your Details</span>
-        </div>
-
-        <!-- Direct Client / Partner Verification Form -->
-        <form id="gateLoginForm" onsubmit="handleGateDirectLogin(event)" class="space-y-3 text-left">
-          
-          <div>
-            <label class="block text-[11px] font-medium text-slate-300 mb-1">
-              Full Name <span class="text-brand-orange">*</span>
-            </label>
-            <input 
-              type="text" 
-              id="gateNameInput" 
-              required 
-              placeholder="Enter your name" 
-              class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm outline-none transition duration-200 shadow-inner"
-            />
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-medium text-slate-300 mb-1">
-                Email / Gmail <span class="text-brand-orange">*</span>
-              </label>
-              <input 
-                type="email" 
-                id="gateEmailInput" 
-                required 
-                placeholder="name@gmail.com" 
-                class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm outline-none transition duration-200 shadow-inner"
-              />
-            </div>
-
-            <div>
-              <label class="block text-[11px] font-medium text-slate-300 mb-1">
-                Phone Number <span class="text-brand-orange">*</span>
-              </label>
-              <div class="flex items-center bg-[#070a0f] border border-white/15 focus-within:border-brand-orange focus-within:ring-1 focus-within:ring-brand-orange/40 rounded-xl overflow-hidden transition duration-200 shadow-inner">
-                <span class="bg-white/[0.04] text-brand-orange font-bold text-xs px-2.5 py-2.5 border-r border-white/15 select-none">
-                  +91
-                </span>
-                <input 
-                  type="tel" 
-                  id="gatePhoneInput" 
-                  required 
-                  maxlength="11" 
-                  placeholder="XXXXX XXXXX" 
-                  oninput="formatPhoneNumber(this)"
-                  class="w-full px-3 py-2 bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm outline-none font-medium"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Alert Box -->
-          <div id="gateAlertBox" class="hidden text-xs py-2 px-3 rounded-xl text-center"></div>
-
-          <!-- Unlock Button -->
-          <button 
-            type="submit" 
-            id="gateUnlockBtn" 
-            class="w-full bg-gradient-to-r from-brand-orange via-amber-500 to-brand-orangehover hover:from-brand-orangehover hover:to-brand-orange text-white font-bold py-3 px-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 active:scale-[0.99] cursor-pointer text-xs sm:text-sm font-heading tracking-wide"
-          >
-            <i class="fa-solid fa-lock-open text-xs"></i>
-            <span>Authenticate & Unlock Website</span>
-          </button>
-        </form>
-
-        <!-- Compliance & Security Credentials Badges -->
-        <div class="pt-2 border-t border-white/10 flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400">
-          <span class="flex items-center gap-1">
-            <i class="fa-solid fa-shield-halved text-brand-orange"></i> MES Verified
-          </span>
-          <span class="flex items-center gap-1">
-            <i class="fa-solid fa-certificate text-amber-400"></i> Govt. Class Approved
-          </span>
-          <span class="flex items-center gap-1">
-            <i class="fa-solid fa-plane-shield text-sky-400"></i> Air Force & Navy Compliant
-          </span>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
   <!-- Vertical Left Sidebar Navigation (Matching User's Reference Image) -->
   <aside id="verticalSidebar" class="fixed top-0 left-0 h-screen z-50 bg-[#0c0d10]/95 backdrop-blur-2xl border-r border-white/10 shadow-[8px_0_30px_rgba(0,0,0,0.5)] flex flex-col justify-between transition-all duration-300 w-16 md:w-20 group hover:w-64 select-none">
     
@@ -282,7 +116,7 @@
         </div>
       </div>
 
-      <!-- Vertical List of Icons (Matching Screenshot) -->
+      <!-- Vertical List of Icons -->
       <nav class="flex flex-col py-6 space-y-3 px-2">
         
         <!-- 1. Home Icon -->
@@ -357,20 +191,6 @@
           </div>
         </a>
 
-        <!-- 6. Security Lock / Logout Button -->
-        <button onclick="lockWebsite()" data-section="lock" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-red-400/80 hover:text-red-300 hover:bg-red-950/40 transition-all duration-200 px-3 cursor-pointer w-full text-left group/item" title="Lock Website / Sign Out">
-          <div class="sidebar-indicator hidden absolute left-0 top-2 bottom-2 w-1 bg-red-500 rounded-r-full shadow-[0_0_12px_rgba(239,68,68,1)]"></div>
-          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover/item:scale-110">
-            <i class="fa-solid fa-lock text-red-400"></i>
-          </span>
-          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-semibold text-red-300 whitespace-nowrap">
-            Lock Website
-          </span>
-          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-red-300 text-[11px] font-medium rounded-lg shadow-2xl border border-red-500/20 whitespace-nowrap transition-all duration-200 z-50">
-            Lock Website / Sign Out
-          </div>
-        </button>
-
       </nav>
     </div>
 
@@ -415,11 +235,16 @@
           <i class="fa-solid fa-envelope text-brand-orange text-xs"></i> webmanager1728@gmail.com
         </a>
 
-        <!-- Google / Gmail Authentication Widget in Top Bar -->
+        <!-- Optional Google / Gmail Authentication Widget in Top Bar -->
         <div class="flex items-center pl-2 sm:border-l sm:border-white/10 gap-2">
-          <button id="googleSignInBtnTop" onclick="lockWebsite()" class="bg-brand-orange/20 hover:bg-brand-orange/30 text-brand-orange px-2.5 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1.5 transition border border-brand-orange/40 active:scale-95 cursor-pointer shadow-sm">
-            <i class="fa-solid fa-lock text-[10px]"></i>
-            <span>Portal Auth</span>
+          <button id="googleSignInBtnTop" onclick="openGoogleAuthModal()" class="bg-white/[0.08] hover:bg-white/[0.15] text-white px-2.5 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1.5 transition border border-white/15 active:scale-95 cursor-pointer shadow-sm">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign In</span>
           </button>
 
           <!-- Logged In User Pill -->
@@ -446,13 +271,22 @@
                 <span>Auto-fill Inquiry Form</span>
               </button>
               <div class="border-t border-white/10 my-1"></div>
-              <button onclick="lockWebsite()" class="w-full text-left px-3 py-2 hover:bg-red-950/50 text-red-400 flex items-center gap-2 cursor-pointer transition font-medium">
-                <i class="fa-solid fa-lock text-red-400"></i>
-                <span>Lock Website & Sign Out</span>
+              <button onclick="signOutGoogle()" class="w-full text-left px-3 py-2 hover:bg-red-950/50 text-red-400 flex items-center gap-2 cursor-pointer transition font-medium">
+                <i class="fa-solid fa-right-from-bracket text-red-400"></i>
+                <span>Sign Out</span>
               </button>
             </div>
           </div>
         </div>
+
+        <button onclick="openProjectsModal()" class="hidden sm:inline-flex bg-gradient-to-r from-brand-orange to-brand-orangehover text-white px-3 py-1 rounded-lg font-medium text-xs shadow-md transition items-center gap-1.5 cursor-pointer active:scale-95 ml-1">
+          <i class="fa-solid fa-layer-group text-[10px]"></i>
+          <span>Projects</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
 
         <button onclick="openProjectsModal()" class="hidden sm:inline-flex bg-gradient-to-r from-brand-orange to-brand-orangehover text-white px-3 py-1 rounded-lg font-medium text-xs shadow-md transition items-center gap-1.5 cursor-pointer active:scale-95 ml-1">
           <i class="fa-solid fa-layer-group text-[10px]"></i>
@@ -1298,170 +1132,55 @@
       }
     }
 
-    // Universal Login & Unlock Website Engine
-    function authenticateUser(userData, isSilent = false) {
+    // Universal Save User Function (for auto-filling forms & profile badge)
+    function saveGoogleUser(userData) {
       currentUser = userData;
       localStorage.setItem('umiya_auth_user', JSON.stringify(userData));
       localStorage.setItem('umiya_google_user', JSON.stringify(userData));
-
-      // Unlock Security Gate with smooth animation
-      const securityGate = document.getElementById('securityGate');
-      if (securityGate) {
-        securityGate.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-        setTimeout(() => {
-          securityGate.classList.add('hidden');
-          securityGate.classList.remove('flex', 'opacity-0', 'scale-95', 'pointer-events-none');
-          document.body.style.overflow = '';
-          document.documentElement.style.overflow = '';
-        }, 350);
-      } else {
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-      }
-
       updateGoogleAuthUI();
       closeGoogleAuthModal();
       autoFillInquiryForm();
     }
 
-    // Direct Login from Security Gate Form
-    function handleGateDirectLogin(e) {
-      e.preventDefault();
-      const nameInput = document.getElementById('gateNameInput');
-      const emailInput = document.getElementById('gateEmailInput');
-      const phoneInput = document.getElementById('gatePhoneInput');
-      const alertBox = document.getElementById('gateAlertBox');
-      const unlockBtn = document.getElementById('gateUnlockBtn');
-
-      const name = nameInput ? nameInput.value.trim() : '';
-      const email = emailInput ? emailInput.value.trim() : '';
-      const phone = phoneInput ? phoneInput.value.trim() : '';
-
-      if (!name || !email || !phone) {
-        if (alertBox) {
-          alertBox.className = 'text-xs py-2 px-3 rounded-xl text-center bg-red-950/80 border border-red-500/50 text-red-300 block';
-          alertBox.textContent = 'Please enter your Name, Email, and Phone Number.';
-        }
-        return;
-      }
-
-      if (unlockBtn) {
-        unlockBtn.disabled = true;
-        unlockBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Authenticating...';
-      }
-
-      setTimeout(() => {
-        const userData = {
-          name: name,
-          email: email,
-          phone: phone.startsWith('+91') ? phone : `+91 ${phone}`,
-          picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
-          role: 'Verified Partner / Client',
-          verified: true
-        };
-
-        authenticateUser(userData);
-
-        if (unlockBtn) {
-          unlockBtn.disabled = false;
-          unlockBtn.innerHTML = '<i class="fa-solid fa-lock-open text-xs"></i><span>Authenticate & Unlock Website</span>';
-        }
-      }, 500);
-    }
-
-    // Quick 1-Click Access Handler
-    function handleQuickAuth(email, name, role, picture) {
-      authenticateUser({
-        name: name || 'Valued Client',
-        email: email || 'client@gmail.com',
-        role: role || 'Client',
-        picture: picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c',
-        verified: true
-      });
+    function authenticateUser(userData) {
+      saveGoogleUser(userData);
     }
 
     function handleQuickGoogleLogin(email, name, picture) {
-      handleQuickAuth(email, name, 'Client', picture);
+      saveGoogleUser({
+        name: name || 'Valued Client',
+        email: email || 'client@gmail.com',
+        picture: picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+        verified: true
+      });
     }
 
     function handleCustomEmailPrompt() {
       const email = prompt('Enter your Gmail address for instant authentication:', 'example@gmail.com');
       if (email && email.includes('@')) {
         const defaultName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        authenticateUser({
+        saveGoogleUser({
           name: defaultName,
           email: email.trim().toLowerCase(),
-          role: 'Client',
           picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
           verified: true
         });
       }
     }
 
-    // Lock Website and Enforce Security Screen
-    function lockWebsite() {
+    function signOutGoogle() {
       currentUser = null;
       localStorage.removeItem('umiya_auth_user');
       localStorage.removeItem('umiya_google_user');
-      
       const dropdown = document.getElementById('userDropdownTop');
       if (dropdown) dropdown.classList.add('hidden');
-
-      const securityGate = document.getElementById('securityGate');
-      if (securityGate) {
-        securityGate.classList.remove('hidden', 'opacity-0', 'scale-95', 'pointer-events-none');
-        securityGate.classList.add('flex');
-      }
-
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-
-      // Clear form inputs
-      const nameInput = document.getElementById('contactName');
-      const emailInput = document.getElementById('contactEmail');
-      if (nameInput) nameInput.value = '';
-      if (emailInput) emailInput.value = '';
-
       updateGoogleAuthUI();
-      renderGoogleButton();
-    }
-
-    function signOutGoogle() {
-      lockWebsite();
-    }
-
-    function checkAuthGate() {
-      const stored = localStorage.getItem('umiya_auth_user') || localStorage.getItem('umiya_google_user');
-      const securityGate = document.getElementById('securityGate');
-
-      if (stored) {
-        try {
-          currentUser = JSON.parse(stored);
-          if (securityGate) {
-            securityGate.classList.add('hidden');
-            securityGate.classList.remove('flex');
-          }
-          document.body.style.overflow = '';
-          document.documentElement.style.overflow = '';
-          updateGoogleAuthUI();
-          autoFillInquiryForm();
-        } catch (e) {
-          console.error('Session error:', e);
-          lockWebsite();
-        }
-      } else {
-        // Enforce lock screen
-        if (securityGate) {
-          securityGate.classList.remove('hidden');
-          securityGate.classList.add('flex');
-        }
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-        updateGoogleAuthUI();
-      }
     }
 
     function updateGoogleAuthUI() {
+      const stored = localStorage.getItem('umiya_auth_user') || localStorage.getItem('umiya_google_user');
+      currentUser = stored ? JSON.parse(stored) : null;
+
       const signInBtnTop = document.getElementById('googleSignInBtnTop');
       const userPillTop = document.getElementById('googleUserPillTop');
       const formSignedInBadge = document.getElementById('formSignedInBadge');
@@ -1479,10 +1198,10 @@
         const userAvatarDropdown = document.getElementById('userAvatarDropdown');
 
         if (userNameTop) userNameTop.textContent = firstName;
-        if (userAvatarTop) userAvatarTop.src = currentUser.picture;
+        if (userAvatarTop) userAvatarTop.src = currentUser.picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c';
         if (userNameDropdown) userNameDropdown.textContent = currentUser.name;
         if (userEmailDropdown) userEmailDropdown.textContent = currentUser.email;
-        if (userAvatarDropdown) userAvatarDropdown.src = currentUser.picture;
+        if (userAvatarDropdown) userAvatarDropdown.src = currentUser.picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c';
 
         // Update form banner
         if (formSignedInBadge) {
@@ -1493,7 +1212,7 @@
         
         const formUserAvatar = document.getElementById('formUserAvatar');
         const formUserEmail = document.getElementById('formUserEmail');
-        if (formUserAvatar) formUserAvatar.src = currentUser.picture;
+        if (formUserAvatar) formUserAvatar.src = currentUser.picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c';
         if (formUserEmail) formUserEmail.textContent = currentUser.email;
 
       } else {
@@ -1551,9 +1270,7 @@
       if (googleAuthModal) {
         googleAuthModal.classList.add('hidden');
         googleAuthModal.classList.remove('flex');
-        if (currentUser) {
-          document.body.style.overflow = 'auto';
-        }
+        document.body.style.overflow = 'auto';
       }
     }
 
@@ -1566,21 +1283,6 @@
             auto_select: false
           });
 
-          // Render in Security Gate
-          const gateBtnDiv = document.getElementById('gateGoogleButtonDiv');
-          if (gateBtnDiv && gateBtnDiv.children.length === 0) {
-            google.accounts.id.renderButton(gateBtnDiv, {
-              theme: 'outline',
-              size: 'large',
-              type: 'standard',
-              shape: 'pill',
-              text: 'signin_with',
-              logo_alignment: 'left',
-              width: 280
-            });
-          }
-
-          // Render in Auth Modal
           const modalBtnDiv = document.getElementById('googleButtonDiv');
           if (modalBtnDiv && modalBtnDiv.children.length === 0) {
             google.accounts.id.renderButton(modalBtnDiv, {
@@ -1599,14 +1301,12 @@
       }
     }
 
-    // Initialize Security Gate & Auth on Page Load
+    // Initialize Auth state on page load (Never locks page)
     document.addEventListener('DOMContentLoaded', () => {
-      checkAuthGate();
+      updateGoogleAuthUI();
+      autoFillInquiryForm();
       setTimeout(renderGoogleButton, 800);
     });
-
-    // Immediate check in case DOM is already loaded
-    checkAuthGate();
 
     // 1. Phone number format: +91- xxxxx xxxxx
     function formatPhoneNumber(input) {
