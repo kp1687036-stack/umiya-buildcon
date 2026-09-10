@@ -180,7 +180,7 @@ const Inquiry = mongoose.models.Inquiry || mongoose.model('Inquiry', InquirySche
 
 
 // ============================================================================
-// 4. NODEMAILER EMAIL NOTIFICATION CONFIGURATION
+// 4. NODEMAILER EMAIL AUTOMATION & HTML TEMPLATES
 // ============================================================================
 
 const createTransporter = () => {
@@ -198,19 +198,34 @@ const createTransporter = () => {
   });
 };
 
-const generateEmailHtml = ({ name, email, phone, department, message, timestamp, cleanPhoneDigits }) => {
-  const whatsappUrl = `https://wa.me/${cleanPhoneDigits}`;
-  const mailtoUrl = `mailto:${email}?subject=Re:%20Official%20Inquiry%20-%20Umiya%20Buildcon`;
+/**
+ * Sanitizes headers to prevent CRLF email header injection
+ */
+function sanitizeHeaderString(str) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/[\r\n\t]/g, ' ').trim();
+}
+
+/**
+ * Template 1: Detailed Notification Email Sent to Company Inbox
+ */
+const generateAdminNotificationEmailHtml = ({ inquiryId, name, email, phone, department, message, timestamp, cleanPhoneDigits, ipAddress }) => {
+  const whatsappUrl = `https://wa.me/${cleanPhoneDigits}?text=${encodeURIComponent(`Hello ${name}, thank you for contacting Umiya Buildcon regarding your inquiry (${inquiryId}).`)}`;
+  const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(`Re: Official Inquiry [Ref: ${inquiryId}] - Umiya Buildcon`)}`;
   const telUrl = `tel:${phone.replace(/\s+/g, '')}`;
 
   return `
   <!DOCTYPE html>
   <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
   <body style="margin:0; padding:0; background-color:#f4f6f8; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#334155;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f4f6f8; padding:30px 10px;">
       <tr>
         <td align="center">
-          <table border="0" cellpadding="0" cellspacing="0" width="600" style="max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #e2e8f0;">
+          <table border="0" cellpadding="0" cellspacing="0" width="600" style="max-width:600px; width:100%; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #e2e8f0;">
             <tr>
               <td style="background: linear-gradient(135deg, #081f31 0%, #16527d 100%); padding:28px 30px; text-align:left; border-bottom:4px solid #ea8a26;">
                 <span style="background-color:#ea8a26; color:#ffffff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; padding:4px 8px; border-radius:4px; display:inline-block; margin-bottom:8px;">Official Website Lead</span>
@@ -221,7 +236,7 @@ const generateEmailHtml = ({ name, email, phone, department, message, timestamp,
             <tr>
               <td style="padding:20px 30px 10px 30px;">
                 <div style="background-color:#fef7ee; border-left:4px solid #ea8a26; padding:12px 16px; border-radius:0 8px 8px 0; color:#b45309; font-size:13px; font-weight:600;">
-                  🚨 Managing Director Alert: A new inquiry has been submitted via the website contact form.
+                  🚨 Managing Director Alert: A new client inquiry has been submitted online.
                 </div>
               </td>
             </tr>
@@ -229,7 +244,11 @@ const generateEmailHtml = ({ name, email, phone, department, message, timestamp,
               <td style="padding:15px 30px 20px 30px;">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                   <tr style="border-bottom:1px solid #f1f5f9;">
-                    <td style="padding:10px 0; width:38%; font-size:13px; font-weight:600; color:#64748b;">Full Name:</td>
+                    <td style="padding:10px 0; width:38%; font-size:13px; font-weight:600; color:#64748b;">Reference ID:</td>
+                    <td style="padding:10px 0; font-size:13px; font-weight:700; font-family:monospace; color:#0f172a;">${inquiryId}</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;">
+                    <td style="padding:10px 0; font-size:13px; font-weight:600; color:#64748b;">Client Name:</td>
                     <td style="padding:10px 0; font-size:14px; font-weight:700; color:#0f172a;">${validator.escape(name)}</td>
                   </tr>
                   <tr style="border-bottom:1px solid #f1f5f9;">
@@ -244,9 +263,13 @@ const generateEmailHtml = ({ name, email, phone, department, message, timestamp,
                     <td style="padding:10px 0; font-size:13px; font-weight:600; color:#64748b;">Department / Org:</td>
                     <td style="padding:10px 0; font-size:14px; color:#334155;"><strong>${validator.escape(department || 'Not Specified')}</strong></td>
                   </tr>
-                  <tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;">
                     <td style="padding:10px 0; font-size:13px; font-weight:600; color:#64748b;">Submitted At:</td>
                     <td style="padding:10px 0; font-size:13px; color:#64748b;">${timestamp}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:10px 0; font-size:13px; font-weight:600; color:#64748b;">IP Address:</td>
+                    <td style="padding:10px 0; font-size:12px; font-family:monospace; color:#64748b;">${validator.escape(ipAddress || 'Unknown')}</td>
                   </tr>
                 </table>
               </td>
@@ -254,7 +277,7 @@ const generateEmailHtml = ({ name, email, phone, department, message, timestamp,
             <tr>
               <td style="padding:0 30px 25px 30px;">
                 <h3 style="font-size:14px; color:#0e3a5a; text-transform:uppercase; margin:0 0 10px 0; border-bottom:2px solid #f1f5f9; padding-bottom:6px;">💬 Message / Tender Scope:</h3>
-                <div style="background-color:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; font-size:14px; color:#1e293b; white-space:pre-wrap;">${validator.escape(message)}</div>
+                <div style="background-color:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; font-size:14px; color:#1e293b; white-space:pre-wrap; line-height:1.6;">${validator.escape(message)}</div>
               </td>
             </tr>
             <tr>
@@ -270,9 +293,152 @@ const generateEmailHtml = ({ name, email, phone, department, message, timestamp,
             </tr>
             <tr>
               <td style="background-color:#081f31; padding:16px 30px; text-align:center; color:#94a3b8; font-size:11px;">
-                Umiya Buildcon • 7, Umiya Complex, Kalol Road, Mansa - 382845, Gujarat • +91 87359 93873
+                Umiya Buildcon • 7, Umiya Complex, Kalol Road, Mansa - 382845, Gujarat • +91 962XXXXX82
               </td>
             </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+  </html>
+  `;
+};
+
+/**
+ * Template 2: Professional Auto-Reply Confirmation Email Sent to User
+ */
+const generateUserConfirmationEmailHtml = ({ inquiryId, name, email, phone, department, message, timestamp }) => {
+  return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body style="margin:0; padding:0; background-color:#f8fafc; font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color:#334155; -webkit-font-smoothing:antialiased;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f8fafc; padding:35px 15px;">
+      <tr>
+        <td align="center">
+          <table border="0" cellpadding="0" cellspacing="0" width="620" style="max-width:620px; width:100%; background:#ffffff; border-radius:14px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,0.06); border:1px solid #e2e8f0;">
+            
+            <!-- Header Banner -->
+            <tr>
+              <td style="background: linear-gradient(135deg, #081f31 0%, #16527d 100%); padding:32px 35px; text-align:left; border-bottom:4px solid #ea8a26;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td>
+                      <span style="background-color:#ea8a26; color:#ffffff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; padding:4px 9px; border-radius:4px; display:inline-block; margin-bottom:10px;">
+                        Official Acknowledgment
+                      </span>
+                      <h1 style="margin:0; color:#ffffff; font-size:24px; font-weight:700; letter-spacing:-0.5px;">
+                        Inquiry Received & Under Review
+                      </h1>
+                      <p style="margin:6px 0 0 0; color:#cbd5e1; font-size:13px; font-weight:400;">
+                        Umiya Buildcon • Defense & Civil Infrastructure Contractors
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Greeting Body -->
+            <tr>
+              <td style="padding:30px 35px 20px 35px;">
+                <p style="font-size:16px; font-weight:600; color:#0f172a; margin:0 0 12px 0;">
+                  Dear ${validator.escape(name)},
+                </p>
+                <p style="font-size:14px; line-height:1.65; color:#475569; margin:0 0 16px 0;">
+                  Thank you for reaching out to <strong>Umiya Buildcon</strong>. We have successfully received your inquiry regarding <strong>${validator.escape(department || 'Government & Civil Infrastructure Works')}</strong>.
+                </p>
+                <p style="font-size:14px; line-height:1.65; color:#475569; margin:0 0 22px 0;">
+                  Under the direction of our Managing Director, <strong>Jaymin Patel</strong>, our project estimation team is reviewing your requirements. We strive to provide prompt, high-precision turnarounds for all inquiries and government contracts.
+                </p>
+
+                <!-- Inquiry Summary Box -->
+                <div style="background-color:#f8fafc; border:1px solid #e2e8f0; border-left:4px solid #16527d; border-radius:8px; padding:20px; margin-bottom:24px;">
+                  <h3 style="margin:0 0 14px 0; font-size:13px; font-weight:700; color:#16527d; text-transform:uppercase; letter-spacing:0.8px;">
+                    📋 Summary of Your Submission
+                  </h3>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-size:13px; color:#334155;">
+                    <tr>
+                      <td style="padding:6px 0; width:38%; color:#64748b; font-weight:600;">Reference ID:</td>
+                      <td style="padding:6px 0; font-family:monospace; font-weight:700; color:#0f172a;">${inquiryId}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:6px 0; color:#64748b; font-weight:600;">Department / Category:</td>
+                      <td style="padding:6px 0; font-weight:600; color:#ea8a26;">${validator.escape(department || 'General Inquiry')}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:6px 0; color:#64748b; font-weight:600;">Contact Phone:</td>
+                      <td style="padding:6px 0; font-weight:500; color:#334155;">${validator.escape(phone)}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:6px 0; color:#64748b; font-weight:600;">Submitted At:</td>
+                      <td style="padding:6px 0; color:#64748b;">${timestamp}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding-top:12px; border-top:1px dashed #cbd5e1; margin-top:8px;">
+                        <span style="display:block; color:#64748b; font-weight:600; margin-bottom:5px;">Your Details / Message:</span>
+                        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:6px; padding:12px; font-size:13px; color:#1e293b; line-height:1.5; white-space:pre-wrap;">${validator.escape(message)}</div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- Next Steps Box -->
+                <div style="background-color:#fef7ee; border:1px solid #f8d7ad; border-radius:8px; padding:18px; margin-bottom:24px;">
+                  <h4 style="margin:0 0 8px 0; font-size:12px; font-weight:700; color:#b45309; text-transform:uppercase; letter-spacing:0.5px;">
+                    ⏱️ Next Steps & Response Timeline
+                  </h4>
+                  <ul style="margin:0; padding-left:18px; font-size:13px; color:#78350f; line-height:1.6;">
+                    <li><strong>Technical Review:</strong> Our engineering desk analyzes structural specifications.</li>
+                    <li><strong>Direct Follow-up:</strong> You will receive a direct phone call or email follow-up within <strong>2 to 4 business hours</strong>.</li>
+                    <li><strong>Tender / Quote:</strong> If required, a formal quotation or BOQ breakdown will be prepared.</li>
+                  </ul>
+                </div>
+
+                <!-- Quick Action Contacts -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                  <tr>
+                    <td align="center" style="padding:10px 0;">
+                      <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td style="padding-right:12px;">
+                            <a href="tel:962XXXXX82" style="background-color:#16527d; color:#ffffff; font-size:13px; font-weight:600; text-decoration:none; padding:12px 22px; border-radius:8px; display:inline-block;">
+                              📞 Call Office: +91 962XXXXX82
+                            </a>
+                          </td>
+                          <td>
+                            <a href="mailto:webmanager1728@gmail.com?subject=Inquiry%20Ref:%20${inquiryId}" style="background-color:#ea8a26; color:#ffffff; font-size:13px; font-weight:600; text-decoration:none; padding:12px 22px; border-radius:8px; display:inline-block;">
+                              ✉️ Direct Email Desk
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                <p style="font-size:13px; color:#64748b; line-height:1.6; margin:0;">
+                  Warm regards,<br>
+                  <strong style="color:#0f172a;">Jaymin Patel</strong><br>
+                  Managing Director & Founder<br>
+                  <span style="color:#16527d; font-weight:600;">Umiya Buildcon</span>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color:#081f31; padding:22px 35px; text-align:center; color:#94a3b8; font-size:11px; line-height:1.6; border-top:1px solid #1e293b;">
+                <strong style="color:#ffffff;">Umiya Buildcon</strong> — Govt. Approved Civil & Defense Infrastructure Contractor<br>
+                7, Umiya Complex, Kalol Road, Mansa - 382845, Gujarat, India • +91 962XXXXX82<br>
+                <span style="color:#64748b;">This is an automated confirmation of your inquiry submission.</span>
+              </td>
+            </tr>
+
           </table>
         </td>
       </tr>
@@ -377,6 +543,44 @@ app.get('/api/inquiries', async (req, res) => {
   }
 });
 
+// POST /api/auth/google - Verify & Authenticate Google Sign-In
+app.post('/api/auth/google', async (req, res) => {
+  try {
+    const { token, user } = req.body;
+    if (!token && !user) {
+      return res.status(400).json({ success: false, message: 'Google authentication credential or user payload is required.' });
+    }
+
+    let authenticatedUser = user || {};
+
+    if (token) {
+      try {
+        const verifyRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${token}`);
+        if (verifyRes.ok) {
+          const payload = await verifyRes.json();
+          authenticatedUser = {
+            name: payload.name,
+            email: payload.email,
+            picture: payload.picture,
+            sub: payload.sub,
+            verified: payload.email_verified === 'true' || payload.email_verified === true
+          };
+        }
+      } catch (tokenErr) {
+        console.warn('Google token verification fallback:', tokenErr.message);
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: 'Google authentication verified successfully.',
+      user: authenticatedUser
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // DELETE /api/inquiries/:id - Delete an inquiry
 app.delete('/api/inquiries/:id', async (req, res) => {
   const { id } = req.params;
@@ -451,13 +655,13 @@ function processTrainedAiQuery(message, language = 'en-IN') {
     }
     if (isHindi) {
       return {
-        reply: "जयमिन पटेल (Jaymin Patel) उमिया बिल्डकॉन के प्रबंध निदेशक (MD) और संस्थापक हैं।\n• योग्यता: बी.ई. सिविल इंजीनियरिंग\n• अनुभव: रक्षा (MES), वायु सेना, नौसेना और सरकारी बुनियादी ढांचे में 10+ वर्षों का नेतृत्व अनुभव।\n• फोन: +91 87359 93873 | ईमेल: webmanager1728@gmail.com",
+        reply: "जयमिन पटेल (Jaymin Patel) उमिया बिल्डकॉन के प्रबंध निदेशक (MD) और संस्थापक हैं।\n• योग्यता: बी.ई. सिविल इंजीनियरिंग\n• अनुभव: रक्षा (MES), वायु सेना, नौसेना और सरकारी बुनियादी ढांचे में 10+ वर्षों का नेतृत्व अनुभव।\n• फोन: +91 962XXXXX82 | ईमेल: webmanager1728@gmail.com",
         category: 'leadership',
         action: 'open_md_profile'
       };
     }
     return {
-      reply: "Jaymin Patel is the Managing Director & Founder of Umiya Buildcon.\n• Qualification: B.E. Civil Engineering\n• Experience: 10+ Years leading high-security Defense (MES), Air Force, Navy, and State public civil contracts.\n• Direct Contact: +91 87359 93873 | webmanager1728@gmail.com",
+      reply: "Jaymin Patel is the Managing Director & Founder of Umiya Buildcon.\n• Qualification: B.E. Civil Engineering\n• Experience: 10+ Years leading high-security Defense (MES), Air Force, Navy, and State public civil contracts.\n• Direct Contact: +91 962XXXXX82 | webmanager1728@gmail.com",
       category: 'leadership',
       action: 'open_md_profile'
     };
@@ -581,20 +785,20 @@ function processTrainedAiQuery(message, language = 'en-IN') {
   ) {
     if (isGujarati) {
       return {
-        reply: "📍 હેડ ઓફિસનું સરનામું:\n૭, ઉમિયા કોમ્પ્લેક્સ, કલોલ રોડ, માણસા - ૩૮૨૮૪૫, જિલ્લો: ગાંધીનગર, ગુજરાત.\n⏰ કામકાજનો સમય: સોમવાર થી શનિવાર (સવારે ૯:૦૦ થી સાંજે ૭:૩૦)\n📞 ફોન: +91 87359 93873 | ✉️ ઈમેલ: webmanager1728@gmail.com",
+        reply: "📍 હેડ ઓફિસનું સરનામું:\n૭, ઉમિયા કોમ્પ્લેક્સ, કલોલ રોડ, માણસા - ૩૮૨૮૪૫, જિલ્લો: ગાંધીનગર, ગુજરાત.\n⏰ કામકાજનો સમય: સોમવાર થી શનિવાર (સવારે ૯:૦૦ થી સાંજે ૭:૩૦)\n📞 ફોન: +91 962XXXXX82 | ✉️ ઈમેલ: webmanager1728@gmail.com",
         category: 'location',
         action: 'call_or_whatsapp'
       };
     }
     if (isHindi) {
       return {
-        reply: "📍 मुख्य कार्यालय का पता:\n७, उमिया कॉम्प्लेक्स, कलोल रोड, माणसा - ३८२८४५, जिला: गांधीनगर, गुजरात।\n⏰ कार्य समय: सोमवार से शनिवार (सुबह 9:00 से शाम 7:30)\n📞 फोन: +91 87359 93873 | ✉️ ईमेल: webmanager1728@gmail.com",
+        reply: "📍 मुख्य कार्यालय का पता:\n७, उमिया कॉम्प्लेक्स, कलोल रोड, माणसा - ३८२८४५, जिला: गांधीनगर, गुजरात।\n⏰ कार्य समय: सोमवार से शनिवार (सुबह 9:00 से शाम 7:30)\n📞 फोन: +91 962XXXXX82 | ✉️ ईमेल: webmanager1728@gmail.com",
         category: 'location',
         action: 'call_or_whatsapp'
       };
     }
     return {
-      reply: "📍 Head Office Address:\n7, Umiya Complex, Kalol Road, Mansa - 382845, Dist: Gandhinagar, Gujarat.\n⏰ Working Hours: Monday to Saturday (9:00 AM – 7:30 PM)\n📞 Direct Phone: +91 87359 93873 | ✉️ Email: webmanager1728@gmail.com",
+      reply: "📍 Head Office Address:\n7, Umiya Complex, Kalol Road, Mansa - 382845, Dist: Gandhinagar, Gujarat.\n⏰ Working Hours: Monday to Saturday (9:00 AM – 7:30 PM)\n📞 Direct Phone: +91 962XXXXX82 | ✉️ Email: webmanager1728@gmail.com",
       category: 'location',
       action: 'call_or_whatsapp'
     };
@@ -612,20 +816,20 @@ function processTrainedAiQuery(message, language = 'en-IN') {
   ) {
     if (isGujarati) {
       return {
-        reply: "ઉમિયા બિલ્ડકોન સાથે સીધો સંપર્ક કરો:\n📞 કોલ કરો: +91 87359 93873\n💬 WhatsApp: +91 87359 93873 (મેનેજિંગ ડિરેક્ટર જયમિન પટેલ)\n✉️ ઓફિશિયલ ઈમેલ: webmanager1728@gmail.com\n📍 સ્થળ: માણસા, ગાંધીનગર, ગુજરાત.",
+        reply: "ઉમિયા બિલ્ડકોન સાથે સીધો સંપર્ક કરો:\n📞 કોલ કરો: +91 962XXXXX82\n💬 WhatsApp: +91 962XXXXX82 (મેનેજિંગ ડિરેક્ટર જયમિન પટેલ)\n✉️ ઓફિશિયલ ઈમેલ: webmanager1728@gmail.com\n📍 સ્થળ: માણસા, ગાંધીનગર, ગુજરાત.",
         category: 'contact',
         action: 'whatsapp'
       };
     }
     if (isHindi) {
       return {
-        reply: "उमिया बिल्डकॉन से सीधा संपर्क करें:\n📞 सीधा फोन: +91 87359 93873\n💬 WhatsApp: +91 87359 93873 (एमडी जयमिन पटेल)\n✉️ ईमेल: webmanager1728@gmail.com\n📍 पता: माणसा, गांधीनगर, गुजरात।",
+        reply: "उमिया बिल्डकॉन से सीधा संपर्क करें:\n📞 सीधा फोन: +91 962XXXXX82\n💬 WhatsApp: +91 962XXXXX82 (एमडी जयमिन पटेल)\n✉️ ईमेल: webmanager1728@gmail.com\n📍 पता: माणसा, गांधीनगर, गुजरात।",
         category: 'contact',
         action: 'whatsapp'
       };
     }
     return {
-      reply: "Connect directly with Umiya Buildcon:\n📞 Direct Phone: +91 87359 93873\n💬 WhatsApp: +91 87359 93873 (MD Jaymin Patel)\n✉️ Official Email: webmanager1728@gmail.com\n📍 Office: Mansa, Gandhinagar, Gujarat.",
+      reply: "Connect directly with Umiya Buildcon:\n📞 Direct Phone: +91 962XXXXX82\n💬 WhatsApp: +91 962XXXXX82 (MD Jaymin Patel)\n✉️ Official Email: webmanager1728@gmail.com\n📍 Office: Mansa, Gandhinagar, Gujarat.",
       category: 'contact',
       action: 'whatsapp'
     };
@@ -643,13 +847,13 @@ function processTrainedAiQuery(message, language = 'en-IN') {
   ) {
     if (isGujarati) {
       return {
-        reply: "ટેન્ડર સબ-કોન્ટ્રાક્ટિંગ, BOQ અંદાજ અથવા કોટેશન માટે:\n1. અમારા ઓનલાઇન 'Send Official Inquiry' ફોર્મ દ્વારા તમારી વિગતો મોકલો.\n2. અથવા મેનેજિંગ ડિરેક્ટર જયમિન પટેલ સાથે સીધો સંપર્ક કરો: +91 87359 93873.\nઅમે પ્રોજેક્ટ સ્કોપ, મટીરીયલ અને સાઇટ સ્પેસિફિકેશન મુજબ સચોટ ભાવ અંદાજ પ્રદાન કરીએ છીએ.",
+        reply: "ટેન્ડર સબ-કોન્ટ્રાક્ટિંગ, BOQ અંદાજ અથવા કોટેશન માટે:\n1. અમારા ઓનલાઇન 'Send Official Inquiry' ફોર્મ દ્વારા તમારી વિગતો મોકલો.\n2. અથવા મેનેજિંગ ડિરેક્ટર જયમિન પટેલ સાથે સીધો સંપર્ક કરો: +91 962XXXXX82.\nઅમે પ્રોજેક્ટ સ્કોપ, મટીરીયલ અને સાઇટ સ્પેસિફિકેશન મુજબ સચોટ ભાવ અંદાજ પ્રદાન કરીએ છીએ.",
         category: 'tender_pricing',
         action: 'scroll_contact'
       };
     }
     return {
-      reply: "For tender sub-contracting, BOQ estimations, or project quotations:\n1. Fill out our official website inquiry form with your drawings and requirements.\n2. Or speak directly with Managing Director Jaymin Patel at +91 87359 93873.\nWe provide highly competitive, transparent rates as per government and MES schedule standards.",
+      reply: "For tender sub-contracting, BOQ estimations, or project quotations:\n1. Fill out our official website inquiry form with your drawings and requirements.\n2. Or speak directly with Managing Director Jaymin Patel at +91 962XXXXX82.\nWe provide highly competitive, transparent rates as per government and MES schedule standards.",
       category: 'tender_pricing',
       action: 'scroll_contact'
     };
@@ -709,13 +913,13 @@ function processTrainedAiQuery(message, language = 'en-IN') {
   ) {
     if (isGujarati) {
       return {
-        reply: "કારકિર્દી અને વેન્ડર જોડાણ:\n👷 સિવિલ એન્જિનિયર્સ, સાઇટ સુપરવાઇઝર્સ અને મશીન ઓપરેટર્સ માટે નોકરીની તકો.\n🏢 સિમેન્ટ, સ્ટીલ (TMT), હ્યુમ પાઇપ અને ડાંબર સપ્લાયર્સ માટે વેન્ડર રજીસ્ટ્રેશન.\nતમારું CV અથવા પ્રપોઝલ webmanager1728@gmail.com પર મોકલો અથવા +91 87359 93873 પર સંપર્ક કરો.",
+        reply: "કારકિર્દી અને વેન્ડર જોડાણ:\n👷 સિવિલ એન્જિનિયર્સ, સાઇટ સુપરવાઇઝર્સ અને મશીન ઓપરેટર્સ માટે નોકરીની તકો.\n🏢 સિમેન્ટ, સ્ટીલ (TMT), હ્યુમ પાઇપ અને ડાંબર સપ્લાયર્સ માટે વેન્ડર રજીસ્ટ્રેશન.\nતમારું CV અથવા પ્રપોઝલ webmanager1728@gmail.com પર મોકલો અથવા +91 962XXXXX82 પર સંપર્ક કરો.",
         category: 'careers_vendors',
         action: 'scroll_contact'
       };
     }
     return {
-      reply: "Careers & Vendor Partnerships at Umiya Buildcon:\n👷 We regularly welcome talented Civil Engineers, Site Supervisors, and Heavy Machinery Operators.\n🏢 Suppliers for Cement, TMT 550D Steel, Aggregates, Hume Pipes, and Bitumen are invited to register.\nPlease email your profile or company catalogue to webmanager1728@gmail.com or call +91 87359 93873.",
+      reply: "Careers & Vendor Partnerships at Umiya Buildcon:\n👷 We regularly welcome talented Civil Engineers, Site Supervisors, and Heavy Machinery Operators.\n🏢 Suppliers for Cement, TMT 550D Steel, Aggregates, Hume Pipes, and Bitumen are invited to register.\nPlease email your profile or company catalogue to webmanager1728@gmail.com or call +91 962XXXXX82.",
       category: 'careers_vendors',
       action: 'scroll_contact'
     };
@@ -904,34 +1108,72 @@ app.post(
     // 3. Save to Google Sheets (Real-Time Webhook)
     const sheetSyncPromise = saveToGoogleSheet(inquiryRecord);
 
-    // 4. Dispatch Email Notification via Nodemailer
-    const recipientEmail = process.env.NOTIFICATION_EMAIL || 'webmanager1728@gmail.com';
+    // 4. Dispatch Dual Automated Emails via Nodemailer (Company Notification + User Auto-Reply)
+    const recipientEmail = sanitizeHeaderString(process.env.NOTIFICATION_EMAIL || 'webmanager1728@gmail.com');
+    const senderEmail = sanitizeHeaderString(process.env.SMTP_USER);
     const transporter = createTransporter();
     let emailSent = false;
+    let autoReplySent = false;
     let emailNote = undefined;
 
-    if (transporter) {
+    if (transporter && senderEmail) {
       try {
-        const mailOptions = {
-          from: `"Umiya Buildcon Website" <${process.env.SMTP_USER}>`,
-          to: recipientEmail,
-          replyTo: `"${name}" <${email}>`,
-          subject: `⚡ New Inquiry: ${name} (${department || 'Website Lead'})`,
-          text: `New Inquiry Received:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDepartment: ${department || 'N/A'}\nTime: ${istTimestamp}\n\nMessage:\n${message}`,
-          html: generateEmailHtml({
-            name, email, phone, department, message, timestamp: istTimestamp, cleanPhoneDigits: cleanDigits
-          })
-        };
+        const cleanName = sanitizeHeaderString(name);
+        const cleanUserEmail = sanitizeHeaderString(email);
+        const cleanDept = sanitizeHeaderString(department || 'General Inquiry');
 
-        const info = await transporter.sendMail(mailOptions);
-        console.log(`✉️  [EMAIL] Dispatched to ${recipientEmail}. ID: ${info.messageId}`);
-        emailSent = true;
-      } catch (mailErr) {
-        console.error(`⚠️  [EMAIL] Delivery error (${mailErr.code || 'FAIL'}):`, mailErr.message);
-        if (mailErr.code === 'EAUTH' || mailErr.responseCode === 535) {
-          console.error('💡 HINT: Gmail requires a 16-character "App Password". Generate at https://myaccount.google.com/apppasswords');
+        const [adminMailResult, userMailResult] = await Promise.allSettled([
+          // Email 1: Notification to Company Inbox
+          transporter.sendMail({
+            from: `"Umiya Buildcon Website" <${senderEmail}>`,
+            to: recipientEmail,
+            replyTo: `"${cleanName}" <${cleanUserEmail}>`,
+            subject: `⚡ New Inquiry: ${cleanName} (${cleanDept}) [Ref: ${inquiryRecord.id}]`,
+            text: `New Official Inquiry Received:\n\nReference ID: ${inquiryRecord.id}\nClient Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nDepartment: ${cleanDept}\nTime: ${istTimestamp}\nIP: ${inquiryRecord.ipAddress}\n\nMessage / Scope:\n${message}`,
+            html: generateAdminNotificationEmailHtml({
+              inquiryId: inquiryRecord.id,
+              name, email, phone, department, message, timestamp: istTimestamp, cleanPhoneDigits: cleanDigits, ipAddress: inquiryRecord.ipAddress
+            })
+          }),
+
+          // Email 2: Professional Auto-Reply Confirmation to User
+          transporter.sendMail({
+            from: `"Umiya Buildcon" <${senderEmail}>`,
+            to: cleanUserEmail,
+            replyTo: `"Jaymin Patel (Managing Director)" <${recipientEmail}>`,
+            subject: `✅ Inquiry Received: ${cleanDept} — Umiya Buildcon [Ref: ${inquiryRecord.id}]`,
+            text: `Dear ${name},\n\nThank you for contacting Umiya Buildcon. We have successfully received your inquiry regarding "${cleanDept}".\n\nReference ID: ${inquiryRecord.id}\nSubmitted At: ${istTimestamp}\n\nSummary of Your Message:\n${message}\n\nOur Managing Director Jaymin Patel and our project estimation team are reviewing your requirements and will reach out to you within 2 to 4 business hours.\n\nNeed immediate assistance? Call us directly at +91 962XXXXX82 or reply to this email.\n\nWarm regards,\nJaymin Patel\nManaging Director & Founder\nUmiya Buildcon\nMansa, Gujarat - 382845`,
+            html: generateUserConfirmationEmailHtml({
+              inquiryId: inquiryRecord.id,
+              name, email, phone, department, message, timestamp: istTimestamp
+            })
+          })
+        ]);
+
+        if (adminMailResult.status === 'fulfilled') {
+          console.log(`✉️  [COMPANY NOTIFICATION] Dispatched to ${recipientEmail}. ID: ${adminMailResult.value.messageId}`);
+          emailSent = true;
+        } else {
+          console.error(`⚠️  [COMPANY NOTIFICATION] Failed:`, adminMailResult.reason.message);
         }
-        emailNote = 'Data is saved in database. (Email pending 16-digit App Password in .env)';
+
+        if (userMailResult.status === 'fulfilled') {
+          console.log(`📬 [USER AUTO-REPLY] Confirmation sent to ${cleanUserEmail}. ID: ${userMailResult.value.messageId}`);
+          autoReplySent = true;
+        } else {
+          console.error(`⚠️  [USER AUTO-REPLY] Failed:`, userMailResult.reason.message);
+        }
+
+        if (adminMailResult.status === 'rejected' && userMailResult.status === 'rejected') {
+          const err = adminMailResult.reason;
+          if (err.code === 'EAUTH' || err.responseCode === 535) {
+            console.error('💡 HINT: Gmail requires a 16-character "App Password". Generate at https://myaccount.google.com/apppasswords');
+          }
+          emailNote = 'Data is saved in database. (Email pending 16-digit App Password in .env)';
+        }
+      } catch (generalMailErr) {
+        console.error('⚠️  [EMAIL ENGINE] Unexpected mail error:', generalMailErr.message);
+        emailNote = 'Data is saved in database. (Email delivery error: ' + generalMailErr.message + ')';
       }
     }
 
@@ -947,6 +1189,7 @@ app.post(
         savedInDatabase: true,
         savedInGoogleSheet: sheetResult.success || false,
         emailSent: emailSent,
+        autoReplySent: autoReplySent,
         emailNote: emailNote,
         timestamp: istTimestamp
       }

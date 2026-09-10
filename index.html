@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Instant High-Priority Logo Preload & Asset Speed Optimizations -->
+  <link rel="preload" as="image" href="./logo.jpeg" fetchpriority="high">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
   <!-- Favicon (Tab Logo) -->
-  <link rel="icon" type="image/png" href="./logo.jpng">
-  <link rel="shortcut icon" type="image/x-icon" href="./logo.jpng">
-  <link rel="apple-touch-icon" href="./logo.jpng">
+  <link rel="icon" type="image/jpeg" href="./logo.jpeg">
+  <link rel="shortcut icon" type="image/jpeg" href="./logo.jpeg">
+  <link rel="apple-touch-icon" href="./logo.jpeg">
 
   <title>Umiya Buildcon | We Built a Better World</title>
 
@@ -17,6 +24,10 @@
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Montserrat', 'sans-serif']
+          },
           colors: {
             brand: {
               blue: '#16527d',
@@ -33,16 +44,30 @@
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Google Fonts: Inter (Body) & Montserrat (Headings) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Identity Services (Gmail / Google OAuth 2.0) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   
   <style>
     body { 
-      font-family: 'Poppins', sans-serif; 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6, .font-heading, .heading-font {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      letter-spacing: -0.015em;
     }
 
     .card-receive-pulse {
@@ -53,328 +78,785 @@
       50% { transform: scale(1.03); box-shadow: 0 0 25px 8px rgba(234, 138, 38, 0.5); border-color: #ea8a26; }
       100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 138, 38, 0); }
     }
+    .after-home-watermark-wrapper {
+      position: relative;
+      background-color: #07090e;
+    }
+
+    /* Glassmorphism Frosted Glass Styles for Dark Luxury Theme */
+    .glass-contact-card {
+      background: rgba(14, 19, 29, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), 0 0 25px rgba(234, 138, 38, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-contact-card:hover {
+      border-color: rgba(234, 138, 38, 0.5);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 138, 38, 0.15);
+    }
   </style>
 </head>
-<body class="bg-brand-orangemist text-slate-800 relative" oncontextmenu="return false;">
+<body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
 
-  <!-- Top Bar -->
-  <div class="bg-brand-deepnavy text-slate-200 text-xs sm:text-sm py-2 px-4 border-b border-brand-darkblue">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-      <div class="flex items-center space-x-2">
-        <span class="bg-brand-orange text-white font-semibold px-2 py-0.5 rounded text-[11px] tracking-wide uppercase flex items-center gap-1">
-          <i class="fa-solid fa-certificate text-[10px]"></i> Govt. Approved
-        </span>
-        <span class="text-slate-300">Defense & Civil Infrastructure Contractor</span>
+  <!-- ========================================================================= -->
+  <!-- COMPULSORY SECURITY LOGIN GATEWAY (FULLSCREEN ACCESS LOCK SCREEN)        -->
+  <!-- ========================================================================= -->
+  <div id="securityGate" class="fixed inset-0 z-[99999] bg-[#05070a] flex items-center justify-center p-3 sm:p-6 overflow-y-auto min-h-screen transition-all duration-500">
+    
+    <!-- Ambient Radial Cyber Glows -->
+    <div class="fixed -top-40 -left-40 w-96 h-96 bg-brand-orange/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed -bottom-40 -right-40 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-96 bg-amber-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full max-w-lg bg-[#0b0f17]/95 backdrop-blur-3xl border border-brand-orange/40 rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden text-slate-100 my-auto animate-in fade-in zoom-in-95 duration-300">
+      
+      <!-- Top Cyber Security Status Bar -->
+      <div class="bg-gradient-to-r from-[#0c121d] via-[#141e30] to-[#0c121d] px-6 py-3 border-b border-brand-orange/30 flex justify-between items-center text-xs">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-amber-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="font-bold tracking-wider uppercase">Portal Security Active</span>
+        </div>
+        <div class="text-[11px] text-slate-400 flex items-center gap-1.5 font-mono">
+          <i class="fa-solid fa-shield-halved text-brand-orange"></i>
+          <span>256-Bit SSL Protected</span>
+        </div>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm">
-        <a href="tel:8735993873" class="hover:text-brand-orange transition flex items-center gap-1.5">
-          <i class="fa-solid fa-phone text-brand-orange"></i> +91 87359 93873
-        </a>
-        <a href="mailto:webmanager1728@gmail.com" class="hover:text-brand-orange transition flex items-center gap-1.5">
-          <i class="fa-solid fa-envelope text-brand-orange"></i> webmanager1728@gmail.com
-        </a>
+
+      <!-- Main Portal Body -->
+      <div class="p-6 sm:p-8 space-y-5 text-center">
+        
+        <!-- Company Logo & Brand Header -->
+        <div class="flex flex-col items-center">
+          <div class="relative mb-3">
+            <div class="w-16 h-16 rounded-2xl bg-[#121927] border-2 border-brand-orange/60 p-2 shadow-xl flex items-center justify-center">
+              <img src="logo.jpeg" alt="Umiya Buildcon Logo" class="w-full h-full object-contain rounded-lg pointer-events-none select-none" />
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-brand-orange border-2 border-[#0b0f17] flex items-center justify-center text-[10px] text-white shadow">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+          </div>
+          
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading">
+            <span>Umiya</span>&nbsp;<span class="text-brand-orange">Buildcon</span>
+          </h2>
+          <span class="text-[11px] text-brand-orange font-bold tracking-widest uppercase mt-0.5">
+            Government Approved Defense & Civil Infrastructure
+          </span>
+          <p class="text-xs text-slate-400 mt-2 max-w-sm leading-relaxed font-normal">
+            Restricted Access Gateway. Please login or verify your credentials below to view tenders, projects, and contractor information.
+          </p>
+        </div>
+
+        <!-- Google 1-Click Fast Sign-In Section -->
+        <div class="bg-[#101622] border border-white/10 rounded-2xl p-4 space-y-3 shadow-inner">
+          <div class="flex items-center justify-between text-xs text-slate-300 font-semibold border-b border-white/10 pb-2">
+            <span class="flex items-center gap-1.5 text-white">
+              <i class="fa-brands fa-google text-brand-orange"></i>
+              <span>Google 1-Click Fast Access</span>
+            </span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">
+              Recommended
+            </span>
+          </div>
+
+          <!-- Official Google GIS Button Container -->
+          <div id="gateGoogleButtonDiv" class="flex justify-center min-h-[44px]"></div>
+
+          <!-- Quick 1-Click Connect Options (Director / Contractor) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <button onclick="handleQuickAuth('director@umiyabuildcon.com', 'Jaymin Patel', 'Managing Director', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces')" type="button" class="flex items-center justify-center gap-2 bg-brand-orange/15 hover:bg-brand-orange/25 border border-brand-orange/40 text-brand-orange font-semibold py-2.5 px-3 rounded-xl text-xs transition cursor-pointer active:scale-95 shadow-sm">
+              <i class="fa-solid fa-user-tie text-xs"></i>
+              <span class="truncate">Director Jaymin Patel</span>
+            </button>
+
+            <button onclick="handleQuickAuth('contractor@umiyabuildcon.com', 'Govt. Project Partner', 'Contractor')" type="button" class="flex items-center justify-center gap-2 bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-slate-200 font-semibold py-2.5 px-3 rounded-xl text-xs transition cursor-pointer active:scale-95 shadow-sm">
+              <i class="fa-solid fa-shield-halved text-xs text-sky-400"></i>
+              <span class="truncate">Contractor Access</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="relative flex items-center justify-center my-2">
+          <div class="border-t border-white/10 w-full"></div>
+          <span class="bg-[#0b0f17] px-3 text-[10px] text-slate-500 uppercase font-mono tracking-wider absolute">Or Enter Your Details</span>
+        </div>
+
+        <!-- Direct Client / Partner Verification Form -->
+        <form id="gateLoginForm" onsubmit="handleGateDirectLogin(event)" class="space-y-3 text-left">
+          
+          <div>
+            <label class="block text-[11px] font-medium text-slate-300 mb-1">
+              Full Name <span class="text-brand-orange">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="gateNameInput" 
+              required 
+              placeholder="Enter your name" 
+              class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm outline-none transition duration-200 shadow-inner"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-300 mb-1">
+                Email / Gmail <span class="text-brand-orange">*</span>
+              </label>
+              <input 
+                type="email" 
+                id="gateEmailInput" 
+                required 
+                placeholder="name@gmail.com" 
+                class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm outline-none transition duration-200 shadow-inner"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-medium text-slate-300 mb-1">
+                Phone Number <span class="text-brand-orange">*</span>
+              </label>
+              <div class="flex items-center bg-[#070a0f] border border-white/15 focus-within:border-brand-orange focus-within:ring-1 focus-within:ring-brand-orange/40 rounded-xl overflow-hidden transition duration-200 shadow-inner">
+                <span class="bg-white/[0.04] text-brand-orange font-bold text-xs px-2.5 py-2.5 border-r border-white/15 select-none">
+                  +91
+                </span>
+                <input 
+                  type="tel" 
+                  id="gatePhoneInput" 
+                  required 
+                  maxlength="11" 
+                  placeholder="XXXXX XXXXX" 
+                  oninput="formatPhoneNumber(this)"
+                  class="w-full px-3 py-2 bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm outline-none font-medium"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert Box -->
+          <div id="gateAlertBox" class="hidden text-xs py-2 px-3 rounded-xl text-center"></div>
+
+          <!-- Unlock Button -->
+          <button 
+            type="submit" 
+            id="gateUnlockBtn" 
+            class="w-full bg-gradient-to-r from-brand-orange via-amber-500 to-brand-orangehover hover:from-brand-orangehover hover:to-brand-orange text-white font-bold py-3 px-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 active:scale-[0.99] cursor-pointer text-xs sm:text-sm font-heading tracking-wide"
+          >
+            <i class="fa-solid fa-lock-open text-xs"></i>
+            <span>Authenticate & Unlock Website</span>
+          </button>
+        </form>
+
+        <!-- Compliance & Security Credentials Badges -->
+        <div class="pt-2 border-t border-white/10 flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400">
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-shield-halved text-brand-orange"></i> MES Verified
+          </span>
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-certificate text-amber-400"></i> Govt. Class Approved
+          </span>
+          <span class="flex items-center gap-1">
+            <i class="fa-solid fa-plane-shield text-sky-400"></i> Air Force & Navy Compliant
+          </span>
+        </div>
+
       </div>
+
     </div>
   </div>
 
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md sticky top-0 z-40 border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-2.5 flex justify-between items-center">
-      <a href="#home" class="flex items-center gap-3">
-        <img src="logo.jpng" alt="Umiya Buildcon Logo" class="h-12 sm:h-14 w-auto object-contain pointer-events-none select-none" onerror="this.onerror=null; this.src='logo.jpeg';" />
-        <div class="flex flex-col justify-center">
-          <div class="text-xl sm:text-2xl font-bold tracking-tight text-brand-blue flex items-center leading-none">
-            <span>Umiya</span>&nbsp;<span class="text-brand-orange">Buildcon</span>
-          </div>
-          <span class="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-wide mt-1 block">We Built a Better World</span>
+  <!-- Vertical Left Sidebar Navigation (Matching User's Reference Image) -->
+  <aside id="verticalSidebar" class="fixed top-0 left-0 h-screen z-50 bg-[#0c0d10]/95 backdrop-blur-2xl border-r border-white/10 shadow-[8px_0_30px_rgba(0,0,0,0.5)] flex flex-col justify-between transition-all duration-300 w-16 md:w-20 group hover:w-64 select-none">
+    
+    <!-- Top Section: Hamburger Toggle & Navigation Icons -->
+    <div class="flex flex-col">
+      <!-- Top Hamburger Button Header -->
+      <div class="h-16 flex items-center justify-between px-3 md:px-5 border-b border-white/10">
+        <button id="sidebarToggleBtn" onclick="toggleSidebarManual()" class="w-10 h-10 rounded-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition cursor-pointer mx-auto group-hover:mx-0 active:scale-95" title="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <div class="hidden group-hover:flex items-center gap-2 pl-2 overflow-hidden">
+          <span class="text-xs font-bold text-brand-orange uppercase tracking-wider truncate">Navigation</span>
         </div>
-      </a>
-      
-      <div class="hidden md:flex space-x-7 font-medium text-slate-700 items-center">
-        <a href="#home" class="hover:text-brand-orange transition">Home</a>
-        <a href="#about" class="hover:text-brand-orange transition">About Us</a>
-        <button onclick="openMdProfileModal()" class="hover:text-brand-orange transition cursor-pointer flex items-center gap-1">
-          <span>Leadership</span>
-        </button>
-        <a href="#services" class="hover:text-brand-orange transition">Services</a>
-        <button onclick="openProjectsModal()" class="text-brand-blue font-semibold hover:text-brand-orange transition cursor-pointer flex items-center gap-1.5">
-          <span>Our Projects</span>
-          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-        </button>
-        <a href="#contact" class="hover:text-brand-orange transition">Contact</a>
       </div>
 
-      <button onclick="openProjectsModal()" class="bg-brand-orange hover:bg-brand-orangehover text-white px-4 py-2 rounded-lg font-medium text-sm shadow transition flex items-center gap-2 cursor-pointer active:scale-95">
-        <i class="fa-solid fa-folder-open text-xs"></i>
-        <span>Explore Projects</span>
-      </button>
-    </div>
-  </nav>
+      <!-- Vertical List of Icons (Matching Screenshot) -->
+      <nav class="flex flex-col py-6 space-y-3 px-2">
+        
+        <!-- 1. Home Icon -->
+        <a href="#home" data-section="home" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-white font-medium hover:bg-white/10 transition-all duration-200 px-3 cursor-pointer group/item">
+          <!-- Active Left Indicator Bar -->
+          <div class="sidebar-indicator absolute left-0 top-2 bottom-2 w-1 bg-white rounded-r-full shadow-[0_0_12px_rgba(255,255,255,1)]"></div>
+          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 text-white transition-transform group-hover/item:scale-110">
+            <i class="fa-solid fa-house"></i>
+          </span>
+          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-semibold text-slate-100 whitespace-nowrap">
+            Home
+          </span>
+          <!-- Floating Hover Tooltip (When Collapsed) -->
+          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-medium rounded-lg shadow-2xl border border-white/10 whitespace-nowrap transition-all duration-200 z-50">
+            Home
+          </div>
+        </a>
 
-  <!-- Hero Section -->
-  <header id="home" class="relative bg-gradient-to-br from-brand-deepnavy via-brand-darkblue to-brand-blue text-white py-28 px-4 overflow-hidden border-b-4 border-brand-orange">
-    <div class="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
-      <img src="logo.jpng" alt="" class="w-full h-full object-cover object-center opacity-[0.07] grayscale contrast-125 mix-blend-screen" onerror="this.onerror=null; this.src='logo.jpeg';" />
+        <!-- 2. Projects / Box Icon -->
+        <button onclick="openProjectsModal()" data-section="projects" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200 px-3 cursor-pointer w-full text-left group/item">
+          <div class="sidebar-indicator hidden absolute left-0 top-2 bottom-2 w-1 bg-white rounded-r-full shadow-[0_0_12px_rgba(255,255,255,1)]"></div>
+          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover/item:scale-110">
+            <i class="fa-solid fa-cube"></i>
+          </span>
+          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-medium text-slate-300 whitespace-nowrap">
+            Our Projects
+          </span>
+          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-medium rounded-lg shadow-2xl border border-white/10 whitespace-nowrap transition-all duration-200 z-50">
+            Our Projects
+          </div>
+        </button>
+
+        <!-- 3. Leadership / About Icon -->
+        <a href="#about" data-section="about" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200 px-3 cursor-pointer group/item">
+          <div class="sidebar-indicator hidden absolute left-0 top-2 bottom-2 w-1 bg-white rounded-r-full shadow-[0_0_12px_rgba(255,255,255,1)]"></div>
+          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover/item:scale-110">
+            <i class="fa-solid fa-user-group"></i>
+          </span>
+          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-medium text-slate-300 whitespace-nowrap">
+            About & Leadership
+          </span>
+          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-medium rounded-lg shadow-2xl border border-white/10 whitespace-nowrap transition-all duration-200 z-50">
+            About & Leadership
+          </div>
+        </a>
+
+        <!-- 4. Services / Core Expertise Icon -->
+        <a href="#services" data-section="services" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200 px-3 cursor-pointer group/item">
+          <div class="sidebar-indicator hidden absolute left-0 top-2 bottom-2 w-1 bg-white rounded-r-full shadow-[0_0_12px_rgba(255,255,255,1)]"></div>
+          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover/item:scale-110">
+            <i class="fa-solid fa-gear"></i>
+          </span>
+          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-medium text-slate-300 whitespace-nowrap">
+            Core Services
+          </span>
+          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-medium rounded-lg shadow-2xl border border-white/10 whitespace-nowrap transition-all duration-200 z-50">
+            Core Services
+          </div>
+        </a>
+
+        <!-- 5. Contact Icon -->
+        <a href="#contact" data-section="contact" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200 px-3 cursor-pointer group/item">
+          <div class="sidebar-indicator hidden absolute left-0 top-2 bottom-2 w-1 bg-white rounded-r-full shadow-[0_0_12px_rgba(255,255,255,1)]"></div>
+          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover/item:scale-110">
+            <i class="fa-solid fa-envelope"></i>
+          </span>
+          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-medium text-slate-300 whitespace-nowrap">
+            Contact Office
+          </span>
+          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-medium rounded-lg shadow-2xl border border-white/10 whitespace-nowrap transition-all duration-200 z-50">
+            Contact Office
+          </div>
+        </a>
+
+        <!-- 6. Security Lock / Logout Button -->
+        <button onclick="lockWebsite()" data-section="lock" class="sidebar-nav-item relative flex items-center h-12 rounded-xl text-red-400/80 hover:text-red-300 hover:bg-red-950/40 transition-all duration-200 px-3 cursor-pointer w-full text-left group/item" title="Lock Website / Sign Out">
+          <div class="sidebar-indicator hidden absolute left-0 top-2 bottom-2 w-1 bg-red-500 rounded-r-full shadow-[0_0_12px_rgba(239,68,68,1)]"></div>
+          <span class="w-10 flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover/item:scale-110">
+            <i class="fa-solid fa-lock text-red-400"></i>
+          </span>
+          <span class="sidebar-label hidden group-hover:inline-block ml-3 text-xs font-semibold text-red-300 whitespace-nowrap">
+            Lock Website
+          </span>
+          <div class="group-hover:hidden group-hover/item:opacity-100 opacity-0 pointer-events-none absolute left-full ml-3 px-2.5 py-1 bg-slate-900/95 text-red-300 text-[11px] font-medium rounded-lg shadow-2xl border border-red-500/20 whitespace-nowrap transition-all duration-200 z-50">
+            Lock Website / Sign Out
+          </div>
+        </button>
+
+      </nav>
     </div>
-    <div class="absolute inset-0 bg-gradient-to-t from-brand-deepnavy/80 via-transparent to-brand-deepnavy/40 pointer-events-none z-0"></div>
+
+    <!-- Bottom MD Profile Trigger -->
+    <div class="p-3 border-t border-white/10 flex items-center">
+      <button onclick="openMdProfileModal()" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-brand-orange text-white flex items-center justify-center transition flex-shrink-0 mx-auto cursor-pointer shadow-sm group/profile active:scale-95" title="Managing Director Profile">
+        <i class="fa-solid fa-user-tie text-xs"></i>
+      </button>
+      <div class="hidden group-hover:flex flex-col ml-3 overflow-hidden cursor-pointer" onclick="openMdProfileModal()">
+        <span class="text-xs font-bold text-white truncate">Jaymin Patel</span>
+        <span class="text-[10px] text-brand-orange truncate">Managing Director</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Header Bar with Brand & Contact Info (Indented for Left Sidebar) -->
+  <header class="bg-[#080c14]/95 text-slate-200 text-xs sm:text-sm py-2.5 px-4 pl-20 md:pl-24 border-b border-white/10 sticky top-0 z-40 backdrop-blur-md transition-all">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      
+      <!-- Brand & Govt Approval Badge -->
+      <div class="flex items-center gap-3">
+        <a href="#home" class="flex items-center gap-2.5 shrink-0">
+          <img src="logo.jpeg" alt="Umiya Buildcon Logo" loading="eager" decoding="async" fetchpriority="high" class="h-9 w-auto object-contain pointer-events-none select-none rounded-lg" />
+          <div class="flex flex-col">
+            <span class="text-base font-bold text-white leading-none tracking-tight font-heading">
+              <span>Umiya</span>&nbsp;<span class="text-brand-orange">Buildcon</span>
+            </span>
+            <span class="text-[9px] text-slate-400 font-medium">We Built a Better World</span>
+          </div>
+        </a>
+        <span class="hidden md:inline-flex bg-brand-orange/15 border border-brand-orange/40 text-brand-orange font-semibold px-2 py-0.5 rounded text-[10px] tracking-wide uppercase items-center gap-1 ml-2">
+          <i class="fa-solid fa-certificate text-[9px]"></i> Govt. Approved
+        </span>
+      </div>
+
+      <!-- Contact Line & Google Sign-In -->
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
+        <a href="tel:962XXXXX82" class="hover:text-brand-orange transition flex items-center gap-1.5 font-medium text-slate-300">
+          <i class="fa-solid fa-phone text-brand-orange text-xs"></i> +91 962XXXXX82
+        </a>
+        <a href="mailto:webmanager1728@gmail.com" class="hover:text-brand-orange transition hidden lg:flex items-center gap-1.5 font-medium text-slate-300">
+          <i class="fa-solid fa-envelope text-brand-orange text-xs"></i> webmanager1728@gmail.com
+        </a>
+
+        <!-- Google / Gmail Authentication Widget in Top Bar -->
+        <div class="flex items-center pl-2 sm:border-l sm:border-white/10 gap-2">
+          <button id="googleSignInBtnTop" onclick="lockWebsite()" class="bg-brand-orange/20 hover:bg-brand-orange/30 text-brand-orange px-2.5 py-1 rounded-lg text-[11px] font-medium flex items-center gap-1.5 transition border border-brand-orange/40 active:scale-95 cursor-pointer shadow-sm">
+            <i class="fa-solid fa-lock text-[10px]"></i>
+            <span>Portal Auth</span>
+          </button>
+
+          <!-- Logged In User Pill -->
+          <div id="googleUserPillTop" class="hidden relative">
+            <button onclick="toggleUserDropdown()" class="flex items-center gap-1.5 bg-[#141d2c] hover:bg-[#1a2538] border border-brand-orange/50 px-2.5 py-1 rounded-full text-white text-[11px] font-medium transition cursor-pointer shadow-sm">
+              <img id="userAvatarTop" src="https://lh3.googleusercontent.com/a/default-user=s96-c" class="w-4 h-4 rounded-full object-cover border border-emerald-400" alt="Avatar" />
+              <span id="userNameTop" class="max-w-[100px] truncate">User</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <i class="fa-solid fa-angle-down text-[9px] text-brand-orange"></i>
+            </button>
+            <div id="userDropdownTop" class="hidden absolute right-0 top-full mt-1.5 w-56 bg-[#0e131d] text-slate-100 rounded-xl shadow-2xl border border-white/15 py-2 z-50 text-xs">
+              <div class="px-3 py-2 border-b border-white/10 flex items-center gap-2.5">
+                <img id="userAvatarDropdown" src="https://lh3.googleusercontent.com/a/default-user=s96-c" class="w-9 h-9 rounded-full object-cover border-2 border-brand-orange shadow-sm" alt="Avatar" />
+                <div class="overflow-hidden">
+                  <p id="userNameDropdown" class="font-bold text-white truncate text-xs">User Name</p>
+                  <p id="userEmailDropdown" class="text-[10px] text-slate-400 truncate">user@gmail.com</p>
+                </div>
+              </div>
+              <div class="px-3 py-1.5 text-[11px] text-emerald-300 font-semibold flex items-center gap-1.5 bg-emerald-950/60 my-1 mx-2 rounded-lg border border-emerald-500/40">
+                <i class="fa-solid fa-circle-check text-xs text-emerald-400"></i> Verified Session
+              </div>
+              <button onclick="autoFillInquiryForm()" class="w-full text-left px-3 py-2 hover:bg-white/[0.06] text-slate-200 flex items-center gap-2 cursor-pointer transition">
+                <i class="fa-solid fa-pen-to-square text-brand-orange"></i>
+                <span>Auto-fill Inquiry Form</span>
+              </button>
+              <div class="border-t border-white/10 my-1"></div>
+              <button onclick="lockWebsite()" class="w-full text-left px-3 py-2 hover:bg-red-950/50 text-red-400 flex items-center gap-2 cursor-pointer transition font-medium">
+                <i class="fa-solid fa-lock text-red-400"></i>
+                <span>Lock Website & Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openProjectsModal()" class="hidden sm:inline-flex bg-gradient-to-r from-brand-orange to-brand-orangehover text-white px-3 py-1 rounded-lg font-medium text-xs shadow-md transition items-center gap-1.5 cursor-pointer active:scale-95 ml-1">
+          <i class="fa-solid fa-layer-group text-[10px]"></i>
+          <span>Projects</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Website Content Area (Indented for Left Vertical Sidebar) -->
+  <div class="pl-16 md:pl-20 transition-all duration-300">
+
+  <!-- Hero Section (Black & Gold Cyber-Defense Luxury Theme) -->
+  <header id="home" class="relative bg-gradient-to-b from-[#090d16] via-[#0d1424] to-[#07090e] text-white py-28 px-4 overflow-hidden border-b-2 border-brand-orange/40">
+    <!-- Ambient Radial Glows -->
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-brand-orange/15 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-1/2 -left-40 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none"></div>
 
     <div class="max-w-4xl mx-auto text-center relative z-10">
-      <button onclick="openMdProfileModal()" class="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 active:scale-95 transition-all backdrop-blur-md border border-white/25 px-5 py-2 rounded-full text-xs font-semibold text-brand-orange uppercase tracking-wider mb-4 shadow-sm cursor-pointer group">
+      <button onclick="openMdProfileModal()" class="inline-flex items-center gap-2.5 bg-[#141a26]/90 hover:bg-[#1b2333] active:scale-95 transition-all backdrop-blur-md border border-brand-orange/40 px-5 py-2 rounded-full text-xs font-semibold text-brand-orange uppercase tracking-wider mb-6 shadow-lg shadow-orange-500/10 cursor-pointer group">
         <i class="fa-solid fa-user-tie text-brand-orange group-hover:scale-110 transition-transform"></i>
-        <span class="text-white">Managing Director: <strong class="text-brand-orange underline underline-offset-4 decoration-white/40">Jaymin Patel</strong></span>
+        <span class="text-white">Managing Director: <strong class="text-brand-orange underline underline-offset-4 decoration-brand-orange/60">Jaymin Patel</strong></span>
         <i class="fa-solid fa-circle-arrow-right text-[11px] text-brand-orange ml-1 opacity-80 group-hover:translate-x-0.5 transition-transform"></i>
       </button>
 
-      <h1 class="text-3xl sm:text-5xl font-bold leading-tight mb-3 tracking-tight">Reliable Government Infrastructure Development</h1>
-      <p class="text-brand-orange font-semibold text-lg sm:text-xl tracking-wide mb-6">— We Built a Better World —</p>
-      <p class="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto mb-9 leading-relaxed font-light">
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 tracking-tight font-heading text-white">
+        Reliable Government Infrastructure Development
+      </h1>
+      <p class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-amber-400 to-amber-200 font-bold text-lg sm:text-xl tracking-wider mb-6 uppercase font-heading">
+        — We Built a Better World —
+      </p>
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
         Premier government contractor executing mission-critical works for Military Engineer Services (MES), Air Force, Navy, and State Civil Infrastructure.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <button onclick="openProjectsModal()" class="bg-brand-orange hover:bg-brand-orangehover text-white font-semibold px-7 py-3 rounded-lg shadow-lg hover:shadow-orange-500/20 transition transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
-          <i class="fa-solid fa-helmet-safety"></i>
+        <button onclick="openProjectsModal()" class="bg-gradient-to-r from-brand-orange via-amber-500 to-brand-orangehover hover:from-brand-orangehover hover:to-brand-orange text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition transform hover:-translate-y-0.5 flex items-center gap-2.5 cursor-pointer text-sm font-heading tracking-wide">
+          <i class="fa-solid fa-layer-group text-sm"></i>
           <span>Our Projects</span>
         </button>
-        <a href="#contact" class="border border-white/40 hover:bg-white hover:text-brand-blue text-white font-semibold px-6 py-3 rounded-lg transition flex items-center gap-2 backdrop-blur-sm">
-          <i class="fa-solid fa-paper-plane text-xs"></i>
+        <a href="#contact" class="border border-white/20 hover:border-brand-orange/60 bg-white/[0.04] hover:bg-white/[0.09] text-white font-semibold px-7 py-3.5 rounded-xl transition flex items-center gap-2 backdrop-blur-sm text-sm">
+          <i class="fa-solid fa-paper-plane text-xs text-brand-orange"></i>
           <span>Contact Us</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Stats Section -->
-  <section class="bg-brand-darkblue text-white py-8 border-b border-brand-blue">
-    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div>
-        <i class="fa-solid fa-calendar-check text-brand-orange text-2xl mb-1"></i>
-        <h3 class="text-3xl md:text-4xl font-bold text-brand-orange">10+</h3>
-        <p class="text-slate-200 text-xs sm:text-sm mt-1">Years Experience</p>
+  <!-- Main Content Wrapper -->
+  <main class="after-home-watermark-wrapper relative">
+
+  <!-- Stats Section (Luxury Dark Theme with Glowing Counters) -->
+  <section class="bg-[#0a0f19] text-white py-10 border-b border-white/10 relative z-10">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+      <div class="bg-[#0f1624]/90 border border-white/10 hover:border-brand-orange/40 rounded-2xl p-5 transition-all duration-300 group shadow-md">
+        <i class="fa-solid fa-calendar-check text-brand-orange text-2xl mb-2 group-hover:scale-110 transition-transform inline-block"></i>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-brand-orange font-heading">10+</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1 font-medium">Years Experience</p>
       </div>
-      <div>
-        <i class="fa-solid fa-shield-halved text-brand-orange text-2xl mb-1"></i>
-        <h3 class="text-3xl md:text-4xl font-bold text-brand-orange">MES & Govt</h3>
-        <p class="text-slate-200 text-xs sm:text-sm mt-1">Specialized Contracts</p>
+      <div class="bg-[#0f1624]/90 border border-white/10 hover:border-brand-orange/40 rounded-2xl p-5 transition-all duration-300 group shadow-md">
+        <i class="fa-solid fa-shield-halved text-brand-orange text-2xl mb-2 group-hover:scale-110 transition-transform inline-block"></i>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-brand-orange font-heading">MES & Govt</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1 font-medium">Specialized Contracts</p>
       </div>
-      <div>
-        <i class="fa-solid fa-jet-fighter text-brand-orange text-2xl mb-1"></i>
-        <h3 class="text-3xl md:text-4xl font-bold text-brand-orange">Defense Infra</h3>
-        <p class="text-slate-200 text-xs sm:text-sm mt-1">Air Force & Navy Works</p>
+      <div class="bg-[#0f1624]/90 border border-white/10 hover:border-brand-orange/40 rounded-2xl p-5 transition-all duration-300 group shadow-md">
+        <i class="fa-solid fa-jet-fighter text-brand-orange text-2xl mb-2 group-hover:scale-110 transition-transform inline-block"></i>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-brand-orange font-heading">Defense Infra</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1 font-medium">Air Force & Navy Works</p>
       </div>
-      <div>
-        <i class="fa-solid fa-award text-brand-orange text-2xl mb-1"></i>
-        <h3 class="text-3xl md:text-4xl font-bold text-brand-orange">100%</h3>
-        <p class="text-slate-200 text-xs sm:text-sm mt-1">Quality Assurance</p>
+      <div class="bg-[#0f1624]/90 border border-white/10 hover:border-brand-orange/40 rounded-2xl p-5 transition-all duration-300 group shadow-md">
+        <i class="fa-solid fa-award text-brand-orange text-2xl mb-2 group-hover:scale-110 transition-transform inline-block"></i>
+        <h3 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-brand-orange font-heading">100%</h3>
+        <p class="text-slate-300 text-xs sm:text-sm mt-1 font-medium">Quality Assurance</p>
       </div>
     </div>
   </section>
 
-  <!-- About Us Section -->
-  <section id="about" class="py-24 px-4 relative overflow-hidden bg-gradient-to-b from-brand-orangemist via-brand-orangemistdeep to-brand-orangemist border-b border-brand-orangeborder">
+  <!-- About Us Section (Obsidian & Amber Theme) -->
+  <section id="about" class="py-24 px-4 relative overflow-hidden bg-[#07090e] border-b border-white/10">
     <div class="max-w-5xl mx-auto relative z-10">
-      <div class="text-center max-w-3xl mx-auto mb-12 bg-white/90 backdrop-blur-md p-8 sm:p-10 rounded-2xl border-2 border-brand-orange/30 shadow-lg">
-        <span class="inline-block text-xs font-bold text-brand-orange tracking-widest uppercase mb-2 px-3 py-1 bg-amber-100/70 rounded-full border border-brand-orange/40">Who We Are</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2">About Umiya Buildcon</h2>
-        <div class="w-16 h-1.5 bg-brand-orange mx-auto mt-2 mb-6 rounded-full"></div>
-        <p class="text-slate-700 leading-relaxed text-base sm:text-lg font-normal">
-          Under the visionary leadership of <button onclick="openMdProfileModal()" class="font-bold text-brand-blue hover:text-brand-orange underline underline-offset-2 decoration-brand-orange transition cursor-pointer">Managing Director Jaymin Patel</button>, <strong>Umiya Buildcon</strong> has established an unshakable reputation for precision engineering and quality public works. As a premier government contractor, we specialize in executing complex infrastructure projects for <strong>Military Engineer Services</strong>, with a dedicated focus on developing critical facilities for the <strong>Air Force and Navy</strong> across Gujarat.
+      
+      <!-- Central About Overview Card -->
+      <div class="text-center max-w-3xl mx-auto mb-14 bg-[#0d131f]/95 backdrop-blur-xl p-8 sm:p-12 rounded-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-orange/10 rounded-full blur-3xl pointer-events-none"></div>
+        <span class="inline-block text-xs font-bold text-brand-orange tracking-widest uppercase mb-3 px-3.5 py-1 bg-brand-orange/15 rounded-full border border-brand-orange/40 shadow-sm">Who We Are</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 font-heading">About Umiya Buildcon</h2>
+        <div class="w-16 h-1.5 bg-gradient-to-r from-brand-orange to-amber-400 mx-auto mt-2 mb-6 rounded-full"></div>
+        <p class="text-slate-300 leading-relaxed text-base sm:text-lg font-normal">
+          Under the visionary leadership of <button onclick="openMdProfileModal()" class="font-bold text-amber-400 hover:text-brand-orange underline underline-offset-4 decoration-amber-400/60 transition cursor-pointer">Managing Director Jaymin Patel</button>, <strong>Umiya Buildcon</strong> has established an unshakable reputation for precision engineering and quality public works. As a premier government contractor, we specialize in executing complex infrastructure projects for <strong>Military Engineer Services</strong>, with a dedicated focus on developing critical facilities for the <strong>Air Force and Navy</strong> across Gujarat.
         </p>
       </div>
 
+      <!-- 3 Pillar Defense Feature Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white border-2 border-brand-orange/20 p-7 rounded-2xl text-center hover:border-brand-orange hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group shadow-sm">
-          <div class="w-14 h-14 mx-auto bg-amber-100 text-brand-blue rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition">
+        
+        <div class="bg-[#0f1522]/90 backdrop-blur-sm border border-white/10 p-7 rounded-2xl text-center hover:border-brand-orange/50 hover:bg-[#141d2e] hover:shadow-[0_15px_35px_rgba(234,138,38,0.12)] transition-all duration-300 transform hover:-translate-y-1 group shadow-md">
+          <div class="w-14 h-14 mx-auto bg-brand-orange/15 border border-brand-orange/30 text-brand-orange rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-brand-orange group-hover:text-white transition">
             <i class="fa-solid fa-shield-halved"></i>
           </div>
-          <h3 class="font-bold text-brand-blue text-base mb-2">Military Engineer Services</h3>
-          <p class="text-slate-600 text-xs leading-relaxed">Executing defense contracts adhering strictly to high-standard military specifications and security compliances.</p>
+          <h3 class="font-bold text-white text-base mb-2 font-heading">Military Engineer Services</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Executing defense contracts adhering strictly to high-standard military specifications and security compliances.</p>
         </div>
 
-        <div class="bg-white border-2 border-brand-orange/30 p-7 rounded-2xl text-center hover:border-brand-orange hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group shadow-sm">
-          <div class="w-14 h-14 mx-auto bg-amber-500/15 text-brand-orange rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-brand-orange group-hover:text-white transition">
+        <div class="bg-[#0f1522]/90 backdrop-blur-sm border border-brand-orange/30 p-7 rounded-2xl text-center hover:border-brand-orange hover:bg-[#141d2e] hover:shadow-[0_15px_35px_rgba(234,138,38,0.15)] transition-all duration-300 transform hover:-translate-y-1 group shadow-md">
+          <div class="w-14 h-14 mx-auto bg-brand-orange/20 border border-brand-orange/40 text-brand-orange rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-brand-orange group-hover:text-white transition">
             <i class="fa-solid fa-jet-fighter"></i>
           </div>
-          <h3 class="font-bold text-brand-blue text-base mb-2">Air Force Base Facilities</h3>
-          <p class="text-slate-600 text-xs leading-relaxed">Development of high-durability operational grounds, specialized hangers, technical blocks, and civil quarters.</p>
+          <h3 class="font-bold text-white text-base mb-2 font-heading">Air Force Base Facilities</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Development of high-durability operational grounds, specialized hangers, technical blocks, and civil quarters.</p>
         </div>
 
-        <div class="bg-white border-2 border-brand-orange/20 p-7 rounded-2xl text-center hover:border-brand-orange hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group shadow-sm">
-          <div class="w-14 h-14 mx-auto bg-amber-100 text-brand-blue rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-brand-blue group-hover:text-white transition">
+        <div class="bg-[#0f1522]/90 backdrop-blur-sm border border-white/10 p-7 rounded-2xl text-center hover:border-brand-orange/50 hover:bg-[#141d2e] hover:shadow-[0_15px_35px_rgba(234,138,38,0.12)] transition-all duration-300 transform hover:-translate-y-1 group shadow-md">
+          <div class="w-14 h-14 mx-auto bg-brand-orange/15 border border-brand-orange/30 text-brand-orange rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-brand-orange group-hover:text-white transition">
             <i class="fa-solid fa-anchor"></i>
           </div>
-          <h3 class="font-bold text-brand-blue text-base mb-2">Naval Defense Projects</h3>
-          <p class="text-slate-600 text-xs leading-relaxed">Robust marine-grade structural developments, drainage networks, and specialized defense installations.</p>
+          <h3 class="font-bold text-white text-base mb-2 font-heading">Naval Defense Projects</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Robust marine-grade structural developments, drainage networks, and specialized defense installations.</p>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="py-16 px-4 bg-brand-orangemistdeep border-b border-brand-orangeborder">
+  <!-- Services Section (Core Work Segments in Black & Amber Theme) -->
+  <section id="services" class="py-20 px-4 bg-[#090d16] border-b border-white/10 relative">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-brand-blue">Core Work Segments</h2>
-        <div class="w-16 h-1.5 bg-brand-orange mx-auto mt-2 rounded-full"></div>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-7 rounded-xl shadow-md border-t-4 border-brand-blue hover:border-brand-orange hover:shadow-lg transition">
-          <div class="w-14 h-14 bg-amber-100 text-brand-blue flex items-center justify-center rounded-xl text-2xl mb-5">
-            <i class="fa-solid fa-road"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-blue mb-2">Road & Highway Works</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">Bituminous asphalt roads, rigid concrete pavements (RCC), and repair works.</p>
-        </div>
-        <div class="bg-white p-7 rounded-xl shadow-md border-t-4 border-brand-orange hover:shadow-lg transition">
-          <div class="w-14 h-14 bg-amber-100 text-brand-orange flex items-center justify-center rounded-xl text-2xl mb-5">
-            <i class="fa-solid fa-city"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-blue mb-2">Defense & Public Civil Infra</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">Government administrative buildings, specialized defense structures, and institutional complexes.</p>
-        </div>
-        <div class="bg-white p-7 rounded-xl shadow-md border-t-4 border-brand-blue hover:shadow-lg transition">
-          <div class="w-14 h-14 bg-amber-100 text-brand-blue flex items-center justify-center rounded-xl text-2xl mb-5">
-            <i class="fa-solid fa-faucet-drip"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-blue mb-2">Drainage & Earthworks</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">Sewerage systems, stormwater drainage pipelines, and canal excavation works.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 px-4 bg-brand-orangemist relative">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-brand-blue">Contact Office</h2>
-        <div class="w-16 h-1.5 bg-brand-orange mx-auto mt-2 rounded-full"></div>
+      <div class="text-center mb-14">
+        <span class="inline-block text-xs font-bold text-brand-orange tracking-widest uppercase mb-2 px-3 py-1 bg-brand-orange/15 rounded-full border border-brand-orange/40">Our Capabilities</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">Core Work Segments</h2>
+        <div class="w-16 h-1.5 bg-gradient-to-r from-brand-orange to-amber-400 mx-auto mt-3 rounded-full"></div>
       </div>
       
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <!-- Target Jaymin Patel Card -->
-        <div id="jayminCard" class="bg-white p-6 rounded-xl border-2 border-brand-orange shadow-md transition-all duration-500 relative overflow-hidden group">
-          <div id="incomingBadge" class="hidden absolute top-2 right-2 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow animate-pulse">
-            Message Received ✓
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <div class="bg-[#0f1522]/95 p-8 rounded-2xl shadow-xl border border-white/10 border-t-4 border-t-brand-orange hover:border-brand-orange/60 hover:bg-[#141d2e] hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-brand-orange/15 border border-brand-orange/30 text-brand-orange flex items-center justify-center rounded-2xl text-2xl mb-5 group-hover:bg-brand-orange group-hover:text-white transition">
+            <i class="fa-solid fa-road"></i>
           </div>
-          
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="openMdProfileModal()">
-              <div class="w-11 h-11 rounded-full bg-amber-100 text-brand-orange flex items-center justify-center text-lg border border-brand-orange/30 group-hover:scale-105 transition-transform">
-                <i class="fa-solid fa-user-tie"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-brand-blue text-lg leading-tight group-hover:text-brand-orange transition-colors flex items-center gap-1.5">
-                  <span>Jaymin Patel</span>
-                  <i class="fa-solid fa-arrow-up-right-from-square text-xs text-brand-orange opacity-70"></i>
-                </h4>
-                <p class="text-xs font-semibold text-brand-orange uppercase tracking-wider">Managing Director</p>
-              </div>
-            </div>
-            <button onclick="openMdProfileModal()" class="text-xs bg-brand-orangemist text-brand-blue font-semibold px-2.5 py-1 rounded-md border border-brand-orange/40 hover:bg-brand-orange hover:text-white transition">
-              Profile
-            </button>
-          </div>
-
-          <div class="space-y-4 text-sm text-slate-700 pt-2 border-t border-brand-orange/20">
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-lg bg-amber-100 text-brand-orange flex items-center justify-center flex-shrink-0 mt-0.5">
-                <i class="fa-solid fa-phone"></i>
-              </div>
-              <div>
-                <span class="text-xs text-slate-500 font-medium uppercase tracking-wide block">Direct Line</span>
-                <a href="tel:8735993873" class="font-semibold text-brand-blue hover:text-brand-orange transition">+91 87359 93873</a>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-lg bg-amber-100 text-brand-orange flex items-center justify-center flex-shrink-0 mt-0.5">
-                <i class="fa-solid fa-envelope"></i>
-              </div>
-              <div>
-                <span class="text-xs text-slate-500 font-medium uppercase tracking-wide block">Official Email</span>
-                <a href="mailto:webmanager1728@gmail.com" class="font-semibold text-brand-blue hover:text-brand-orange transition break-all">webmanager1728@gmail.com</a>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-lg bg-amber-100 text-brand-orange flex items-center justify-center flex-shrink-0 mt-0.5">
-                <i class="fa-solid fa-location-dot"></i>
-              </div>
-              <div>
-                <span class="text-xs text-slate-500 font-medium uppercase tracking-wide block">Head Office</span>
-                <p class="font-semibold text-slate-800 leading-snug">7, Umiya Complex, Kalol Road, Mansa - 382845</p>
-              </div>
-            </div>
-          </div>
+          <h3 class="text-xl font-bold text-white mb-2.5 font-heading">Road & Highway Works</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">Bituminous asphalt roads, rigid concrete pavements (RCC), state highway widening, and highway repair works.</p>
         </div>
 
-        <!-- Contact Form -->
-        <div class="lg:col-span-2 bg-white p-8 rounded-xl shadow-lg border-2 border-brand-orange/25 relative">
-          <h3 class="text-xl font-bold text-brand-blue mb-4">Send Official Inquiry</h3>
-          <form id="inquiryForm" onsubmit="triggerMessageFlight(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Your Name *</label>
-              <input type="text" id="contactName" required placeholder="Full Name" class="w-full border border-slate-300 p-3 rounded-lg focus:outline-brand-orange bg-slate-50 text-slate-800 text-sm">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Email Address *</label>
-              <input type="email" id="contactEmail" required placeholder="official@domain.com" class="w-full border border-slate-300 p-3 rounded-lg focus:outline-brand-orange bg-slate-50 text-slate-800 text-sm">
-            </div>
-
-            <!-- Fixed Non-Removable +91- Prefix -->
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Phone Number *</label>
-              <div class="flex items-center border border-slate-300 rounded-lg overflow-hidden bg-slate-50 focus-within:ring-1 focus-within:ring-brand-orange focus-within:border-brand-orange">
-                <span class="bg-slate-200/80 text-brand-blue font-bold px-3 py-3 text-sm select-none border-r border-slate-300 flex items-center tracking-wider">
-                  +91-
-                </span>
-                <input 
-                  type="tel" 
-                  id="contactPhone" 
-                  required 
-                  maxlength="11"
-                  placeholder="XXXXX XXXXX" 
-                  oninput="formatPhoneNumber(this)"
-                  class="w-full p-3 bg-transparent text-slate-800 text-sm outline-none tracking-wider font-medium"
-                >
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Department / Organization</label>
-              <input type="text" id="contactDept" placeholder="e.g. MES / Air Force / R&B" class="w-full border border-slate-300 p-3 rounded-lg focus:outline-brand-orange bg-slate-50 text-slate-800 text-sm">
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Message / Tender Details *</label>
-              <textarea id="contactMessage" required placeholder="Type your details..." rows="3" class="w-full border border-slate-300 p-3 rounded-lg focus:outline-brand-orange bg-slate-50 text-slate-800 text-sm"></textarea>
-            </div>
-
-            <!-- Form Error / Status Alert Box -->
-            <div id="formAlertBox" class="hidden sm:col-span-2 transition-all duration-300"></div>
-            
-            <button type="submit" id="submitBtn" class="relative overflow-visible sm:col-span-2 bg-brand-orange hover:bg-brand-orangehover text-white font-semibold py-3.5 rounded-lg transition flex items-center justify-center gap-2 shadow-md cursor-pointer">
-              <span id="buttonMessageIcon" class="inline-block transition-transform duration-300">
-                <i class="fa-solid fa-paper-plane text-white text-sm"></i>
-              </span>
-              <span id="btnText">Send Message</span>
-            </button>
-          </form>
+        <div class="bg-[#0f1522]/95 p-8 rounded-2xl shadow-xl border border-white/10 border-t-4 border-t-amber-500 hover:border-brand-orange/60 hover:bg-[#141d2e] hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center rounded-2xl text-2xl mb-5 group-hover:bg-brand-orange group-hover:text-white transition">
+            <i class="fa-solid fa-city"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2.5 font-heading">Defense & Public Civil Infra</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">Government administrative buildings, specialized defense structures, tactical centers, and institutional complexes.</p>
         </div>
+
+        <div class="bg-[#0f1522]/95 p-8 rounded-2xl shadow-xl border border-white/10 border-t-4 border-t-brand-orange hover:border-brand-orange/60 hover:bg-[#141d2e] hover:shadow-[0_20px_45px_rgba(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-300 group">
+          <div class="w-14 h-14 bg-brand-orange/15 border border-brand-orange/30 text-brand-orange flex items-center justify-center rounded-2xl text-2xl mb-5 group-hover:bg-brand-orange group-hover:text-white transition">
+            <i class="fa-solid fa-faucet-drip"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2.5 font-heading">Drainage & Earthworks</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">Underground stormwater drainage networks, heavy duty concrete pipeline laying, and canal excavation works.</p>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-brand-deepnavy text-slate-300 pt-12 pb-8 border-t-2 border-brand-orange text-sm">
+  <!-- Contact / Inquiry Section (Compact & Sleek for Standard Laptop Screens) -->
+  <section id="contact" class="py-10 sm:py-14 px-4 sm:px-6 relative overflow-hidden bg-[#07090e]">
+    
+    <div class="max-w-5xl mx-auto relative z-10">
+      
+      <!-- Main Outer Container with Compact Padding & Corner Marks -->
+      <div class="relative bg-[#0c1017] rounded-3xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] p-5 sm:p-7 lg:p-8 overflow-hidden">
+        
+        <!-- Ambient Glowing Background Accents -->
+        <div class="absolute -top-24 -left-24 w-60 h-60 bg-brand-orange/15 rounded-full blur-[80px] pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-60 h-60 bg-brand-blue/25 rounded-full blur-[80px] pointer-events-none"></div>
+        
+        <!-- Subtle Corner Accent Markers (+) -->
+        <span class="absolute top-3 left-4 text-white/20 font-mono text-sm select-none pointer-events-none">+</span>
+        <span class="absolute top-3 right-4 text-white/20 font-mono text-sm select-none pointer-events-none">+</span>
+        <span class="absolute bottom-3 left-4 text-white/20 font-mono text-sm select-none pointer-events-none">+</span>
+        <span class="absolute bottom-3 right-4 text-white/20 font-mono text-sm select-none pointer-events-none">+</span>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start relative z-10">
+          
+          <!-- LEFT COLUMN: Get in touch Header & Contact Info Cards -->
+          <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+            
+            <div>
+              <!-- Big Heading (Montserrat) -->
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight font-heading">
+                Get in touch
+              </h2>
+              
+              <!-- Subtitle / Description -->
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mt-2 font-normal max-w-md">
+                If you have any questions regarding our Services or need help, please fill out the form here. We respond within 1 business day.
+              </p>
+            </div>
+
+            <!-- Direct Contact Info Cards (Compact Pills) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              
+              <!-- Email Card -->
+              <a href="mailto:webmanager1728@gmail.com" class="bg-[#141a24]/90 hover:bg-[#1a2230] border border-white/10 hover:border-brand-orange/50 p-3 rounded-xl transition-all duration-200 flex items-center gap-3 group shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-brand-orange group-hover:border-brand-orange/40 transition-all flex-shrink-0 text-sm">
+                  <i class="fa-regular fa-envelope"></i>
+                </div>
+                <div class="overflow-hidden">
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block leading-tight">Email</span>
+                  <span class="text-xs font-semibold text-white group-hover:text-brand-orange transition-colors truncate block">webmanager1728@gmail.com</span>
+                </div>
+              </a>
+
+              <!-- Phone Card -->
+              <a href="tel:962XXXXX82" class="bg-[#141a24]/90 hover:bg-[#1a2230] border border-white/10 hover:border-brand-orange/50 p-3 rounded-xl transition-all duration-200 flex items-center gap-3 group shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-emerald-400 group-hover:border-emerald-500/40 transition-all flex-shrink-0 text-sm">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="overflow-hidden">
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block leading-tight">Phone</span>
+                  <span class="text-xs font-semibold text-white group-hover:text-brand-orange transition-colors truncate block">+91 962XXXXX82</span>
+                </div>
+              </a>
+
+              <!-- Address Card (Full width on sm screens) -->
+              <div class="sm:col-span-2 bg-[#141a24]/90 hover:bg-[#1a2230] border border-white/10 hover:border-brand-orange/50 p-3 rounded-xl transition-all duration-200 flex items-center gap-3 group shadow-sm">
+                <div class="w-9 h-9 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-brand-orange group-hover:border-brand-orange/40 transition-all flex-shrink-0 text-sm">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block leading-tight">Address</span>
+                  <p class="text-xs font-semibold text-white leading-tight">7, Umiya Complex, Kalol Road, Mansa - 382845, Gujarat</p>
+                </div>
+              </div>
+
+              <!-- Managing Director (Jaymin Patel) Executive Desk Card with Flight Receiver ID -->
+              <div id="jayminCard" class="sm:col-span-2 bg-gradient-to-r from-[#141a24] via-[#16202e] to-[#141a24] border border-brand-orange/30 p-3 rounded-xl flex items-center justify-between gap-2.5 relative overflow-hidden transition-all duration-300 shadow-md">
+                
+                <div id="incomingBadge" class="hidden absolute top-2 right-2 bg-emerald-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow animate-pulse z-20">
+                  Delivered ✓
+                </div>
+
+                <div class="flex items-center gap-2.5 cursor-pointer" onclick="openMdProfileModal()">
+                  <div class="w-9 h-9 rounded-lg bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center text-sm flex-shrink-0">
+                    <i class="fa-solid fa-user-tie"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-white flex items-center gap-1 hover:text-brand-orange transition">
+                      <span>Jaymin Patel (MD)</span>
+                      <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-brand-orange"></i>
+                    </h4>
+                    <p class="text-[10px] text-slate-400">Managing Director • Direct Desk</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <a href="tel:962XXXXX82" class="bg-brand-blue/90 hover:bg-brand-blue text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg transition shadow flex items-center gap-1">
+                    <i class="fa-solid fa-phone text-[9px]"></i>
+                    <span>Call</span>
+                  </a>
+                  <a href="https://wa.me/91962XXXXX82?text=Hello%20Jaymin%20Patel,%20I%20am%20contacting%20you%20from%20Umiya%20Buildcon%20Website." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg transition shadow flex items-center gap-1">
+                    <i class="fa-brands fa-whatsapp text-xs"></i>
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Compact Inquiry Form matching the reference layout -->
+          <div class="lg:col-span-6 lg:border-l lg:border-white/10 lg:pl-8 pt-2 lg:pt-0">
+            
+            <!-- Google 1-Click Auto-Fill Bar -->
+            <div id="formAuthBanner" class="mb-3 flex justify-end">
+              <!-- When Signed In -->
+              <div id="formSignedInBadge" class="hidden items-center gap-1.5 bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 px-2.5 py-1 rounded-lg text-[11px] font-medium shadow-sm">
+                <img id="formUserAvatar" src="https://lh3.googleusercontent.com/a/default-user=s96-c" class="w-4 h-4 rounded-full object-cover border border-emerald-400" alt="Avatar" />
+                <span>Verified: <strong id="formUserEmail" class="font-bold text-white">user@gmail.com</strong></span>
+                <i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i>
+              </div>
+              
+              <!-- When Not Signed In -->
+              <button id="formSignInPrompt" onclick="openGoogleAuthModal()" type="button" class="inline-flex items-center gap-1.5 text-[11px] text-slate-300 hover:text-white bg-white/[0.05] hover:bg-white/[0.1] px-2.5 py-1 rounded-lg transition font-medium border border-white/10 cursor-pointer shadow-sm">
+                <svg class="w-3 h-3" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Sign in with Google to auto-fill</span>
+              </button>
+            </div>
+
+            <!-- The Form -->
+            <form id="inquiryForm" onsubmit="triggerMessageFlight(event)" class="space-y-2.5">
+              
+              <!-- 1. Name Field -->
+              <div>
+                <label for="contactName" class="block text-[11px] font-medium text-slate-300 mb-1 tracking-wide">
+                  Name
+                </label>
+                <input 
+                  type="text" 
+                  id="contactName" 
+                  required 
+                  placeholder="Enter your name" 
+                  class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm outline-none transition duration-200 shadow-inner"
+                />
+              </div>
+
+              <!-- 2. Email Field -->
+              <div>
+                <label for="contactEmail" class="block text-[11px] font-medium text-slate-300 mb-1 tracking-wide">
+                  Email
+                </label>
+                <input 
+                  type="email" 
+                  id="contactEmail" 
+                  required 
+                  placeholder="Enter your email" 
+                  class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm outline-none transition duration-200 shadow-inner"
+                />
+              </div>
+
+              <!-- 3. Phone Field with +91- Prefix -->
+              <div>
+                <label for="contactPhone" class="block text-[11px] font-medium text-slate-300 mb-1 tracking-wide">
+                  Phone
+                </label>
+                <div class="flex items-center bg-[#070a0f] border border-white/15 focus-within:border-brand-orange focus-within:ring-1 focus-within:ring-brand-orange/40 rounded-xl overflow-hidden transition duration-200 shadow-inner">
+                  <span class="bg-white/[0.04] text-brand-orange font-bold text-xs px-3 py-2 border-r border-white/15 select-none tracking-wider flex items-center">
+                    +91-
+                  </span>
+                  <input 
+                    type="tel" 
+                    id="contactPhone" 
+                    required 
+                    maxlength="11" 
+                    placeholder="XXXXX XXXXX" 
+                    oninput="formatPhoneNumber(this)"
+                    class="w-full px-3.5 py-2 bg-transparent text-white placeholder-slate-500 text-xs sm:text-sm outline-none font-medium tracking-wide"
+                  />
+                </div>
+              </div>
+
+              <!-- 4. Message Field -->
+              <div>
+                <label for="contactMessage" class="block text-[11px] font-medium text-slate-300 mb-1 tracking-wide">
+                  Message
+                </label>
+                <textarea 
+                  id="contactMessage" 
+                  required 
+                  rows="2" 
+                  placeholder="Write your message or inquiry..." 
+                  class="w-full bg-[#070a0f] border border-white/15 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/40 text-white placeholder-slate-500 rounded-xl px-3.5 py-2 text-xs sm:text-sm outline-none transition duration-200 shadow-inner resize-none"
+                ></textarea>
+              </div>
+
+              <!-- Form Error / Status Alert Box -->
+              <div id="formAlertBox" class="hidden transition-all duration-300"></div>
+              
+              <!-- Submit Button with Gradient & Flight Animation Origin -->
+              <button 
+                type="submit" 
+                id="submitBtn" 
+                class="w-full mt-1 bg-gradient-to-r from-brand-orange via-amber-500 to-brand-orangehover hover:from-brand-orangehover hover:to-brand-orange text-white font-bold py-2.5 sm:py-3 px-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md shadow-orange-500/20 hover:shadow-orange-500/35 active:scale-[0.99] cursor-pointer text-xs sm:text-sm font-heading tracking-wide"
+              >
+                <span id="buttonMessageIcon" class="inline-block transition-transform duration-300">
+                  <i class="fa-solid fa-paper-plane text-white text-xs"></i>
+                </span>
+                <span id="btnText">Send Message</span>
+              </button>
+
+              <!-- Subtext -->
+              <p class="text-center text-[10px] text-slate-500 mt-2 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-lock text-slate-500 text-[9px]"></i>
+                <span>Direct encrypted dispatch to MD Jaymin Patel</span>
+              </p>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer (Obsidian Black & Golden Accents) -->
+  <footer class="bg-[#05070a] text-slate-300 pt-14 pb-10 border-t border-white/10 text-sm">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-slate-800 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-white/10 items-start">
         
         <div>
-          <div class="inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-xl shadow-md mb-3 border border-slate-200">
-            <img src="logo.jpng" alt="Umiya Buildcon" class="h-10 w-auto object-contain pointer-events-none select-none" onerror="this.onerror=null; this.src='logo.jpeg';" />
+          <div class="inline-flex items-center gap-3 bg-[#0c1018] px-4 py-2 rounded-xl shadow-lg mb-4 border border-white/10">
+            <img src="logo.jpeg" alt="Umiya Buildcon" loading="lazy" decoding="async" class="h-9 w-auto object-contain pointer-events-none select-none rounded-md" />
             <div class="text-left">
-              <div class="text-lg font-bold text-brand-blue leading-none">
+              <div class="text-base font-bold text-white leading-none font-heading">
                 <span>Umiya</span>&nbsp;<span class="text-brand-orange">Buildcon</span>
               </div>
-              <span class="text-[10px] text-slate-500 font-medium block mt-0.5">We Built a Better World</span>
+              <span class="text-[9px] text-slate-400 font-medium block mt-0.5">We Built a Better World</span>
             </div>
           </div>
           <p class="text-slate-400 text-xs leading-relaxed mt-2">
@@ -383,8 +865,8 @@
         </div>
 
         <div class="md:pl-8">
-          <h4 class="text-white font-bold text-base mb-3 border-l-2 border-brand-orange pl-2">Quick Navigation</h4>
-          <ul class="space-y-2 text-xs text-slate-400">
+          <h4 class="text-white font-bold text-base mb-4 border-l-2 border-brand-orange pl-2.5 font-heading">Quick Navigation</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
             <li><a href="#home" class="hover:text-brand-orange transition">Home</a></li>
             <li><a href="#about" class="hover:text-brand-orange transition">About Company</a></li>
             <li><button onclick="openMdProfileModal()" class="hover:text-brand-orange transition text-left cursor-pointer">Managing Director Profile</button></li>
@@ -395,67 +877,69 @@
         </div>
 
         <div>
-          <h4 class="text-white font-bold text-base mb-3 border-l-2 border-brand-orange pl-2">Head Office</h4>
-          <p class="text-xs text-slate-400 leading-relaxed space-y-1">
-            <span class="block text-white font-medium">Umiya Buildcon</span>
+          <h4 class="text-white font-bold text-base mb-4 border-l-2 border-brand-orange pl-2.5 font-heading">Head Office</h4>
+          <p class="text-xs text-slate-400 leading-relaxed space-y-1.5">
+            <span class="block text-white font-semibold">Umiya Buildcon</span>
             <span class="block">7, Umiya Complex, Kalol Road,</span>
             <span class="block">Mansa - 382845, Dist: Gandhinagar, Gujarat.</span>
-            <span class="block pt-1 text-slate-300">📞 Phone: +91 87359 93873</span>
-            <span class="block text-slate-300">✉️ Email: webmanager1728@gmail.com</span>
+            <span class="block pt-1.5 text-slate-300 font-medium">📞 Phone: <a href="tel:962XXXXX82" class="hover:text-brand-orange transition">+91 962XXXXX82</a></span>
+            <span class="block text-slate-300 font-medium">✉️ Email: <a href="mailto:webmanager1728@gmail.com" class="hover:text-brand-orange transition">webmanager1728@gmail.com</a></span>
           </p>
         </div>
       </div>
 
-      <div class="pt-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="pt-8 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
         <p>© 2026 Umiya Buildcon. All Rights Reserved.</p>
         <p class="text-slate-500 text-[11px]">Designed for Defense & Government Infrastructure Excellence</p>
       </div>
     </div>
   </footer>
+  </main>
+  </div>
 
-  <!-- MD Profile Modal -->
-  <div id="mdProfileModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 transition-all duration-300">
-    <div class="bg-white w-full max-w-2xl max-h-[92vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden border-2 border-brand-orange">
+  <!-- MD Profile Modal (Black & Amber Luxury Theme) -->
+  <div id="mdProfileModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 transition-all duration-300">
+    <div class="bg-[#0c1018] w-full max-w-2xl max-h-[92vh] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden border border-brand-orange/40 text-slate-100">
       
-      <div class="bg-gradient-to-r from-brand-deepnavy via-brand-darkblue to-brand-blue text-white px-6 py-4 flex justify-between items-center border-b-2 border-brand-orange relative">
-        <div class="flex items-center gap-2">
+      <div class="bg-gradient-to-r from-[#0e1624] via-[#141f30] to-[#0e1624] text-white px-6 py-4 flex justify-between items-center border-b border-brand-orange/30 relative">
+        <div class="flex items-center gap-2.5">
           <i class="fa-solid fa-id-card text-brand-orange text-lg"></i>
-          <span class="text-xs sm:text-sm font-semibold tracking-wider uppercase text-brand-orange">Executive Leadership Profile</span>
+          <span class="text-xs sm:text-sm font-bold tracking-wider uppercase text-brand-orange font-heading">Executive Leadership Profile</span>
         </div>
-        <button onclick="closeMdProfileModal()" class="text-slate-300 hover:text-white text-2xl font-bold leading-none p-1 transition cursor-pointer">
+        <button onclick="closeMdProfileModal()" class="text-slate-400 hover:text-white text-2xl font-bold leading-none p-1 transition cursor-pointer">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="p-6 sm:p-8 overflow-y-auto bg-slate-50 space-y-6">
-        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="p-6 sm:p-8 overflow-y-auto bg-[#07090e] space-y-6">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-[#0e1420] p-6 rounded-2xl border border-white/10 shadow-lg">
           <div class="relative flex-shrink-0">
-            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-4 border-brand-orange/30 shadow-md bg-slate-100 flex items-center justify-center">
+            <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden border-2 border-brand-orange/50 shadow-lg bg-[#141c2b] flex items-center justify-center">
               <img 
                 src="jaymin-patel.jpg" 
                 alt="Jaymin Patel - Managing Director" 
                 class="w-full h-full object-cover object-top"
-                onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'flex flex-col items-center justify-center text-slate-400 p-2 text-center\'><i class=\'fa-solid fa-user-tie text-5xl text-brand-blue mb-1\'></i><span class=\'text-[10px] font-bold text-slate-500\'>Jaymin Patel</span></div>';"
+                onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'flex flex-col items-center justify-center text-slate-400 p-2 text-center\'><i class=\'fa-solid fa-user-tie text-5xl text-brand-orange mb-1\'></i><span class=\'text-[10px] font-bold text-slate-300\'>Jaymin Patel</span></div>';"
               />
             </div>
-            <div class="absolute -bottom-2 -right-2 bg-emerald-600 text-white rounded-full p-1.5 text-xs shadow-md">
+            <div class="absolute -bottom-2 -right-2 bg-emerald-500 text-white rounded-full p-1.5 text-xs shadow-md">
               <i class="fa-solid fa-circle-check"></i>
             </div>
           </div>
 
           <div class="text-center sm:text-left flex-1">
-            <span class="inline-block bg-brand-orangemist text-brand-orange font-bold text-[11px] px-3 py-1 rounded-full uppercase tracking-wider border border-brand-orange/30 mb-2">
+            <span class="inline-block bg-brand-orange/15 text-brand-orange font-bold text-[11px] px-3.5 py-1 rounded-full uppercase tracking-wider border border-brand-orange/40 mb-2.5">
               Managing Director & Founder
             </span>
-            <h3 class="text-2xl sm:text-3xl font-bold text-brand-blue leading-tight">Jaymin Patel</h3>
-            <p class="text-slate-500 text-xs sm:text-sm font-medium mt-0.5">Umiya Buildcon Contractor & Developers</p>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white leading-tight font-heading">Jaymin Patel</h3>
+            <p class="text-slate-400 text-xs sm:text-sm font-medium mt-0.5">Umiya Buildcon Contractor & Developers</p>
             
             <div class="mt-4 flex flex-wrap justify-center sm:justify-start gap-2">
-              <span class="inline-flex items-center gap-1.5 bg-blue-50 text-brand-blue text-xs font-semibold px-3 py-1 rounded-lg border border-blue-200">
+              <span class="inline-flex items-center gap-1.5 bg-white/[0.06] text-slate-200 text-xs font-semibold px-3 py-1 rounded-lg border border-white/10">
                 <i class="fa-solid fa-graduation-cap text-brand-orange"></i>
                 <span>B.E. Civil Engineering</span>
               </span>
-              <span class="inline-flex items-center gap-1.5 bg-amber-50 text-brand-orange text-xs font-semibold px-3 py-1 rounded-lg border border-amber-200">
+              <span class="inline-flex items-center gap-1.5 bg-brand-orange/15 text-brand-orange text-xs font-semibold px-3 py-1 rounded-lg border border-brand-orange/30">
                 <i class="fa-solid fa-stamp"></i>
                 <span>Govt. Approved Class Contractor</span>
               </span>
@@ -463,60 +947,60 @@
           </div>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-          <h4 class="text-base font-bold text-brand-blue flex items-center gap-2 border-b border-slate-100 pb-2">
+        <div class="bg-[#0e1420] p-6 rounded-2xl border border-white/10 shadow-lg space-y-3">
+          <h4 class="text-base font-bold text-white flex items-center gap-2 border-b border-white/10 pb-2.5 font-heading">
             <i class="fa-solid fa-briefcase text-brand-orange"></i>
             <span>Professional Profile & Vision</span>
           </h4>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
             <strong>Jaymin Patel</strong> has been the driving force behind <strong>Umiya Buildcon</strong>, transforming the firm into one of Gujarat's premier civil infrastructure contractors. With an engineering foundation in Civil Engineering and over a decade of hands-on field experience, he oversees strategic planning, tendering, structural execution, and client management.
           </p>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
             Under his leadership, the firm specializes in mission-critical defense contracts for <strong>Military Engineer Services (MES)</strong>, including tactical operational facilities for the <strong>Indian Air Force</strong> and durable marine infrastructure for the <strong>Indian Navy</strong>, alongside state highway networks and institutional civil buildings.
           </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-brand-orangemist p-4 rounded-xl border border-brand-orangeborder">
-            <h5 class="font-bold text-brand-blue text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <div class="bg-[#0e1420] p-4.5 rounded-2xl border border-white/10">
+            <h5 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5 font-heading">
               <i class="fa-solid fa-shield-halved text-brand-orange"></i> Defense & MES Compliance
             </h5>
-            <p class="text-slate-600 text-xs leading-relaxed">
+            <p class="text-slate-400 text-xs leading-relaxed">
               Expertise in defense-grade specifications, security clearances, and precision engineering for high-security defense bases.
             </p>
           </div>
 
-          <div class="bg-blue-50/60 p-4 rounded-xl border border-blue-200">
-            <h5 class="font-bold text-brand-blue text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <i class="fa-solid fa-road text-brand-blue"></i> Infrastructure Management
+          <div class="bg-[#0e1420] p-4.5 rounded-2xl border border-white/10">
+            <h5 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5 font-heading">
+              <i class="fa-solid fa-road text-amber-400"></i> Infrastructure Management
             </h5>
-            <p class="text-slate-600 text-xs leading-relaxed">
+            <p class="text-slate-400 text-xs leading-relaxed">
               Execution of rigid concrete pavements (RCC), bituminous highways, multi-storey complexes, and urban stormwater networks.
             </p>
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="bg-[#0e1420] p-5 rounded-2xl border border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div class="text-center sm:text-left">
             <span class="text-xs text-slate-400 font-medium uppercase tracking-wider block">Office Location</span>
-            <span class="text-xs sm:text-sm font-semibold text-slate-800">7, Umiya Complex, Kalol Road, Mansa - 382845</span>
+            <span class="text-xs sm:text-sm font-semibold text-white">7, Umiya Complex, Kalol Road, Mansa - 382845</span>
           </div>
           <div class="flex gap-2">
-            <a href="tel:8735993873" class="bg-brand-blue hover:bg-brand-darkblue text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition flex items-center gap-1.5 shadow-sm">
-              <i class="fa-solid fa-phone"></i>
+            <a href="tel:962XXXXX82" class="bg-gradient-to-r from-brand-orange to-brand-orangehover text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-md">
+              <i class="fa-solid fa-phone text-xs"></i>
               <span>Call Direct</span>
             </a>
-            <a href="mailto:webmanager1728@gmail.com" class="bg-brand-orange hover:bg-brand-orangehover text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition flex items-center gap-1.5 shadow-sm">
-              <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:webmanager1728@gmail.com" class="bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-envelope text-brand-orange"></i>
               <span>Send Mail</span>
             </a>
           </div>
         </div>
       </div>
 
-      <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex justify-between items-center">
-        <span class="text-xs text-slate-500 font-medium">Umiya Buildcon • We Built a Better World</span>
-        <button onclick="closeMdProfileModal()" class="bg-brand-blue hover:bg-brand-darkblue text-white text-xs sm:text-sm font-semibold px-5 py-2 rounded-lg transition cursor-pointer">
+      <div class="bg-[#0c1018] px-6 py-3.5 border-t border-white/10 flex justify-between items-center">
+        <span class="text-xs text-slate-400 font-medium">Umiya Buildcon • We Built a Better World</span>
+        <button onclick="closeMdProfileModal()" class="bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-white text-xs sm:text-sm font-semibold px-5 py-2 rounded-xl transition cursor-pointer">
           Close Profile
         </button>
       </div>
@@ -524,17 +1008,17 @@
     </div>
   </div>
 
-  <!-- Projects Modal -->
-  <div id="projectsModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 transition-all duration-300">
-    <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+  <!-- Projects Modal (Black & Amber Luxury Theme) -->
+  <div id="projectsModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 transition-all duration-300">
+    <div class="bg-[#0c1018] w-full max-w-5xl max-h-[90vh] rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden border border-white/15 text-white">
       
-      <div class="bg-brand-deepnavy text-white px-6 py-4 flex justify-between items-center border-b-2 border-brand-orange">
+      <div class="bg-gradient-to-r from-[#0e1624] via-[#141f30] to-[#0e1624] text-white px-6 py-4 flex justify-between items-center border-b border-brand-orange/30">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-brand-orange text-white flex items-center justify-center">
+          <div class="w-9 h-9 rounded-xl bg-brand-orange/20 border border-brand-orange/40 text-brand-orange flex items-center justify-center">
             <i class="fa-solid fa-briefcase"></i>
           </div>
           <div>
-            <h3 class="text-xl font-bold tracking-wide">Umiya Buildcon — Project Portfolio</h3>
+            <h3 class="text-xl font-bold tracking-wide font-heading">Umiya Buildcon — Project Portfolio</h3>
             <p class="text-xs text-brand-orange">Defense (MES) & Government Contracts</p>
           </div>
         </div>
@@ -543,38 +1027,40 @@
         </button>
       </div>
 
-      <div class="bg-slate-100 px-6 py-3 border-b border-slate-200 flex flex-wrap gap-2">
-        <button onclick="filterProjects('all')" class="filter-btn active bg-brand-blue text-white text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="all">
+      <!-- Filter Buttons Bar -->
+      <div class="bg-[#07090e] px-6 py-3.5 border-b border-white/10 flex flex-wrap gap-2">
+        <button onclick="filterProjects('all')" class="filter-btn active bg-brand-orange text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full transition flex items-center gap-1.5 shadow-md" data-category="all">
           <i class="fa-solid fa-layer-group text-xs"></i> All Projects
         </button>
-        <button onclick="filterProjects('defense')" class="filter-btn bg-white text-slate-700 hover:bg-slate-200 text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="defense">
-          <i class="fa-solid fa-shield-halved text-xs"></i> MES / Defense Infra
+        <button onclick="filterProjects('defense')" class="filter-btn bg-white/[0.06] border border-white/10 text-slate-300 hover:text-white hover:bg-white/[0.12] text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="defense">
+          <i class="fa-solid fa-shield-halved text-xs text-brand-orange"></i> MES / Defense Infra
         </button>
-        <button onclick="filterProjects('road')" class="filter-btn bg-white text-slate-700 hover:bg-slate-200 text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="road">
-          <i class="fa-solid fa-road text-xs"></i> Roads & Highways
+        <button onclick="filterProjects('road')" class="filter-btn bg-white/[0.06] border border-white/10 text-slate-300 hover:text-white hover:bg-white/[0.12] text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="road">
+          <i class="fa-solid fa-road text-xs text-amber-400"></i> Roads & Highways
         </button>
-        <button onclick="filterProjects('building')" class="filter-btn bg-white text-slate-700 hover:bg-slate-200 text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="building">
-          <i class="fa-solid fa-building text-xs"></i> Civil Buildings
+        <button onclick="filterProjects('building')" class="filter-btn bg-white/[0.06] border border-white/10 text-slate-300 hover:text-white hover:bg-white/[0.12] text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="building">
+          <i class="fa-solid fa-building text-xs text-slate-400"></i> Civil Buildings
         </button>
-        <button onclick="filterProjects('drainage')" class="filter-btn bg-white text-slate-700 hover:bg-slate-200 text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="drainage">
-          <i class="fa-solid fa-faucet-drip text-xs"></i> Drainage & Utilities
+        <button onclick="filterProjects('drainage')" class="filter-btn bg-white/[0.06] border border-white/10 text-slate-300 hover:text-white hover:bg-white/[0.12] text-xs sm:text-sm font-medium px-4 py-1.5 rounded-full transition flex items-center gap-1.5" data-category="drainage">
+          <i class="fa-solid fa-faucet-drip text-xs text-sky-400"></i> Drainage & Utilities
         </button>
       </div>
 
-      <div class="p-6 overflow-y-auto space-y-6 bg-slate-50">
+      <!-- Projects Grid -->
+      <div class="p-6 overflow-y-auto space-y-6 bg-[#07090e]">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectsContainer">
           
-          <div class="project-card defense bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-            <div class="h-44 bg-slate-800 text-slate-400 flex flex-col items-center justify-center gap-2 font-medium">
+          <div class="project-card defense bg-[#0e1420] rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:border-brand-orange/50 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition duration-300">
+            <div class="h-44 bg-[#141b2a] text-slate-400 flex flex-col items-center justify-center gap-2 font-medium border-b border-white/10">
               <i class="fa-solid fa-jet-fighter text-3xl text-brand-orange"></i>
-              <span class="text-xs">Air Force Facility Project</span>
+              <span class="text-xs text-slate-400">Air Force Facility Project</span>
             </div>
-            <div class="p-4">
-              <span class="text-[11px] font-bold text-brand-orange bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">MES Division</span>
-              <h4 class="font-bold text-base text-slate-900 mt-2">Air Force Technical Complex</h4>
-              <p class="text-xs text-slate-500 mt-1">High-spec infrastructure execution for Air Force operational base.</p>
-              <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span class="text-emerald-700 font-semibold flex items-center gap-1">
+            <div class="p-4.5">
+              <span class="text-[11px] font-bold text-brand-orange bg-brand-orange/15 border border-brand-orange/30 px-2.5 py-0.5 rounded-md">MES Division</span>
+              <h4 class="font-bold text-base text-white mt-2.5 font-heading">Air Force Technical Complex</h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">High-spec infrastructure execution for Air Force operational base.</p>
+              <div class="mt-3.5 pt-3 border-t border-white/10 flex justify-between items-center text-xs">
+                <span class="text-emerald-400 font-semibold flex items-center gap-1">
                   <i class="fa-solid fa-circle-check"></i> Completed
                 </span>
                 <span class="text-slate-400">Gujarat Sector</span>
@@ -582,17 +1068,17 @@
             </div>
           </div>
 
-          <div class="project-card defense bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-            <div class="h-44 bg-slate-800 text-slate-400 flex flex-col items-center justify-center gap-2 font-medium">
+          <div class="project-card defense bg-[#0e1420] rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:border-brand-orange/50 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition duration-300">
+            <div class="h-44 bg-[#141b2a] text-slate-400 flex flex-col items-center justify-center gap-2 font-medium border-b border-white/10">
               <i class="fa-solid fa-anchor text-3xl text-sky-400"></i>
-              <span class="text-xs">Naval Base Infrastructure</span>
+              <span class="text-xs text-slate-400">Naval Base Infrastructure</span>
             </div>
-            <div class="p-4">
-              <span class="text-[11px] font-bold text-brand-blue bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">Naval Project</span>
-              <h4 class="font-bold text-base text-slate-900 mt-2">Naval Station Utility & Housing</h4>
-              <p class="text-xs text-slate-500 mt-1">Marine durable concrete constructions and underground piping work.</p>
-              <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span class="text-emerald-700 font-semibold flex items-center gap-1">
+            <div class="p-4.5">
+              <span class="text-[11px] font-bold text-sky-400 bg-sky-500/15 border border-sky-500/30 px-2.5 py-0.5 rounded-md">Naval Project</span>
+              <h4 class="font-bold text-base text-white mt-2.5 font-heading">Naval Station Utility & Housing</h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Marine durable concrete constructions and underground piping work.</p>
+              <div class="mt-3.5 pt-3 border-t border-white/10 flex justify-between items-center text-xs">
+                <span class="text-emerald-400 font-semibold flex items-center gap-1">
                   <i class="fa-solid fa-circle-check"></i> Completed
                 </span>
                 <span class="text-slate-400">Coastal Gujarat</span>
@@ -600,17 +1086,17 @@
             </div>
           </div>
 
-          <div class="project-card road bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-            <div class="h-44 bg-slate-800 text-slate-400 flex flex-col items-center justify-center gap-2 font-medium">
-              <i class="fa-solid fa-road text-3xl text-slate-500"></i>
-              <span class="text-xs">Road Work Photo</span>
+          <div class="project-card road bg-[#0e1420] rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:border-brand-orange/50 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition duration-300">
+            <div class="h-44 bg-[#141b2a] text-slate-400 flex flex-col items-center justify-center gap-2 font-medium border-b border-white/10">
+              <i class="fa-solid fa-road text-3xl text-amber-400"></i>
+              <span class="text-xs text-slate-400">Road Work Photo</span>
             </div>
-            <div class="p-4">
-              <span class="text-[11px] font-bold text-brand-blue bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">R&B Division</span>
-              <h4 class="font-bold text-base text-slate-900 mt-2">State Highway Bituminous Road</h4>
-              <p class="text-xs text-slate-500 mt-1">22 km road widening and surface strengthening with asphalt mix.</p>
-              <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span class="text-emerald-700 font-semibold flex items-center gap-1">
+            <div class="p-4.5">
+              <span class="text-[11px] font-bold text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2.5 py-0.5 rounded-md">R&B Division</span>
+              <h4 class="font-bold text-base text-white mt-2.5 font-heading">State Highway Bituminous Road</h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">22 km road widening and surface strengthening with asphalt mix.</p>
+              <div class="mt-3.5 pt-3 border-t border-white/10 flex justify-between items-center text-xs">
+                <span class="text-emerald-400 font-semibold flex items-center gap-1">
                   <i class="fa-solid fa-circle-check"></i> Completed
                 </span>
                 <span class="text-slate-400">Gandhinagar Region</span>
@@ -618,17 +1104,17 @@
             </div>
           </div>
 
-          <div class="project-card building bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-            <div class="h-44 bg-slate-800 text-slate-400 flex flex-col items-center justify-center gap-2 font-medium">
-              <i class="fa-solid fa-building text-3xl text-slate-500"></i>
-              <span class="text-xs">Civil Building Structure</span>
+          <div class="project-card building bg-[#0e1420] rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:border-brand-orange/50 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition duration-300">
+            <div class="h-44 bg-[#141b2a] text-slate-400 flex flex-col items-center justify-center gap-2 font-medium border-b border-white/10">
+              <i class="fa-solid fa-building text-3xl text-slate-400"></i>
+              <span class="text-xs text-slate-400">Civil Building Structure</span>
             </div>
-            <div class="p-4">
-              <span class="text-[11px] font-bold text-brand-orange bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">Civil Works</span>
-              <h4 class="font-bold text-base text-slate-900 mt-2">Administrative Office Complex</h4>
-              <p class="text-xs text-slate-500 mt-1">Multi-storey structural development with complete interior finishing.</p>
-              <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span class="text-emerald-700 font-semibold flex items-center gap-1">
+            <div class="p-4.5">
+              <span class="text-[11px] font-bold text-brand-orange bg-brand-orange/15 border border-brand-orange/30 px-2.5 py-0.5 rounded-md">Civil Works</span>
+              <h4 class="font-bold text-base text-white mt-2.5 font-heading">Administrative Office Complex</h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Multi-storey structural development with complete interior finishing.</p>
+              <div class="mt-3.5 pt-3 border-t border-white/10 flex justify-between items-center text-xs">
+                <span class="text-emerald-400 font-semibold flex items-center gap-1">
                   <i class="fa-solid fa-circle-check"></i> Completed
                 </span>
                 <span class="text-slate-400">Mansa</span>
@@ -636,17 +1122,17 @@
             </div>
           </div>
 
-          <div class="project-card drainage bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-            <div class="h-44 bg-slate-800 text-slate-400 flex flex-col items-center justify-center gap-2 font-medium">
-              <i class="fa-solid fa-water text-3xl text-blue-400"></i>
-              <span class="text-xs">Drainage Pipeline Project</span>
+          <div class="project-card drainage bg-[#0e1420] rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:border-brand-orange/50 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition duration-300">
+            <div class="h-44 bg-[#141b2a] text-slate-400 flex flex-col items-center justify-center gap-2 font-medium border-b border-white/10">
+              <i class="fa-solid fa-water text-3xl text-sky-400"></i>
+              <span class="text-xs text-slate-400">Drainage Pipeline Project</span>
             </div>
-            <div class="p-4">
-              <span class="text-[11px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">Drainage Project</span>
-              <h4 class="font-bold text-base text-slate-900 mt-2">Underground Stormwater Drainage</h4>
-              <p class="text-xs text-slate-500 mt-1">Heavy duty concrete pipeline laying and manhole construction.</p>
-              <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span class="text-blue-600 font-semibold flex items-center gap-1">
+            <div class="p-4.5">
+              <span class="text-[11px] font-bold text-sky-400 bg-sky-500/15 border border-sky-500/30 px-2.5 py-0.5 rounded-md">Drainage Project</span>
+              <h4 class="font-bold text-base text-white mt-2.5 font-heading">Underground Stormwater Drainage</h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Heavy duty concrete pipeline laying and manhole construction.</p>
+              <div class="mt-3.5 pt-3 border-t border-white/10 flex justify-between items-center text-xs">
+                <span class="text-sky-400 font-semibold flex items-center gap-1">
                   <i class="fa-solid fa-spinner animate-spin"></i> In Progress
                 </span>
                 <span class="text-slate-400">Kalol Sector</span>
@@ -654,17 +1140,17 @@
             </div>
           </div>
 
-          <div class="project-card road bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-            <div class="h-44 bg-slate-800 text-slate-400 flex flex-col items-center justify-center gap-2 font-medium">
-              <i class="fa-solid fa-road-barrier text-3xl text-slate-500"></i>
-              <span class="text-xs">RCC Road Project</span>
+          <div class="project-card road bg-[#0e1420] rounded-2xl border border-white/10 overflow-hidden shadow-lg hover:border-brand-orange/50 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] transition duration-300">
+            <div class="h-44 bg-[#141b2a] text-slate-400 flex flex-col items-center justify-center gap-2 font-medium border-b border-white/10">
+              <i class="fa-solid fa-road-barrier text-3xl text-amber-400"></i>
+              <span class="text-xs text-slate-400">RCC Road Project</span>
             </div>
-            <div class="p-4">
-              <span class="text-[11px] font-bold text-brand-blue bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">Panchayat Road</span>
-              <h4 class="font-bold text-base text-slate-900 mt-2">Village Approach RCC Road</h4>
-              <p class="text-xs text-slate-500 mt-1">Reinforced concrete paving with roadside gutters and culverts.</p>
-              <div class="mt-3 pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                <span class="text-emerald-700 font-semibold flex items-center gap-1">
+            <div class="p-4.5">
+              <span class="text-[11px] font-bold text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2.5 py-0.5 rounded-md">Panchayat Road</span>
+              <h4 class="font-bold text-base text-white mt-2.5 font-heading">Village Approach RCC Road</h4>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">Reinforced concrete paving with roadside gutters and culverts.</p>
+              <div class="mt-3.5 pt-3 border-t border-white/10 flex justify-between items-center text-xs">
+                <span class="text-emerald-400 font-semibold flex items-center gap-1">
                   <i class="fa-solid fa-circle-check"></i> Completed
                 </span>
                 <span class="text-slate-400">Mehsana / Mansa</span>
@@ -675,29 +1161,99 @@
         </div>
       </div>
 
-      <div class="bg-slate-100 px-6 py-3 border-t border-slate-200 flex justify-between items-center">
-        <button onclick="closeProjectsModal()" class="bg-brand-blue hover:bg-brand-darkblue text-white text-xs sm:text-sm font-semibold px-5 py-2 rounded-lg transition cursor-pointer">
+      <div class="bg-[#0c1018] px-6 py-3.5 border-t border-white/10 flex justify-between items-center">
+        <button onclick="closeProjectsModal()" class="bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-white text-xs sm:text-sm font-semibold px-5 py-2 rounded-xl transition cursor-pointer">
           Close Window
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Popup Confirmation Modal -->
-  <div id="successModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-7 text-center relative border-2 border-brand-orange">
-      <button onclick="closeSuccessModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl font-bold cursor-pointer">
+  <!-- Google / Gmail Authentication Modal (Black & Amber Luxury Theme) -->
+  <div id="googleAuthModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
+    <div class="bg-[#0c1018] w-full max-w-md rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden border border-brand-orange/40 text-slate-100">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-[#0e1624] via-[#141f30] to-[#0e1624] text-white p-6 relative border-b border-brand-orange/30">
+        <button onclick="closeGoogleAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold cursor-pointer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="w-12 h-12 rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center mb-3">
+          <svg class="w-full h-full" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold font-heading">Google & Gmail Authentication</h3>
+        <p class="text-xs text-slate-400 mt-1">Umiya Buildcon Client & Contractor Portal</p>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4 text-center bg-[#07090e]">
+        
+        <!-- Benefits -->
+        <div class="bg-brand-orange/10 border border-brand-orange/30 rounded-2xl p-3.5 text-left text-xs text-slate-200 space-y-1.5">
+          <div class="flex items-center gap-2 font-bold text-brand-orange">
+            <i class="fa-solid fa-shield-halved text-brand-orange"></i>
+            <span>Verified Identity Benefits:</span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-300 pl-5">
+            <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1-Click Instant Inquiry Auto-Fill
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-300 pl-5">
+            <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Direct Priority Delivery to Jaymin Patel's Desk
+          </div>
+          <div class="flex items-center gap-2 text-[11px] text-slate-300 pl-5">
+            <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Official Email Confirmation & Tracking
+          </div>
+        </div>
+
+        <!-- Google Official GIS Button Container -->
+        <div id="googleButtonDiv" class="flex justify-center my-3 min-h-[44px]"></div>
+
+        <div class="relative flex items-center justify-center my-3">
+          <div class="border-t border-white/10 w-full"></div>
+          <span class="bg-[#07090e] px-3 text-[11px] text-slate-500 uppercase font-medium absolute">Instant Quick Connect</span>
+        </div>
+
+        <!-- Quick Demo Connect Buttons -->
+        <div class="grid grid-cols-1 gap-2.5 pt-1">
+          <button onclick="handleQuickGoogleLogin('director@umiyabuildcon.com', 'Jaymin Patel', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces')" class="flex items-center justify-center gap-2.5 bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-slate-200 font-semibold py-2.5 px-4 rounded-xl text-xs transition cursor-pointer active:scale-95 shadow-sm">
+            <i class="fa-solid fa-user-tie text-brand-orange"></i>
+            <span>Continue as Director (Jaymin Patel)</span>
+          </button>
+          
+          <button onclick="handleCustomEmailPrompt()" class="flex items-center justify-center gap-2 bg-brand-orange/15 hover:bg-brand-orange/25 border border-brand-orange/40 text-brand-orange font-semibold py-2.5 px-4 rounded-xl text-xs transition cursor-pointer active:scale-95">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Enter Your Gmail Address</span>
+          </button>
+        </div>
+
+        <p class="text-[10px] text-slate-500 leading-tight pt-2">
+          By continuing, you authenticate your email identity with Umiya Buildcon for tenders, contracts, and communication.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Confirmation Modal (Black & Amber Luxury Theme) -->
+  <div id="successModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
+    <div class="bg-[#0c1018] w-full max-w-md rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] p-7 text-center relative border-2 border-brand-orange text-slate-100">
+      <button onclick="closeSuccessModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold cursor-pointer">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner animate-bounce">
+      <div class="w-16 h-16 bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner animate-bounce">
         <i class="fa-solid fa-circle-check"></i>
       </div>
-      <h3 class="text-2xl font-bold text-brand-blue mb-1">Delivered to Jaymin Patel!</h3>
-      <p class="text-xs text-brand-orange font-semibold uppercase tracking-wider mb-4">Managing Director's Desk</p>
-      <p class="text-sm text-slate-600 leading-relaxed mb-6">
-        Thank you, <strong id="userNameDisplay" class="text-brand-blue">Partner</strong>. Your message and requirements have been transmitted directly to <strong>Jaymin Patel (Managing Director)</strong> at Umiya Buildcon. Our office will get in touch with you shortly.
+      <h3 class="text-2xl font-bold text-white mb-1 font-heading">Delivered to Jaymin Patel!</h3>
+      <p class="text-xs text-brand-orange font-bold uppercase tracking-wider mb-4">Managing Director's Desk</p>
+      <p class="text-sm text-slate-300 leading-relaxed mb-6 font-normal">
+        Thank you, <strong id="userNameDisplay" class="text-brand-orange">Partner</strong>. Your message and requirements have been transmitted directly to <strong>Jaymin Patel (Managing Director)</strong> at Umiya Buildcon. Our office will get in touch with you shortly.
       </p>
-      <button onclick="closeSuccessModal()" class="w-full bg-brand-orange hover:bg-brand-orangehover text-white font-semibold py-3 rounded-xl transition shadow-md flex items-center justify-center gap-2 cursor-pointer">
+      <button onclick="closeSuccessModal()" class="w-full bg-gradient-to-r from-brand-orange via-amber-500 to-brand-orangehover hover:from-brand-orangehover hover:to-brand-orange text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-orange-500/25 flex items-center justify-center gap-2 cursor-pointer font-heading tracking-wide">
         <span>Done / Continue</span>
         <i class="fa-solid fa-check text-xs"></i>
       </button>
@@ -706,6 +1262,352 @@
 
   <!-- ================= JAVASCRIPT LOGIC (PURE FRONTEND) ================= -->
   <script>
+    // =========================================================================
+    // COMPULSORY SECURITY GATEWAY & AUTHENTICATION SYSTEM
+    // =========================================================================
+    const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+    let currentUser = null;
+
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        console.error('JWT Parse Error:', e);
+        return null;
+      }
+    }
+
+    function handleGoogleCredentialResponse(response) {
+      if (!response || !response.credential) return;
+      const payload = parseJwt(response.credential);
+      if (payload) {
+        const userData = {
+          name: payload.name || payload.given_name || 'Google User',
+          email: payload.email,
+          picture: payload.picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+          verified: payload.email_verified || true,
+          sub: payload.sub,
+          role: 'Google Authenticated Client'
+        };
+        authenticateUser(userData);
+      }
+    }
+
+    // Universal Login & Unlock Website Engine
+    function authenticateUser(userData, isSilent = false) {
+      currentUser = userData;
+      localStorage.setItem('umiya_auth_user', JSON.stringify(userData));
+      localStorage.setItem('umiya_google_user', JSON.stringify(userData));
+
+      // Unlock Security Gate with smooth animation
+      const securityGate = document.getElementById('securityGate');
+      if (securityGate) {
+        securityGate.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        setTimeout(() => {
+          securityGate.classList.add('hidden');
+          securityGate.classList.remove('flex', 'opacity-0', 'scale-95', 'pointer-events-none');
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+        }, 350);
+      } else {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+
+      updateGoogleAuthUI();
+      closeGoogleAuthModal();
+      autoFillInquiryForm();
+    }
+
+    // Direct Login from Security Gate Form
+    function handleGateDirectLogin(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('gateNameInput');
+      const emailInput = document.getElementById('gateEmailInput');
+      const phoneInput = document.getElementById('gatePhoneInput');
+      const alertBox = document.getElementById('gateAlertBox');
+      const unlockBtn = document.getElementById('gateUnlockBtn');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+
+      if (!name || !email || !phone) {
+        if (alertBox) {
+          alertBox.className = 'text-xs py-2 px-3 rounded-xl text-center bg-red-950/80 border border-red-500/50 text-red-300 block';
+          alertBox.textContent = 'Please enter your Name, Email, and Phone Number.';
+        }
+        return;
+      }
+
+      if (unlockBtn) {
+        unlockBtn.disabled = true;
+        unlockBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Authenticating...';
+      }
+
+      setTimeout(() => {
+        const userData = {
+          name: name,
+          email: email,
+          phone: phone.startsWith('+91') ? phone : `+91 ${phone}`,
+          picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+          role: 'Verified Partner / Client',
+          verified: true
+        };
+
+        authenticateUser(userData);
+
+        if (unlockBtn) {
+          unlockBtn.disabled = false;
+          unlockBtn.innerHTML = '<i class="fa-solid fa-lock-open text-xs"></i><span>Authenticate & Unlock Website</span>';
+        }
+      }, 500);
+    }
+
+    // Quick 1-Click Access Handler
+    function handleQuickAuth(email, name, role, picture) {
+      authenticateUser({
+        name: name || 'Valued Client',
+        email: email || 'client@gmail.com',
+        role: role || 'Client',
+        picture: picture || 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+        verified: true
+      });
+    }
+
+    function handleQuickGoogleLogin(email, name, picture) {
+      handleQuickAuth(email, name, 'Client', picture);
+    }
+
+    function handleCustomEmailPrompt() {
+      const email = prompt('Enter your Gmail address for instant authentication:', 'example@gmail.com');
+      if (email && email.includes('@')) {
+        const defaultName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        authenticateUser({
+          name: defaultName,
+          email: email.trim().toLowerCase(),
+          role: 'Client',
+          picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+          verified: true
+        });
+      }
+    }
+
+    // Lock Website and Enforce Security Screen
+    function lockWebsite() {
+      currentUser = null;
+      localStorage.removeItem('umiya_auth_user');
+      localStorage.removeItem('umiya_google_user');
+      
+      const dropdown = document.getElementById('userDropdownTop');
+      if (dropdown) dropdown.classList.add('hidden');
+
+      const securityGate = document.getElementById('securityGate');
+      if (securityGate) {
+        securityGate.classList.remove('hidden', 'opacity-0', 'scale-95', 'pointer-events-none');
+        securityGate.classList.add('flex');
+      }
+
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+
+      // Clear form inputs
+      const nameInput = document.getElementById('contactName');
+      const emailInput = document.getElementById('contactEmail');
+      if (nameInput) nameInput.value = '';
+      if (emailInput) emailInput.value = '';
+
+      updateGoogleAuthUI();
+      renderGoogleButton();
+    }
+
+    function signOutGoogle() {
+      lockWebsite();
+    }
+
+    function checkAuthGate() {
+      const stored = localStorage.getItem('umiya_auth_user') || localStorage.getItem('umiya_google_user');
+      const securityGate = document.getElementById('securityGate');
+
+      if (stored) {
+        try {
+          currentUser = JSON.parse(stored);
+          if (securityGate) {
+            securityGate.classList.add('hidden');
+            securityGate.classList.remove('flex');
+          }
+          document.body.style.overflow = '';
+          document.documentElement.style.overflow = '';
+          updateGoogleAuthUI();
+          autoFillInquiryForm();
+        } catch (e) {
+          console.error('Session error:', e);
+          lockWebsite();
+        }
+      } else {
+        // Enforce lock screen
+        if (securityGate) {
+          securityGate.classList.remove('hidden');
+          securityGate.classList.add('flex');
+        }
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        updateGoogleAuthUI();
+      }
+    }
+
+    function updateGoogleAuthUI() {
+      const signInBtnTop = document.getElementById('googleSignInBtnTop');
+      const userPillTop = document.getElementById('googleUserPillTop');
+      const formSignedInBadge = document.getElementById('formSignedInBadge');
+      const formSignInPrompt = document.getElementById('formSignInPrompt');
+
+      if (currentUser) {
+        if (signInBtnTop) signInBtnTop.classList.add('hidden');
+        if (userPillTop) userPillTop.classList.remove('hidden');
+
+        const firstName = currentUser.name.split(' ')[0] || 'User';
+        const userNameTop = document.getElementById('userNameTop');
+        const userAvatarTop = document.getElementById('userAvatarTop');
+        const userNameDropdown = document.getElementById('userNameDropdown');
+        const userEmailDropdown = document.getElementById('userEmailDropdown');
+        const userAvatarDropdown = document.getElementById('userAvatarDropdown');
+
+        if (userNameTop) userNameTop.textContent = firstName;
+        if (userAvatarTop) userAvatarTop.src = currentUser.picture;
+        if (userNameDropdown) userNameDropdown.textContent = currentUser.name;
+        if (userEmailDropdown) userEmailDropdown.textContent = currentUser.email;
+        if (userAvatarDropdown) userAvatarDropdown.src = currentUser.picture;
+
+        // Update form banner
+        if (formSignedInBadge) {
+          formSignedInBadge.classList.remove('hidden');
+          formSignedInBadge.classList.add('flex');
+        }
+        if (formSignInPrompt) formSignInPrompt.classList.add('hidden');
+        
+        const formUserAvatar = document.getElementById('formUserAvatar');
+        const formUserEmail = document.getElementById('formUserEmail');
+        if (formUserAvatar) formUserAvatar.src = currentUser.picture;
+        if (formUserEmail) formUserEmail.textContent = currentUser.email;
+
+      } else {
+        if (signInBtnTop) signInBtnTop.classList.remove('hidden');
+        if (userPillTop) userPillTop.classList.add('hidden');
+        if (formSignedInBadge) {
+          formSignedInBadge.classList.add('hidden');
+          formSignedInBadge.classList.remove('flex');
+        }
+        if (formSignInPrompt) formSignInPrompt.classList.remove('hidden');
+      }
+    }
+
+    function autoFillInquiryForm() {
+      if (!currentUser) return;
+      const nameInput = document.getElementById('contactName');
+      const emailInput = document.getElementById('contactEmail');
+      const phoneInput = document.getElementById('contactPhone');
+
+      if (nameInput && (!nameInput.value || nameInput.value.trim() === '')) {
+        nameInput.value = currentUser.name;
+      }
+      if (emailInput) {
+        emailInput.value = currentUser.email;
+      }
+      if (phoneInput && currentUser.phone && (!phoneInput.value || phoneInput.value.trim() === '')) {
+        phoneInput.value = currentUser.phone.replace('+91', '').trim();
+      }
+    }
+
+    function toggleUserDropdown() {
+      const dropdown = document.getElementById('userDropdownTop');
+      if (dropdown) dropdown.classList.toggle('hidden');
+    }
+
+    // Close dropdown on clicking outside
+    window.addEventListener('click', (e) => {
+      const pill = document.getElementById('googleUserPillTop');
+      const dropdown = document.getElementById('userDropdownTop');
+      if (pill && dropdown && !pill.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    });
+
+    const googleAuthModal = document.getElementById('googleAuthModal');
+    function openGoogleAuthModal() {
+      if (googleAuthModal) {
+        googleAuthModal.classList.remove('hidden');
+        googleAuthModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+      renderGoogleButton();
+    }
+    function closeGoogleAuthModal() {
+      if (googleAuthModal) {
+        googleAuthModal.classList.add('hidden');
+        googleAuthModal.classList.remove('flex');
+        if (currentUser) {
+          document.body.style.overflow = 'auto';
+        }
+      }
+    }
+
+    function renderGoogleButton() {
+      if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        try {
+          google.accounts.id.initialize({
+            client_id: GOOGLE_CLIENT_ID,
+            callback: handleGoogleCredentialResponse,
+            auto_select: false
+          });
+
+          // Render in Security Gate
+          const gateBtnDiv = document.getElementById('gateGoogleButtonDiv');
+          if (gateBtnDiv && gateBtnDiv.children.length === 0) {
+            google.accounts.id.renderButton(gateBtnDiv, {
+              theme: 'outline',
+              size: 'large',
+              type: 'standard',
+              shape: 'pill',
+              text: 'signin_with',
+              logo_alignment: 'left',
+              width: 280
+            });
+          }
+
+          // Render in Auth Modal
+          const modalBtnDiv = document.getElementById('googleButtonDiv');
+          if (modalBtnDiv && modalBtnDiv.children.length === 0) {
+            google.accounts.id.renderButton(modalBtnDiv, {
+              theme: 'outline',
+              size: 'large',
+              type: 'standard',
+              shape: 'pill',
+              text: 'signin_with',
+              logo_alignment: 'left',
+              width: 280
+            });
+          }
+        } catch (err) {
+          console.warn('Google Identity initialization notice:', err);
+        }
+      }
+    }
+
+    // Initialize Security Gate & Auth on Page Load
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuthGate();
+      setTimeout(renderGoogleButton, 800);
+    });
+
+    // Immediate check in case DOM is already loaded
+    checkAuthGate();
+
     // 1. Phone number format: +91- xxxxx xxxxx
     function formatPhoneNumber(input) {
       let numbers = input.value.replace(/\D/g, '');
@@ -862,17 +1764,17 @@
         if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
           userErrorMessage = isLocal
             ? 'Cannot connect to backend server. Make sure your Node server is running on http://localhost:5000 (run: "cd backend && npm start").'
-            : 'Unable to reach the server. Please check your internet connection or call our office directly at +91 87359 93873.';
+            : 'Unable to reach the server. Please check your internet connection or call our office directly at +91 962XXXXX82.';
         }
 
         // Show error message in the form alert box
         if (alertBox) {
-          alertBox.className = 'sm:col-span-2 bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm p-3.5 rounded-lg flex items-start gap-2.5 animate-shake';
+          alertBox.className = 'bg-red-950/80 border border-red-500/50 text-red-200 text-xs sm:text-sm p-3.5 rounded-xl flex items-start gap-2.5';
           alertBox.innerHTML = `
-            <i class="fa-solid fa-circle-exclamation text-red-500 mt-0.5 text-base flex-shrink-0"></i>
+            <i class="fa-solid fa-circle-exclamation text-red-400 mt-0.5 text-base flex-shrink-0"></i>
             <div>
-              <p class="font-bold">Submission Failed</p>
-              <p class="mt-0.5 text-xs text-red-600 leading-relaxed">${userErrorMessage}</p>
+              <p class="font-bold text-red-300">Submission Failed</p>
+              <p class="mt-0.5 text-xs text-red-200/90 leading-relaxed">${userErrorMessage}</p>
             </div>
           `;
           alertBox.classList.remove('hidden');
@@ -919,11 +1821,11 @@
 
       buttons.forEach(btn => {
         if (btn.getAttribute('data-category') === category) {
-          btn.classList.remove('bg-white', 'text-slate-700');
-          btn.classList.add('bg-brand-blue', 'text-white');
+          btn.classList.remove('bg-white/[0.06]', 'text-slate-300', 'border-white/10');
+          btn.classList.add('bg-brand-orange', 'text-white', 'border-brand-orange', 'shadow-md');
         } else {
-          btn.classList.remove('bg-brand-blue', 'text-white');
-          btn.classList.add('bg-white', 'text-slate-700');
+          btn.classList.remove('bg-brand-orange', 'text-white', 'border-brand-orange', 'shadow-md');
+          btn.classList.add('bg-white/[0.06]', 'text-slate-300', 'border-white/10');
         }
       });
 
@@ -941,8 +1843,133 @@
         closeMdProfileModal();
         closeProjectsModal();
         closeSuccessModal();
+        closeGoogleAuthModal();
       }
     });
+
+    // =========================================================================
+    // VERTICAL LEFT SIDEBAR NAVIGATION ENGINE (Matching User Reference Image)
+    // =========================================================================
+    let isSidebarManuallyExpanded = false;
+    function toggleSidebarManual() {
+      const sidebar = document.getElementById('verticalSidebar');
+      if (!sidebar) return;
+      isSidebarManuallyExpanded = !isSidebarManuallyExpanded;
+      if (isSidebarManuallyExpanded) {
+        sidebar.classList.remove('w-16', 'md:w-20');
+        sidebar.classList.add('w-64');
+        const labels = sidebar.querySelectorAll('.sidebar-label');
+        labels.forEach(l => l.classList.remove('hidden'));
+      } else {
+        sidebar.classList.add('w-16', 'md:w-20');
+        sidebar.classList.remove('w-64');
+        const labels = sidebar.querySelectorAll('.sidebar-label');
+        labels.forEach(l => l.classList.add('hidden'));
+      }
+    }
+
+    function initVerticalSidebarNav() {
+      const sidebar = document.getElementById('verticalSidebar');
+      const items = sidebar ? Array.from(sidebar.querySelectorAll('.sidebar-nav-item')) : [];
+      let isManualClickScrolling = false;
+      let scrollTimeout = null;
+      let currentActiveSection = 'home';
+
+      function updateActiveItem(activeItem) {
+        if (!activeItem) return;
+        items.forEach((item) => {
+          const indicator = item.querySelector('.sidebar-indicator');
+          const label = item.querySelector('.sidebar-label');
+
+          if (item === activeItem) {
+            item.classList.add('text-white', 'bg-white/10');
+            item.classList.remove('text-white/50');
+            if (indicator) indicator.classList.remove('hidden');
+            if (label) {
+              label.classList.add('text-white', 'font-bold');
+              label.classList.remove('text-slate-300');
+            }
+          } else {
+            item.classList.remove('text-white', 'bg-white/10');
+            item.classList.add('text-white/50');
+            if (indicator) indicator.classList.add('hidden');
+            if (label) {
+              label.classList.remove('text-white', 'font-bold');
+              label.classList.add('text-slate-300');
+            }
+          }
+        });
+      }
+
+      function setActiveBySection(sectionId) {
+        currentActiveSection = sectionId;
+        const target = items.find(item => item.getAttribute('data-section') === sectionId);
+        if (target) {
+          updateActiveItem(target);
+        }
+      }
+
+      items.forEach((item) => {
+        item.addEventListener('click', () => {
+          const section = item.getAttribute('data-section');
+          updateActiveItem(item);
+          if (section) {
+            isManualClickScrolling = true;
+            clearTimeout(scrollTimeout);
+            currentActiveSection = section;
+            scrollTimeout = setTimeout(() => {
+              isManualClickScrolling = false;
+            }, 900);
+          }
+        });
+      });
+
+      // Scrollspy Engine
+      const sections = ['home', 'about', 'services', 'contact'];
+      function onScroll() {
+        if (isManualClickScrolling) return;
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (scrollY + windowHeight >= documentHeight - 120) {
+          if (currentActiveSection !== 'contact') {
+            setActiveBySection('contact');
+          }
+          return;
+        }
+
+        let activeFound = 'home';
+        const navbarOffset = 180;
+        for (const id of sections) {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= navbarOffset && rect.bottom > navbarOffset) {
+              activeFound = id;
+              break;
+            } else if (rect.top <= navbarOffset) {
+              activeFound = id;
+            }
+          }
+        }
+
+        if (activeFound && activeFound !== currentActiveSection) {
+          setActiveBySection(activeFound);
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      setTimeout(() => {
+        setActiveBySection('home');
+      }, 100);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVerticalSidebarNav);
+    } else {
+      initVerticalSidebarNav();
+    }
 
     // AOS Animation Initialization
     if (typeof AOS !== 'undefined') {

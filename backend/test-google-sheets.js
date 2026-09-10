@@ -40,7 +40,7 @@ async function runTest() {
     id: 'test_' + Date.now(),
     name: 'Umiya System Diagnostic (Test)',
     email: 'test@umiyabuildcon.com',
-    phone: '+91 87359 93873',
+    phone: '+91 962XXXXX82',
     department: 'Civil Infrastructure Test',
     message: 'This is an automated test inquiry verifying that Google Sheets real-time integration is connected and functioning properly.',
     ipAddress: '127.0.0.1 (Local Diagnostic)',

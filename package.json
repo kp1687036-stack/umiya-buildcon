@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
-    "test:email": "node test-email.js",
-    "test:sheets": "node test-google-sheets.js"
+    "test:email": "node backend/test-email.js",
+    "test:sheets": "node backend/test-google-sheets.js"
   },
   "keywords": [
     "umiya-buildcon",
