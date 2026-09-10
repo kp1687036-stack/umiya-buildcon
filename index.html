@@ -97,12 +97,77 @@
       border-color: rgba(234, 138, 38, 0.5);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 138, 38, 0.15);
     }
+
+    /* Mobile Limelight / Spotlight Dock Navigation */
+    .mobile-nav-dock {
+      background: rgba(12, 16, 23, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 255, 255, 0.02);
+    }
+
+    .mobile-nav-tab {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      color: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .mobile-nav-tab:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .mobile-nav-tab.active-tab {
+      color: #ffffff;
+    }
+
+    .mobile-nav-tab .spotlight-beam {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-nav-tab.active-tab .spotlight-beam {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-nav-tab .spotlight-lamp {
+      width: 28px;
+      height: 3.5px;
+      background: #ffffff;
+      border-radius: 9999px;
+      box-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.9);
+      margin-top: 1px;
+    }
+
+    .mobile-nav-tab .spotlight-cone {
+      width: 100%;
+      flex: 1;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 55%, rgba(255, 255, 255, 0) 100%);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+    }
   </style>
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
 
-  <!-- Vertical Left Sidebar Navigation (Matching User's Reference Image) -->
-  <aside id="verticalSidebar" class="fixed top-0 left-0 h-screen z-50 bg-[#0c0d10]/95 backdrop-blur-2xl border-r border-white/10 shadow-[8px_0_30px_rgba(0,0,0,0.5)] flex flex-col justify-between transition-all duration-300 w-16 md:w-20 group hover:w-64 select-none">
+  <!-- Vertical Left Sidebar Navigation (Desktop & Laptops) -->
+  <aside id="verticalSidebar" class="fixed top-0 left-0 h-screen z-50 bg-[#0c0d10]/95 backdrop-blur-2xl border-r border-white/10 shadow-[8px_0_30px_rgba(0,0,0,0.5)] hidden md:flex flex-col justify-between transition-all duration-300 w-16 md:w-20 group hover:w-64 select-none">
     
     <!-- Top Section: Hamburger Toggle & Navigation Icons -->
     <div class="flex flex-col">
@@ -206,8 +271,57 @@
     </div>
   </aside>
 
-  <!-- Top Header Bar with Brand & Contact Info (Indented for Left Sidebar) -->
-  <header class="bg-[#080c14]/95 text-slate-200 text-xs sm:text-sm py-2.5 px-4 pl-20 md:pl-24 border-b border-white/10 sticky top-0 z-40 backdrop-blur-md transition-all">
+  <!-- Mobile Floating Limelight / Spotlight Dock Navigation (Visible on Mobile < md screens) -->
+  <nav id="mobileLimelightNav" class="mobile-nav-dock fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex md:hidden items-center justify-around w-[92%] max-w-[380px] h-[62px] rounded-2xl px-1 select-none" aria-label="Mobile Spotlight Navigation">
+    
+    <!-- 1. Home Tab (House) -->
+    <a href="#home" data-mobile-section="home" class="mobile-nav-tab active-tab" title="Home">
+      <div class="spotlight-beam">
+        <div class="spotlight-lamp"></div>
+        <div class="spotlight-cone"></div>
+      </div>
+      <i class="fa-solid fa-house text-lg relative z-10 transition-transform"></i>
+    </a>
+
+    <!-- 2. Projects Tab (Bookmark) -->
+    <button type="button" onclick="openProjectsModal()" data-mobile-section="projects" class="mobile-nav-tab" title="Our Projects">
+      <div class="spotlight-beam">
+        <div class="spotlight-lamp"></div>
+        <div class="spotlight-cone"></div>
+      </div>
+      <i class="fa-solid fa-bookmark text-lg relative z-10 transition-transform"></i>
+    </button>
+
+    <!-- 3. Add / Inquiry Form Tab (Plus Circle) -->
+    <a href="#contact" data-mobile-section="contact" class="mobile-nav-tab" title="Send Inquiry">
+      <div class="spotlight-beam">
+        <div class="spotlight-lamp"></div>
+        <div class="spotlight-cone"></div>
+      </div>
+      <i class="fa-solid fa-circle-plus text-2xl relative z-10 text-brand-orange transition-transform"></i>
+    </a>
+
+    <!-- 4. Managing Director Profile Tab (User) -->
+    <button type="button" onclick="openMdProfileModal()" data-mobile-section="about" class="mobile-nav-tab" title="Managing Director Profile">
+      <div class="spotlight-beam">
+        <div class="spotlight-lamp"></div>
+        <div class="spotlight-cone"></div>
+      </div>
+      <i class="fa-regular fa-user text-lg relative z-10 transition-transform"></i>
+    </button>
+
+    <!-- 5. Services Tab (Settings / Cog) -->
+    <a href="#services" data-mobile-section="services" class="mobile-nav-tab" title="Services">
+      <div class="spotlight-beam">
+        <div class="spotlight-lamp"></div>
+        <div class="spotlight-cone"></div>
+      </div>
+      <i class="fa-solid fa-gear text-lg relative z-10 transition-transform"></i>
+    </a>
+  </nav>
+
+  <!-- Top Header Bar with Brand & Contact Info -->
+  <header class="bg-[#080c14]/95 text-slate-200 text-xs sm:text-sm py-2.5 px-4 md:pl-24 border-b border-white/10 sticky top-0 z-40 backdrop-blur-md transition-all">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       
       <!-- Brand & Govt Approval Badge -->
@@ -288,17 +402,8 @@
     </div>
   </header>
 
-        <button onclick="openProjectsModal()" class="hidden sm:inline-flex bg-gradient-to-r from-brand-orange to-brand-orangehover text-white px-3 py-1 rounded-lg font-medium text-xs shadow-md transition items-center gap-1.5 cursor-pointer active:scale-95 ml-1">
-          <i class="fa-solid fa-layer-group text-[10px]"></i>
-          <span>Projects</span>
-        </button>
-
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Website Content Area (Indented for Left Vertical Sidebar) -->
-  <div class="pl-16 md:pl-20 transition-all duration-300">
+  <!-- Main Website Content Area (Responsive padding: pl-0 on mobile, pl-20 on desktop) -->
+  <div class="pl-0 md:pl-20 pb-20 md:pb-0 transition-all duration-300">
 
   <!-- Hero Section (Black & Gold Cyber-Defense Luxury Theme) -->
   <header id="home" class="relative bg-gradient-to-b from-[#090d16] via-[#0d1424] to-[#07090e] text-white py-28 px-4 overflow-hidden border-b-2 border-brand-orange/40">
@@ -1548,7 +1653,7 @@
     });
 
     // =========================================================================
-    // VERTICAL LEFT SIDEBAR NAVIGATION ENGINE (Matching User Reference Image)
+    // RESPONSIVE NAVIGATION ENGINE (Desktop Sidebar + Mobile Spotlight Dock)
     // =========================================================================
     let isSidebarManuallyExpanded = false;
     function toggleSidebarManual() {
@@ -1568,20 +1673,28 @@
       }
     }
 
-    function initVerticalSidebarNav() {
+    function initNavigationSystems() {
       const sidebar = document.getElementById('verticalSidebar');
-      const items = sidebar ? Array.from(sidebar.querySelectorAll('.sidebar-nav-item')) : [];
+      const desktopItems = sidebar ? Array.from(sidebar.querySelectorAll('.sidebar-nav-item')) : [];
+      
+      const mobileNav = document.getElementById('mobileLimelightNav');
+      const mobileTabs = mobileNav ? Array.from(mobileNav.querySelectorAll('.mobile-nav-tab')) : [];
+
       let isManualClickScrolling = false;
       let scrollTimeout = null;
       let currentActiveSection = 'home';
 
-      function updateActiveItem(activeItem) {
-        if (!activeItem) return;
-        items.forEach((item) => {
+      function setActiveSection(sectionId) {
+        if (!sectionId) return;
+        currentActiveSection = sectionId;
+
+        // 1. Update Desktop Sidebar Items
+        desktopItems.forEach((item) => {
+          const itemSec = item.getAttribute('data-section');
           const indicator = item.querySelector('.sidebar-indicator');
           const label = item.querySelector('.sidebar-label');
 
-          if (item === activeItem) {
+          if (itemSec === sectionId) {
             item.classList.add('text-white', 'bg-white/10');
             item.classList.remove('text-white/50');
             if (indicator) indicator.classList.remove('hidden');
@@ -1599,24 +1712,41 @@
             }
           }
         });
+
+        // 2. Update Mobile Limelight Spotlight Tabs
+        mobileTabs.forEach((tab) => {
+          const tabSec = tab.getAttribute('data-mobile-section');
+          if (tabSec === sectionId) {
+            tab.classList.add('active-tab');
+          } else {
+            tab.classList.remove('active-tab');
+          }
+        });
       }
 
-      function setActiveBySection(sectionId) {
-        currentActiveSection = sectionId;
-        const target = items.find(item => item.getAttribute('data-section') === sectionId);
-        if (target) {
-          updateActiveItem(target);
-        }
-      }
-
-      items.forEach((item) => {
+      // Desktop item clicks
+      desktopItems.forEach((item) => {
         item.addEventListener('click', () => {
           const section = item.getAttribute('data-section');
-          updateActiveItem(item);
           if (section) {
+            setActiveSection(section);
             isManualClickScrolling = true;
             clearTimeout(scrollTimeout);
-            currentActiveSection = section;
+            scrollTimeout = setTimeout(() => {
+              isManualClickScrolling = false;
+            }, 900);
+          }
+        });
+      });
+
+      // Mobile dock tab clicks
+      mobileTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const section = tab.getAttribute('data-mobile-section');
+          if (section) {
+            setActiveSection(section);
+            isManualClickScrolling = true;
+            clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
               isManualClickScrolling = false;
             }, 900);
@@ -1634,7 +1764,7 @@
 
         if (scrollY + windowHeight >= documentHeight - 120) {
           if (currentActiveSection !== 'contact') {
-            setActiveBySection('contact');
+            setActiveSection('contact');
           }
           return;
         }
@@ -1655,20 +1785,20 @@
         }
 
         if (activeFound && activeFound !== currentActiveSection) {
-          setActiveBySection(activeFound);
+          setActiveSection(activeFound);
         }
       }
 
       window.addEventListener('scroll', onScroll, { passive: true });
       setTimeout(() => {
-        setActiveBySection('home');
+        setActiveSection('home');
       }, 100);
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initVerticalSidebarNav);
+      document.addEventListener('DOMContentLoaded', initNavigationSystems);
     } else {
-      initVerticalSidebarNav();
+      initNavigationSystems();
     }
 
     // AOS Animation Initialization
