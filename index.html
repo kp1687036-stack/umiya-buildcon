@@ -6,7 +6,7 @@
 
   <!-- Instant High-Priority Logo Preload & Asset Speed Optimizations -->
   <link rel="preload" as="image" href="./logo.jpeg" fetchpriority="high">
-  <link rel="preload" as="video" href="./Animation2.mp4" type="video/mp4" fetchpriority="high">
+  <link rel="preload" as="video" href="./intro-animation.mp4" type="video/mp4" fetchpriority="high">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
@@ -148,32 +148,9 @@
         preload="auto"
         fetchpriority="high"
       >
-        <source src="./Animation2.mp4#t=10,20" type="video/mp4">
+        <source src="./intro-animation.mp4" type="video/mp4">
         <source src="./Animation2.mp4" type="video/mp4">
-        <source src="./Logoanimation.mp4" type="video/mp4">
-        <source src="./intro.mp4" type="video/mp4">
       </video>
-      <script>
-        (function() {
-          var v = document.getElementById('introVideo');
-          if (v) {
-            v.muted = true;
-            v.defaultMuted = true;
-            var setStart = function() {
-              if (v.currentTime < 10) {
-                try { v.currentTime = 10; } catch(e) {}
-              }
-            };
-            v.addEventListener('loadedmetadata', setStart);
-            v.addEventListener('canplay', setStart);
-            try {
-              v.currentTime = 10;
-              var p = v.play();
-              if (p && p.catch) { p.catch(function(){}); }
-            } catch(e) {}
-          }
-        })();
-      </script>
     </div>
   </div>
 
@@ -1836,7 +1813,7 @@
     }
 
     // =========================================================================
-    // 10-SECOND VIDEO INTRO CONTROLLER (Starts at 10s, Ends at 20s, Smooth Dismiss)
+    // 10-SECOND ULTRA-FAST INTRO CONTROLLER (Plays cleanly to 100% completion)
     // =========================================================================
     let introDismissed = false;
     function initIntroSplash() {
@@ -1846,22 +1823,11 @@
 
       document.body.style.overflow = 'hidden';
 
-      const START_TIME = 10; // Start at 10.0s mark
-      const END_TIME = 20;   // End at 20.0s mark
-      const PLAYBACK_DURATION = (END_TIME - START_TIME) * 1000; // 10,000ms (10 seconds)
-
       if (video) {
-        const seekToStart = () => {
-          if (video.currentTime < START_TIME) {
-            try { video.currentTime = START_TIME; } catch(e) {}
-          }
-        };
+        video.muted = true;
+        video.defaultMuted = true;
 
-        video.addEventListener('loadedmetadata', seekToStart, { passive: true });
-        video.addEventListener('canplay', seekToStart, { passive: true });
-        seekToStart();
-
-        // Attempt autoplay
+        // Attempt instant autoplay
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch((err) => {
@@ -1869,22 +1835,22 @@
           });
         }
 
-        // Monitor time: dismiss when reaching 20s or when video ends
-        video.addEventListener('timeupdate', () => {
-          if (video.currentTime >= END_TIME - 0.15 || video.ended) {
-            dismissIntroSplash();
-          }
-        }, { passive: true });
-
+        // Trigger dismissal ONLY when video finishes playing completely to the end
         video.addEventListener('ended', () => {
           dismissIntroSplash();
         }, { passive: true });
+
+        video.addEventListener('timeupdate', () => {
+          if (video.duration && video.currentTime >= video.duration - 0.08) {
+            dismissIntroSplash();
+          }
+        }, { passive: true });
       }
 
-      // Safety timeout after 10.5 seconds max
+      // Generous fallback safety timeout (20s) strictly in case video playback is blocked/unsupported
       setTimeout(() => {
         dismissIntroSplash();
-      }, PLAYBACK_DURATION + 500);
+      }, 20000);
     }
 
     function dismissIntroSplash() {
@@ -1908,7 +1874,7 @@
 
       setTimeout(() => {
         splash.style.display = 'none';
-        try { splash.remove(); } catch(e) {} // Free full DOM memory for silky smooth scrolling
+        try { splash.remove(); } catch(e) {} // Free full DOM memory for silky smooth 60fps scrolling
       }, 700);
     }
 

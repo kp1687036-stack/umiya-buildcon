@@ -1,5 +1,18 @@
 [
   {
+    "id": "inq_1789125107522_yb9ns",
+    "name": "Gmail Integration Live Test",
+    "email": "webmanager1728@gmail.com",
+    "phone": "+91 96245 12345",
+    "department": "Military Engineer Services (MES)",
+    "message": "Testing Gmail delivery to ensure incoming inquiries are immediately sent to the inbox and Google Sheets.",
+    "ipAddress": "::1",
+    "userAgent": "Unknown",
+    "status": "New",
+    "createdAt": "2026-09-11T11:11:47.522Z",
+    "formattedTime": "Friday, 11 September 2026 at 4:41:47 pm"
+  },
+  {
     "id": "inq_1789033668926_o5dqy",
     "name": "Phone Update Tester",
     "email": "webmanager1728@gmail.com",
