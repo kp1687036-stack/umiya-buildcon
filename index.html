@@ -101,18 +101,17 @@
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
 
-  <!-- Fullscreen 10-Second Video Intro Overlay (Cream Luxury Background) -->
-  <div id="introSplash" class="fixed inset-0 z-[99999] bg-[#fcf8f2] flex items-center justify-center p-4 sm:p-8 overflow-hidden transition-all duration-700 select-none">
+  <!-- Fullscreen 10-Second Video Intro Overlay (Pure White Background with Orange Border & Glow Shadow) -->
+  <div id="introSplash" class="fixed inset-0 z-[99999] bg-white flex items-center justify-center p-4 sm:p-8 overflow-hidden transition-all duration-700 select-none">
     
-    <!-- Ambient warm luxury glow behind video -->
+    <!-- Ambient orange glow behind video card -->
     <div class="absolute w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-brand-orange/15 blur-[130px] pointer-events-none"></div>
-    <div class="absolute w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full bg-amber-200/40 blur-[120px] pointer-events-none"></div>
 
-    <!-- Video Element (Perfect Responsive Proportions on Cream Background) -->
-    <div class="relative z-10 w-[92vw] sm:w-[75vw] md:w-[60vw] lg:w-[48vw] max-w-3xl flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden border border-[#e8dfd1] shadow-[0_25px_60px_-15px_rgba(40,30,20,0.15),0_0_35px_rgba(234,138,38,0.1)] bg-[#fcf8f2]">
+    <!-- Video Element (Pure White Card with Orange Border and Glowing Orange Shadow) -->
+    <div class="relative z-10 w-[92vw] sm:w-[75vw] md:w-[60vw] lg:w-[48vw] max-w-3xl flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-brand-orange shadow-[0_0_40px_rgba(234,138,38,0.35),0_20px_50px_rgba(234,138,38,0.2)] bg-white">
       <video 
         id="introVideo" 
-        class="w-full h-auto max-h-[72vh] object-contain rounded-2xl sm:rounded-3xl transition-transform duration-1000"
+        class="w-full h-auto max-h-[72vh] object-contain rounded-2xl sm:rounded-3xl transition-transform duration-1000 bg-white"
         autoplay 
         muted 
         playsinline 
