@@ -6,6 +6,7 @@
 
   <!-- Instant High-Priority Logo Preload & Asset Speed Optimizations -->
   <link rel="preload" as="image" href="./logo.jpeg" fetchpriority="high">
+  <link rel="preload" as="video" href="./Logoanimation.mp4" type="video/mp4" fetchpriority="high">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
@@ -111,11 +112,13 @@
     <div class="relative z-10 w-[92vw] sm:w-[75vw] md:w-[60vw] lg:w-[48vw] max-w-3xl flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_15px_50px_-5px_rgba(234,138,38,0.25),0_0_35px_rgba(234,138,38,0.18)] bg-white">
       <video 
         id="introVideo" 
+        poster="./logo.jpeg"
         class="w-full h-auto max-h-[72vh] object-contain rounded-2xl sm:rounded-3xl transition-transform duration-1000 bg-white"
         autoplay 
         muted 
         playsinline 
         preload="auto"
+        fetchpriority="high"
       >
         <source src="./Logoanimation.mp4" type="video/mp4">
         <source src="./intro.mp4" type="video/mp4">
@@ -124,6 +127,19 @@
         <!-- Fallback if video file is still being placed -->
         <img src="./logo.jpeg" alt="Umiya Buildcon" class="w-64 sm:w-80 h-auto object-contain mx-auto my-auto filter drop-shadow-xl" />
       </video>
+      <script>
+        (function() {
+          var v = document.getElementById('introVideo');
+          if (v) {
+            v.muted = true;
+            v.defaultMuted = true;
+            try {
+              var p = v.play();
+              if (p && p.catch) { p.catch(function(){}); }
+            } catch(e) {}
+          }
+        })();
+      </script>
     </div>
   </div>
 
