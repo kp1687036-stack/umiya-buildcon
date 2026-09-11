@@ -97,9 +97,116 @@
       border-color: rgba(234, 138, 38, 0.5);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 138, 38, 0.15);
     }
+
+    /* 5-Second Fullscreen Cinematic Animated Logo Intro */
+    @keyframes introLaserShine {
+      0% { transform: translateX(-150%) skewX(-20deg); }
+      35%, 100% { transform: translateX(250%) skewX(-20deg); }
+    }
+
+    @keyframes introGlowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.35; filter: blur(120px); }
+      50% { transform: scale(1.25); opacity: 0.7; filter: blur(140px); }
+    }
+
+    @keyframes introLogoEntrance {
+      0% { transform: scale(0.65) translateY(30px); opacity: 0; filter: blur(12px) drop-shadow(0 0 0 rgba(234,138,38,0)); }
+      35% { transform: scale(1.05) translateY(-6px); opacity: 1; filter: blur(0px) drop-shadow(0 0 35px rgba(234,138,38,0.7)); }
+      65% { transform: scale(1) translateY(0); opacity: 1; filter: drop-shadow(0 0 20px rgba(234,138,38,0.4)); }
+      100% { transform: scale(1.03) translateY(0); opacity: 1; filter: drop-shadow(0 0 30px rgba(234,138,38,0.6)); }
+    }
+
+    @keyframes introSpinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes introTitleReveal {
+      0% { opacity: 0; transform: translateY(15px); letter-spacing: 0.3em; }
+      100% { opacity: 1; transform: translateY(0); letter-spacing: 0.15em; }
+    }
+
+    .intro-laser-shimmer {
+      animation: introLaserShine 2.2s infinite ease-in-out;
+    }
+
+    .intro-glow-pulse {
+      animation: introGlowPulse 2.8s infinite ease-in-out;
+    }
+
+    .intro-logo-box {
+      animation: introLogoEntrance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-spin-slow {
+      animation: introSpinSlow 20s linear infinite;
+    }
+
+    .intro-title-anim {
+      animation: introTitleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+      opacity: 0;
+    }
   </style>
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
+
+  <!-- Fullscreen 5-Second Cinematic Animated Logo Intro Overlay -->
+  <div id="introSplash" class="fixed inset-0 z-[99999] bg-[#04060b] flex flex-col items-center justify-center overflow-hidden transition-all duration-700 select-none">
+    
+    <!-- Canvas for cinematic floating gold/blue light particles & dust -->
+    <canvas id="introCanvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-80"></canvas>
+
+    <!-- Luxury Ambient Radial Glows -->
+    <div class="intro-glow-pulse absolute w-[420px] sm:w-[650px] h-[420px] sm:h-[650px] rounded-full bg-brand-orange/20 blur-[120px] pointer-events-none"></div>
+    <div class="absolute w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] rounded-full bg-blue-600/15 blur-[110px] pointer-events-none"></div>
+
+    <!-- Center Stage: Logo Showcase with Laser Beam & 3D Shimmer -->
+    <div class="relative z-10 flex flex-col items-center max-w-sm sm:max-w-md px-6 text-center">
+      
+      <!-- Rotating Neon Energy Ring around Logo -->
+      <div class="intro-ring-outer absolute -inset-6 sm:-inset-8 rounded-3xl border border-brand-orange/25 pointer-events-none animate-spin-slow"></div>
+      
+      <!-- Glowing Card Container Holding Exact Logo -->
+      <div class="intro-logo-box relative bg-white/95 p-5 sm:p-7 rounded-2xl shadow-[0_0_55px_rgba(234,138,38,0.45),0_20px_45px_rgba(0,0,0,0.85)] border-2 border-brand-orange/60 backdrop-blur-2xl overflow-hidden transform">
+        
+        <!-- Sweeping Laser Light Shimmer Beam -->
+        <div class="intro-laser-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/80 to-transparent skew-x-12 pointer-events-none"></div>
+        
+        <!-- EXACT ORIGINAL COMPANY LOGO (No modifications) -->
+        <img src="./logo.jpeg" alt="Umiya Buildcon Logo" class="w-48 sm:w-64 h-auto object-contain pointer-events-none select-none relative z-10 filter drop-shadow-md" />
+      </div>
+
+      <!-- Animated Typography Reveal -->
+      <div class="mt-7 space-y-2 intro-title-anim">
+        <div class="text-2xl sm:text-3xl font-extrabold tracking-widest font-heading uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-200 to-brand-orange">
+          Umiya Buildcon
+        </div>
+        <p class="text-xs sm:text-sm font-semibold tracking-[0.2em] text-slate-300 uppercase">
+          — We Built a Better World —
+        </p>
+        <div class="inline-flex items-center gap-1.5 bg-brand-orange/15 border border-brand-orange/40 text-brand-orange text-[10px] sm:text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mt-2 shadow-sm">
+          <i class="fa-solid fa-certificate text-[10px]"></i> Govt. Approved Infrastructure
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom 5-Second Timer Progress Bar & Countdown -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-48 sm:w-64 flex flex-col items-center gap-2 z-20">
+      <div class="w-full h-1 bg-white/15 rounded-full overflow-hidden border border-white/10">
+        <div id="introProgressBar" class="h-full bg-gradient-to-r from-brand-blue via-brand-orange to-amber-300 w-0 rounded-full transition-all duration-75 ease-linear"></div>
+      </div>
+      <div class="flex justify-between w-full text-[10px] text-slate-400 font-mono tracking-wider">
+        <span>LOADING EXPERIENCE</span>
+        <span id="introSecondsText">5s</span>
+      </div>
+    </div>
+
+    <!-- Skip Intro Button (Top-Right) -->
+    <button onclick="dismissIntroSplash()" class="absolute top-6 right-6 z-20 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/15 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-md">
+      <span>Skip Intro</span>
+      <i class="fa-solid fa-forward-step text-[10px]"></i>
+    </button>
+  </div>
 
   <!-- Vertical Left Sidebar Navigation (Desktop & Laptops) -->
   <aside id="verticalSidebar" class="fixed top-0 left-0 h-screen z-50 bg-[#0c0d10]/95 backdrop-blur-2xl border-r border-white/10 shadow-[8px_0_30px_rgba(0,0,0,0.5)] hidden md:flex flex-col justify-between transition-all duration-300 w-16 md:w-20 group hover:w-64 select-none">
@@ -1753,6 +1860,125 @@
         once: true,
         offset: 80
       });
+    }
+
+    // =========================================================================
+    // 5-SECOND CINEMATIC ANIMATED LOGO INTRO CONTROLLER
+    // =========================================================================
+    let introDismissed = false;
+    function initIntroSplash() {
+      const splash = document.getElementById('introSplash');
+      const progressBar = document.getElementById('introProgressBar');
+      const secondsText = document.getElementById('introSecondsText');
+      if (!splash) return;
+
+      document.body.style.overflow = 'hidden';
+
+      // Start dynamic luxury particle background
+      startIntroCanvas();
+
+      const startTime = Date.now();
+      const duration = 5000; // 5 seconds exact countdown
+
+      const interval = setInterval(() => {
+        if (introDismissed) {
+          clearInterval(interval);
+          return;
+        }
+
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(100, (elapsed / duration) * 100);
+        const remainingSeconds = Math.max(0, Math.ceil((duration - elapsed) / 1000));
+
+        if (progressBar) progressBar.style.width = `${progress}%`;
+        if (secondsText) secondsText.textContent = `${remainingSeconds}s`;
+
+        if (elapsed >= duration) {
+          clearInterval(interval);
+          dismissIntroSplash();
+        }
+      }, 50);
+    }
+
+    function dismissIntroSplash() {
+      if (introDismissed) return;
+      introDismissed = true;
+      const splash = document.getElementById('introSplash');
+      if (!splash) return;
+
+      splash.classList.add('opacity-0', 'pointer-events-none', 'scale-105');
+      document.body.style.overflow = 'auto';
+
+      setTimeout(() => {
+        splash.style.display = 'none';
+        if (typeof AOS !== 'undefined') {
+          AOS.refresh();
+        }
+      }, 750);
+    }
+
+    // Cinematic Luxury Floating Dust / Gold Particle Canvas
+    function startIntroCanvas() {
+      const canvas = document.getElementById('introCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      const particles = [];
+      const particleCount = Math.min(65, Math.floor(width / 18));
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.6,
+          color: Math.random() > 0.45 ? 'rgba(234, 138, 38, ' : 'rgba(90, 160, 240, ',
+          alpha: Math.random() * 0.7 + 0.2,
+          vx: (Math.random() - 0.5) * 0.7,
+          vy: -Math.random() * 1.1 - 0.2
+        });
+      }
+
+      function render() {
+        if (introDismissed) return;
+        ctx.clearRect(0, 0, width, height);
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.y < 0) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + p.alpha + ')';
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = '#ea8a26';
+          ctx.fill();
+        });
+
+        requestAnimationFrame(render);
+      }
+      render();
+
+      window.addEventListener('resize', () => {
+        if (canvas && !introDismissed) {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initIntroSplash);
+    } else {
+      initIntroSplash();
     }
   </script>
 </body>
