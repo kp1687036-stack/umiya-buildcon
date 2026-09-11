@@ -101,17 +101,18 @@
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
 
-  <!-- Fullscreen 10-Second Video Intro Overlay (No loading bar, pure clean video & smooth transition) -->
-  <div id="introSplash" class="fixed inset-0 z-[99999] bg-[#04060b] flex items-center justify-center overflow-hidden transition-all duration-700 select-none">
+  <!-- Fullscreen 10-Second Video Intro Overlay (Proportionate, Responsive & No Skip Button) -->
+  <div id="introSplash" class="fixed inset-0 z-[99999] bg-[#04060b] flex items-center justify-center p-4 sm:p-8 overflow-hidden transition-all duration-700 select-none">
     
     <!-- Ambient luxury background glow behind video -->
-    <div class="absolute w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-brand-orange/15 blur-[140px] pointer-events-none"></div>
+    <div class="absolute w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-brand-orange/15 blur-[130px] pointer-events-none"></div>
+    <div class="absolute w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none"></div>
 
-    <!-- Video Element (Responsive Full Viewport / Autoplay) -->
-    <div class="relative w-full h-full flex items-center justify-center bg-black">
+    <!-- Video Element (Perfect Responsive Proportions across Phone, Laptop, Desktop) -->
+    <div class="relative z-10 w-[92vw] sm:w-[75vw] md:w-[60vw] lg:w-[48vw] max-w-3xl flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(234,138,38,0.18)] bg-black/80 backdrop-blur-2xl">
       <video 
         id="introVideo" 
-        class="w-full h-full object-contain max-w-full max-h-full transition-transform duration-1000"
+        class="w-full h-auto max-h-[72vh] object-contain rounded-2xl sm:rounded-3xl transition-transform duration-1000"
         autoplay 
         muted 
         playsinline 
@@ -125,12 +126,6 @@
         <img src="./logo.jpeg" alt="Umiya Buildcon" class="w-64 sm:w-80 h-auto object-contain mx-auto my-auto filter drop-shadow-2xl" />
       </video>
     </div>
-
-    <!-- Subtle Skip Button (Top-Right) -->
-    <button onclick="dismissIntroSplash()" class="absolute top-6 right-6 z-20 flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/15 backdrop-blur-md transition-all active:scale-95 cursor-pointer shadow-md">
-      <span>Skip</span>
-      <i class="fa-solid fa-forward-step text-[10px]"></i>
-    </button>
   </div>
 
   <!-- Vertical Left Sidebar Navigation (Desktop & Laptops) -->
