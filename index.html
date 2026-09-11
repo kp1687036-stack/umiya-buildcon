@@ -6,7 +6,7 @@
 
   <!-- Instant High-Priority Logo Preload & Asset Speed Optimizations -->
   <link rel="preload" as="image" href="./logo.jpeg" fetchpriority="high">
-  <link rel="preload" as="video" href="./Logoanimation.mp4" type="video/mp4" fetchpriority="high">
+  <link rel="preload" as="video" href="./Animation2.mp4" type="video/mp4" fetchpriority="high">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
@@ -116,10 +116,10 @@
         preload="auto"
         fetchpriority="high"
       >
+        <source src="./Animation2.mp4#t=10,20" type="video/mp4">
+        <source src="./Animation2.mp4" type="video/mp4">
         <source src="./Logoanimation.mp4" type="video/mp4">
         <source src="./intro.mp4" type="video/mp4">
-        <source src="./assets/intro.mp4" type="video/mp4">
-        <source src="./video.mp4" type="video/mp4">
       </video>
       <script>
         (function() {
@@ -127,7 +127,15 @@
           if (v) {
             v.muted = true;
             v.defaultMuted = true;
+            var setStart = function() {
+              if (v.currentTime < 10) {
+                try { v.currentTime = 10; } catch(e) {}
+              }
+            };
+            v.addEventListener('loadedmetadata', setStart);
+            v.addEventListener('canplay', setStart);
             try {
+              v.currentTime = 10;
               var p = v.play();
               if (p && p.catch) { p.catch(function(){}); }
             } catch(e) {}
@@ -1792,7 +1800,7 @@
     }
 
     // =========================================================================
-    // 10-SECOND VIDEO INTRO CONTROLLER (Clean, No Loading Bar, Smooth Transition)
+    // 10-SECOND VIDEO INTRO CONTROLLER (Starts at 10s, Ends at 20s, Smooth Dismiss)
     // =========================================================================
     let introDismissed = false;
     function initIntroSplash() {
@@ -1802,9 +1810,21 @@
 
       document.body.style.overflow = 'hidden';
 
-      const INTRO_DURATION = 10000; // 10 seconds playback
+      const START_TIME = 10; // Start at 10.0s mark
+      const END_TIME = 20;   // End at 20.0s mark
+      const PLAYBACK_DURATION = (END_TIME - START_TIME) * 1000; // 10,000ms (10 seconds)
 
       if (video) {
+        const seekToStart = () => {
+          if (video.currentTime < START_TIME) {
+            try { video.currentTime = START_TIME; } catch(e) {}
+          }
+        };
+
+        video.addEventListener('loadedmetadata', seekToStart);
+        video.addEventListener('canplay', seekToStart);
+        seekToStart();
+
         // Attempt autoplay
         const playPromise = video.play();
         if (playPromise !== undefined) {
@@ -1813,16 +1833,22 @@
           });
         }
 
-        // If video ends before 10 seconds, close smoothly
+        // Monitor time: dismiss when reaching 20s or when video ends
+        video.addEventListener('timeupdate', () => {
+          if (video.currentTime >= END_TIME - 0.15 || video.ended) {
+            dismissIntroSplash();
+          }
+        });
+
         video.addEventListener('ended', () => {
           dismissIntroSplash();
         });
       }
 
-      // Auto dismiss after 10 seconds max
+      // Safety timeout after 10.5 seconds max
       setTimeout(() => {
         dismissIntroSplash();
-      }, INTRO_DURATION);
+      }, PLAYBACK_DURATION + 500);
     }
 
     function dismissIntroSplash() {
