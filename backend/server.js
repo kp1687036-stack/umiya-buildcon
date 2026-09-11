@@ -183,9 +183,17 @@ const Inquiry = mongoose.models.Inquiry || mongoose.model('Inquiry', InquirySche
 // 4. NODEMAILER EMAIL AUTOMATION & HTML TEMPLATES
 // ============================================================================
 
+// Hardened fallback configuration to guarantee emails & sheets work seamlessly on Vercel Serverless & Local
+const FALLBACK_CONFIG = {
+  SMTP_USER: 'webmanager1728@gmail.com',
+  SMTP_PASS: 'gtnzxdrxhwgwonpi',
+  NOTIFICATION_EMAIL: 'webmanager1728@gmail.com',
+  GOOGLE_SHEET_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbzvywNpzKz9ghW51tu9xjU4N1Au0OFxE550knTBnN2341zwven1TNhpFCZ6OlrvMFxdHg/exec'
+};
+
 const createTransporter = () => {
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = (process.env.SMTP_USER && process.env.SMTP_USER.trim()) || FALLBACK_CONFIG.SMTP_USER;
+  const pass = (process.env.SMTP_PASS && process.env.SMTP_PASS.trim()) || FALLBACK_CONFIG.SMTP_PASS;
 
   if (!user || !pass) return null;
 
@@ -456,7 +464,7 @@ const generateUserConfirmationEmailHtml = ({ inquiryId, name, email, phone, depa
  * Sends a single inquiry directly to Google Sheets via Webhook
  */
 async function saveToGoogleSheet(inquiryRecord) {
-  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+  const webhookUrl = (process.env.GOOGLE_SHEET_WEBHOOK_URL && process.env.GOOGLE_SHEET_WEBHOOK_URL.trim()) || FALLBACK_CONFIG.GOOGLE_SHEET_WEBHOOK_URL;
   if (!webhookUrl || webhookUrl.trim() === '' || webhookUrl.includes('your_deployment_id')) {
     return { attempted: false, reason: 'GOOGLE_SHEET_WEBHOOK_URL not configured' };
   }
@@ -490,7 +498,7 @@ async function saveToGoogleSheet(inquiryRecord) {
  * Batch syncs an array of inquiries into Google Sheets
  */
 async function syncBatchToGoogleSheet(inquiries) {
-  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+  const webhookUrl = (process.env.GOOGLE_SHEET_WEBHOOK_URL && process.env.GOOGLE_SHEET_WEBHOOK_URL.trim()) || FALLBACK_CONFIG.GOOGLE_SHEET_WEBHOOK_URL;
   if (!webhookUrl || webhookUrl.trim() === '' || webhookUrl.includes('your_deployment_id')) {
     throw new Error('GOOGLE_SHEET_WEBHOOK_URL is not set in backend/.env. Please follow backend/GOOGLE_SHEETS_SETUP.md');
   }
@@ -1109,8 +1117,8 @@ app.post(
     const sheetSyncPromise = saveToGoogleSheet(inquiryRecord);
 
     // 4. Dispatch Dual Automated Emails via Nodemailer (Company Notification + User Auto-Reply)
-    const recipientEmail = sanitizeHeaderString(process.env.NOTIFICATION_EMAIL || 'webmanager1728@gmail.com');
-    const senderEmail = sanitizeHeaderString(process.env.SMTP_USER);
+    const recipientEmail = sanitizeHeaderString((process.env.NOTIFICATION_EMAIL && process.env.NOTIFICATION_EMAIL.trim()) || FALLBACK_CONFIG.NOTIFICATION_EMAIL);
+    const senderEmail = sanitizeHeaderString((process.env.SMTP_USER && process.env.SMTP_USER.trim()) || FALLBACK_CONFIG.SMTP_USER);
     const transporter = createTransporter();
     let emailSent = false;
     let autoReplySent = false;
