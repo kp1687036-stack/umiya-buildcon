@@ -102,17 +102,14 @@
 </head>
 <body class="bg-[#07090e] text-slate-100 relative selection:bg-brand-orange selection:text-white" oncontextmenu="return false;">
 
-  <!-- Fullscreen 10-Second Video Intro Overlay (Pure White Background with Soft Light Orange Shadow) -->
-  <div id="introSplash" class="fixed inset-0 z-[99999] bg-white flex items-center justify-center p-4 sm:p-8 overflow-hidden transition-all duration-700 select-none">
+  <!-- Fullscreen 10-Second Video Intro Overlay (Unified Dark Theme Matching Website Body) -->
+  <div id="introSplash" class="fixed inset-0 z-[99999] bg-[#07090e] flex items-center justify-center p-4 sm:p-8 overflow-hidden transition-all duration-700 select-none">
     
-    <!-- Ambient light orange glow behind video card -->
-    <div class="absolute w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] rounded-full bg-brand-orange/15 blur-[130px] pointer-events-none"></div>
-
-    <!-- Video Element (Pure White Card with Soft Light Orange Shadow, No Border) -->
-    <div class="relative z-10 w-[92vw] sm:w-[75vw] md:w-[60vw] lg:w-[48vw] max-w-3xl flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_15px_50px_-5px_rgba(234,138,38,0.25),0_0_35px_rgba(234,138,38,0.18)] bg-white">
+    <!-- Video Element (Clean Dark Theme Matching Website Body, No Orange Glow/Shadow) -->
+    <div class="relative z-10 w-[92vw] sm:w-[75vw] md:w-[60vw] lg:w-[48vw] max-w-3xl flex items-center justify-center rounded-2xl sm:rounded-3xl overflow-hidden bg-[#07090e] shadow-[0_25px_60px_rgba(0,0,0,0.85)]">
       <video 
         id="introVideo" 
-        class="w-full h-auto max-h-[72vh] object-contain rounded-2xl sm:rounded-3xl transition-transform duration-1000 bg-white"
+        class="w-full h-auto max-h-[72vh] object-contain rounded-2xl sm:rounded-3xl transition-transform duration-1000 bg-[#07090e]"
         autoplay 
         muted 
         playsinline 
